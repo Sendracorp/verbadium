@@ -1,8 +1,9 @@
 # Catalan from Scratch — interactive A1 course
 
-An interactive, multi-page static website for a complete beginner's course in
-Central Catalan (CEFR A1), built to prepare for the official A1 exam
-(*Certificat de nivell inicial de català*).
+An interactive course site for a complete beginner's course in Central
+Catalan (CEFR A1), built to prepare for the official A1 exam
+(*Certificat de nivell inicial de català*). **Next.js + TypeScript + React**,
+deployable on Vercel with zero configuration.
 
 * **12 units** of theory, vocabulary (300+ words, every one with IPA),
   dialogues and verified external resources
@@ -15,46 +16,44 @@ Central Catalan (CEFR A1), built to prepare for the official A1 exam
   timers, auto-marking, attempt history
 * a searchable, sortable **glossary** (275 entries)
 * **progress tracking** in your browser (localStorage): per-exercise states,
-  per-unit bars, an overall dashboard and the A1 self-assessment checklist
+  per-unit bars, an overall dashboard and the A1 self-assessment checklist —
+  nothing you type ever leaves your browser
 
-Everything is plain HTML/CSS/JS — no frameworks, no server. Nothing you type
-ever leaves your browser.
-
-## Open it locally
-
-Clone (or download) and open `index.html` in any modern browser — it works
-straight from the filesystem (`file://`). No install, no server needed.
-
-## Rebuild the pages from the source
-
-The single source of truth is `course_source.html` (the full course as one
-document). The pages are generated from it:
+## Run it locally
 
 ```sh
-node build.js
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-The build asserts content fidelity — exactly 12 units, 83 exercises and 275
-glossary rows — and fails if the source drifts. See `DESIGN.md` for the
-architecture and `DECISIONS.md` for the choices made.
-
-## Run the QA suite
+Production build (this is also what Vercel runs):
 
 ```sh
-cd qa
-npm install            # Playwright + headless Chromium
-node test.js           # tests the site from file://
-node test.js https://…/  # or against a deployed URL
+npm run build && npm start
 ```
 
-It click-tests one exercise of every type, audio wiring, persistence across
+## Source of truth
+
+The entire course lives in `course_source.html`. Pages are generated from it
+at build time by `lib/course.ts`, which **asserts content fidelity** —
+exactly 12 units, 83 exercises and 275 glossary rows — and fails the build
+if the source drifts. To change course content, edit `course_source.html`
+and rebuild. See `DESIGN.md` for the architecture and `DECISIONS.md` for the
+choices made.
+
+## Deploy on Vercel
+
+Import the GitHub repo at <https://vercel.com/new> (or `vercel link` +
+`vercel deploy` with the CLI). Vercel auto-detects Next.js; no settings
+needed. Every push to `main` redeploys; all routes are statically
+prerendered at build time.
+
+## QA suite
+
+```sh
+npm run build && npx next start -p 3411 &
+cd qa && npm install && node test.js http://localhost:3411/
+```
+
+Click-tests one exercise of every type, audio wiring, persistence across
 reloads, the mock exam and a 380 px mobile viewport.
-
-## How deployment works
-
-The site is served by **GitHub Pages** from the `main` branch root
-(Settings → Pages → Deploy from a branch → `main` / `/ (root)`; the repo
-contains a `.nojekyll` marker). Because all asset paths are relative, the
-same files work locally and on Pages. To publish a change: edit
-`course_source.html` (or `style.css`/`app.js`), run `node build.js`, commit
-and push — Pages redeploys automatically in a minute or two.

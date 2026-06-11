@@ -1,10 +1,9 @@
-/* QA: drives the generated site from file:// with headless Chromium.
-   Usage: node test.js [baseURL]  (default: file:// against the repo root) */
+/* QA: drives the Next.js site with headless Chromium.
+   Usage: node test.js [baseURL]   (default http://localhost:3000/ — run `next start` first) */
 'use strict';
-const path = require('path');
 const { chromium } = require('playwright');
 
-const BASE = process.argv[2] || 'file://' + path.resolve(__dirname, '..') + '/';
+const BASE = (process.argv[2] || 'http://localhost:3000/').replace(/\/?$/, '/');
 let failures = 0;
 function ok(cond, label) {
   console.log((cond ? '  ✓ ' : '  ✗ FAIL ') + label);
@@ -18,33 +17,28 @@ function ok(cond, label) {
 
   console.log('BASE = ' + BASE);
 
-  // ---------- counts baked into the site ----------
+  // ---------- fidelity counts in the rendered site ----------
   console.log('counts');
-  await page.goto(BASE + 'index.html');
-  const counts = await page.evaluate(() => window.CAT.counts);
-  ok(counts.units === 12, '12 units in data');
-  ok(counts.exercises === 83, '83 exercises in data');
-  ok(counts.glossary === 275, '275 glossary rows in data');
-  const exIds = await page.evaluate(() => Object.keys(window.CAT.ex).length);
-  ok(exIds === 83, '83 exercise entries in data.js');
-  const navUnits = await page.locator('.nav-unit').count();
-  ok(navUnits === 12, '12 unit links in nav');
+  await page.goto(BASE);
+  ok(await page.locator('.nav-unit').count() === 12, '12 unit links in nav');
+  ok(await page.locator('.unit-card').count() === 12, '12 unit cards on the dashboard');
+  ok((await page.locator('#overallStats').textContent()).includes('of 83 exercises'), 'dashboard reports 83 exercises');
+  ok(await page.locator('.check-item').count() === 15, '15 checklist items');
 
-  // exercise DOM count across all unit pages
   let domEx = 0;
   for (let u = 1; u <= 12; u++) {
-    await page.goto(BASE + 'unit' + String(u).padStart(2, '0') + '.html');
+    await page.goto(BASE + 'unit/' + u);
     domEx += await page.locator('.ex[data-ex]').count();
   }
   ok(domEx === 83, '83 exercise blocks rendered across unit pages (got ' + domEx + ')');
 
-  await page.goto(BASE + 'glossary.html');
+  await page.goto(BASE + 'glossary');
   ok(await page.locator('#glosTable tbody tr').count() === 275, '275 glossary rows rendered');
 
   // ---------- glossary search + sort ----------
   console.log('glossary');
   await page.fill('#glosSearch', 'formatge');
-  const visible = await page.locator('#glosTable tbody tr:visible').count();
+  const visible = await page.locator('#glosTable tbody tr').count();
   ok(visible >= 1 && visible < 10, 'search filters rows (formatge → ' + visible + ')');
   await page.fill('#glosSearch', '');
   await page.click('th[data-sort="3"]');
@@ -52,12 +46,12 @@ function ok(cond, label) {
   ok(firstUnit.trim() === '1', 'sort by unit puts unit 1 first');
   ok(await page.locator('#glosTable .say').count() === 275, 'speaker button on every glossary entry');
 
-  // ---------- gap-fill (EX 2.1) with accent-tolerance ----------
+  // ---------- gap-fill (EX 2.1) with accent tolerance ----------
   console.log('unit 2 — gap, match, reorder, model, free');
-  await page.goto(BASE + 'unit02.html');
+  await page.goto(BASE + 'unit/2');
   const gap = page.locator('.ex[data-ex="2.1"]');
   const inputs = gap.locator('.gap-input');
-  const vals = ['soc', 'ets', 'es', 'som', 'són', 'sou']; // item 3 'es' missing accent → almost
+  const vals = ['soc', 'ets', 'es', 'som', 'són', 'sou'];   // item 3 missing accent → almost
   for (let i = 0; i < 6; i++) await inputs.nth(i).fill(vals[i]);
   await gap.locator('.btn-primary').click();
   ok(await gap.locator('.gap-input.ok').count() === 5, 'gap: 5 exact answers green');
@@ -66,15 +60,13 @@ function ok(cond, label) {
   let state = await page.evaluate(() => JSON.parse(localStorage.getItem('catalanA1.ex.2.1')).state);
   ok(state === 'passed', 'gap: state saved as passed');
 
-  // wrong answer marks red
-  await gap.locator('.ex-controls .btn:not(.btn-primary)').click(); // Retry
+  await gap.locator('.ex-controls .btn:not(.btn-primary)').click();   // Retry
   await inputs.nth(0).fill('xxx');
   await gap.locator('.btn-primary').click();
   ok(await gap.locator('.gap-input.bad').count() >= 1, 'gap: wrong answer red');
 
-  // ---------- matching (EX 2.2) ----------
+  // ---------- matching (EX 2.2): key 1-b, 2-d, 3-a, 4-c ----------
   const match = page.locator('.ex[data-ex="2.2"]');
-  // correct pairs: 1-b, 2-d, 3-a, 4-c
   const pairs = [['0', 'b'], ['1', 'd'], ['2', 'a'], ['3', 'c']];
   for (const [l, r] of pairs) {
     await match.locator('.match-item[data-side="l"][data-key="' + l + '"]').click();
@@ -96,7 +88,7 @@ function ok(cond, label) {
   // ---------- model (EX 2.3 translate) ----------
   const model = page.locator('.ex[data-ex="2.3"]');
   await model.locator('.model-input').first().fill('Bon dia! Com estàs?');
-  await model.locator('.ex-controls .btn:not(.btn-primary)').first().click(); // Show model answer
+  await model.locator('.ex-controls .btn:not(.btn-primary)').first().click();   // Show model answer
   ok(await model.locator('.model-answer').isVisible(), 'model: answer revealed');
   const yesBtns = model.locator('.sm-yes');
   for (let i = 0; i < await yesBtns.count(); i++) await yesBtns.nth(i).click();
@@ -118,10 +110,10 @@ function ok(cond, label) {
 
   // ---------- true/false (EX 1.4) + write (EX 1.2) ----------
   console.log('unit 1 — true/false, write');
-  await page.goto(BASE + 'unit01.html');
+  await page.goto(BASE + 'unit/1');
   const tf = page.locator('.ex[data-ex="1.4"]');
   await tf.locator('[data-item="0"] .tf-btn[data-val="true"]').click();   // correct
-  await tf.locator('[data-item="1"] .tf-btn[data-val="true"]').click();   // wrong (answer: false)
+  await tf.locator('[data-item="1"] .tf-btn[data-val="true"]').click();   // wrong (key: false)
   ok(await tf.locator('[data-item="0"] .tf-btn.ok').count() === 1, 'tf: instant green on correct');
   ok(await tf.locator('[data-item="1"] .tf-btn.bad').count() === 1, 'tf: instant red on wrong');
   ok((await tf.locator('li').nth(1).locator('.item-fb').textContent()).includes("it's /b/"), 'tf: explanation shown');
@@ -136,16 +128,16 @@ function ok(cond, label) {
 
   // ---------- choice (EX 8.4) ----------
   console.log('unit 8 — choice');
-  await page.goto(BASE + 'unit08.html');
+  await page.goto(BASE + 'unit/8');
   const ch = page.locator('.ex[data-ex="8.4"]');
   await ch.locator('[data-item="0"] .tf-btn[data-val="beguda"]').click();
   ok(await ch.locator('[data-item="0"] .tf-btn.ok').count() === 1, 'choice: aigua → beguda green');
-  await ch.locator('[data-item="1"] .tf-btn[data-val="beguda"]').click(); // formatge is menjar
+  await ch.locator('[data-item="1"] .tf-btn[data-val="beguda"]').click();   // formatge is menjar
   ok(await ch.locator('[data-item="1"] .tf-btn.bad').count() === 1, 'choice: formatge → beguda red');
 
   // ---------- paradigm (EX 5.4) ----------
   console.log('unit 5 — paradigm');
-  await page.goto(BASE + 'unit05.html');
+  await page.goto(BASE + 'unit/5');
   const pa = page.locator('.ex[data-ex="5.4"]');
   const forms = ['compro', 'compres', 'compra', 'comprem', 'compreu', 'compren'];
   for (let i = 0; i < 6; i++) await pa.locator('.gap-input').nth(i).fill(forms[i]);
@@ -155,7 +147,7 @@ function ok(cond, label) {
 
   // ---------- personal (EX 12.5) ----------
   console.log('unit 12 — personal');
-  await page.goto(BASE + 'unit12.html');
+  await page.goto(BASE + 'unit/12');
   const pe = page.locator('.ex[data-ex="12.5"]');
   await pe.locator('.sm-yes').click();
   state = await page.evaluate(() => JSON.parse(localStorage.getItem('catalanA1.ex.12.5')).state);
@@ -163,20 +155,20 @@ function ok(cond, label) {
 
   // ---------- persistence across reload + dashboard ----------
   console.log('persistence');
-  await page.goto(BASE + 'index.html');
+  await page.goto(BASE);
   const stats = await page.locator('#overallStats').textContent();
   ok(/[1-9]\d* of 83 exercises passed/.test(stats), 'dashboard counts passed exercises (' + stats.trim() + ')');
   await page.locator('.check-item').first().check();
   await page.reload();
   ok(await page.locator('.check-item').first().isChecked(), 'checklist survives reload');
+  await page.waitForTimeout(200);
   const navBadge = await page.locator('.nav-badge[data-unit="2"]').textContent();
   ok(/\d+\/8/.test(navBadge), 'unit 2 nav badge shows progress (' + navBadge + ')');
 
   // ---------- mock exam ----------
   console.log('mock exam');
-  await page.goto(BASE + 'mock.html');
+  await page.goto(BASE + 'mock');
   ok(await page.locator('.script-text').isHidden(), 'listening script hidden initially');
-  // answer all six V/F: key = F V F V F F
   const key = [false, true, false, true, false, false];
   for (let i = 0; i < 6; i++) {
     await page.locator('#paper1 [data-item="' + i + '"] .tf-btn[data-val="' + key[i] + '"]').click();
@@ -185,21 +177,18 @@ function ok(cond, label) {
   ok(await page.locator('#scriptReveal').isVisible(), 'script reveal unlocked after answering');
   await page.click('#showScript');
   ok(await page.locator('.script-text').isVisible(), 'script shown on demand');
-  // paper 2B matching
   const p2bPairs = [['0', 'b'], ['1', 'd'], ['2', 'a'], ['3', 'e'], ['4', 'c']];
   for (const [l, r] of p2bPairs) {
     await page.locator('#p2b .match-item[data-side="l"][data-key="' + l + '"]').click();
     await page.locator('#p2b .match-item[data-side="r"][data-key="' + r + '"]').click();
   }
-  await page.locator('#p2bControls .btn-primary').click();
-  ok((await page.locator('#p2bControls .ex-score').textContent()).includes('5 / 5'), 'paper 2B 5/5');
-  // timers
+  await page.locator('#p2b .btn-primary').click();
+  ok((await page.locator('#p2b .ex-score').textContent()).includes('5 / 5'), 'paper 2B 5/5');
   await page.check('#examConditions');
   ok(await page.locator('.paper-timer').first().isVisible(), 'exam conditions shows timers');
   await page.locator('.paper-timer[data-paper="1"] .timer-start').click();
   await page.waitForTimeout(1500);
   ok(/14:5\d/.test(await page.locator('.paper-timer[data-paper="1"] .timer-display').textContent()), 'paper 1 timer counts down from 15:00');
-  // save attempt + history survives reload
   page.once('dialog', d => d.accept());
   await page.click('#saveAttempt');
   await page.reload();
@@ -209,13 +198,13 @@ function ok(cond, label) {
   console.log('mobile 380px');
   const mob = await browser.newPage({ viewport: { width: 380, height: 740 } });
   mob.on('pageerror', e => { console.log('  ✗ MOBILE PAGE ERROR: ' + e.message); failures++; });
-  await mob.goto(BASE + 'unit03.html');
+  await mob.goto(BASE + 'unit/3');
   ok(await mob.locator('.topbar').isVisible(), 'mobile: topbar visible');
   ok(await mob.locator('#sidebar').evaluate(el => el.getBoundingClientRect().right <= 0), 'mobile: sidebar off-canvas');
   await mob.click('#navToggle');
-  await mob.waitForTimeout(350);   // slide-in transition
+  await mob.waitForTimeout(350);
   ok(await mob.locator('#sidebar').evaluate(el => el.getBoundingClientRect().left === 0), 'mobile: hamburger opens sidebar');
-  await mob.locator('#backdrop').click({ position: { x: 370, y: 500 } }); // visible strip right of sidebar
+  await mob.locator('#backdrop').click({ position: { x: 370, y: 500 } });
   await mob.waitForTimeout(350);
   const hscroll = await mob.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
   ok(hscroll <= 1, 'mobile: no horizontal scroll on unit page (overflow ' + hscroll + 'px)');
@@ -226,17 +215,17 @@ function ok(cond, label) {
   ok(await mob.locator('.ex[data-ex="3.1"] .gap-input.ok').count() === 1, 'mobile: exercise interaction works');
 
   // ---------- resource links open in new tabs ----------
-  await page.goto(BASE + 'unit02.html');
+  await page.goto(BASE + 'unit/2');
   const extLinks = await page.locator('.res a[href^="http"]').count();
   const blankLinks = await page.locator('.res a[target="_blank"]').count();
   ok(extLinks > 0 && extLinks === blankLinks, 'all .res external links target=_blank (' + extLinks + ')');
 
   // ---------- reset ----------
   console.log('reset');
-  await page.goto(BASE + 'index.html');
+  await page.goto(BASE);
   page.once('dialog', d => d.accept());
   await page.click('#resetProgress');
-  await page.waitForLoadState();
+  await page.waitForTimeout(300);
   const cleared = await page.evaluate(() =>
     Object.keys(localStorage).filter(k => k.startsWith('catalanA1.')).length);
   ok(cleared === 0, 'reset clears all catalanA1.* keys');
