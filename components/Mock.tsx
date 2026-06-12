@@ -5,7 +5,7 @@
 import { useEffect, useRef, useState } from 'react';
 import type { MockData } from '@/lib/types';
 import { speak, stopSpeak } from '@/lib/speech';
-import { MockAttempt, sget, sset } from '@/lib/progress';
+import { addMockAttempt, MockAttempt, sget, sset } from '@/lib/progress';
 import { MatchBoard } from './exercises';
 
 function Timer({ paper, mins, onOvertime }: { paper: number; mins: number; onOvertime: () => void }) {
@@ -112,9 +112,8 @@ export default function Mock({ mock }: { mock: MockData }) {
       p4aloud: p4aloud.filter(Boolean).length,
       overtime: { ...overtime.current },
     };
-    const next = [...sget<MockAttempt[]>('mock.attempts', []), a];
-    sset('mock.attempts', next);
-    setAttempts(next);
+    addMockAttempt(a);
+    setAttempts(sget<MockAttempt[]>('mock.attempts', []));
     alert('Attempt saved.');
   }
 

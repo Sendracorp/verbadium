@@ -5,3 +5,5 @@ qa/package-lock.json
 qa/shot-*.png
 .DS_Store
 *.tsbuildinfo
+.env*.local
+.env

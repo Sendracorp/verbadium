@@ -349,3 +349,87 @@ body.exam-mode .paper-timer { display: inline-flex; }
   .model-input { width: 100%; margin-top: 4px; }
   .paper-timer { float: none; margin: 6px 0; }
 }
+
+/* ---------- site chrome (catalog, auth, account, admin) ---------- */
+.site-header {
+  display: flex; justify-content: space-between; align-items: center; gap: 16px;
+  background: var(--red); color: #fff; padding: 14px clamp(16px, 4vw, 48px);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.site-brand { color: #fff; font-weight: 800; font-size: 1.25rem; text-decoration: none; }
+.site-brand span { font-weight: 400; font-size: .78rem; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; }
+.site-brand:hover { text-decoration: none; }
+.site-nav { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.site-nav a { color: #fff; font-size: .92rem; }
+.site-nav a:hover { color: var(--gold); text-decoration: none; }
+.site-nav .site-cta { border: 2px solid var(--gold); color: var(--gold); border-radius: 6px; padding: 4px 12px; font-weight: 700; }
+.site-signout { background: none; border: 1px solid rgba(255,255,255,.5); color: #fff; border-radius: 6px; padding: 4px 12px; font-size: .85rem; cursor: pointer; }
+.site-signout:hover { background: rgba(255,255,255,.12); }
+.site-main { max-width: 980px; margin: 0 auto; padding: 28px clamp(14px, 4vw, 48px) 64px; }
+
+/* ---------- catalog ---------- */
+.catalog-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 16px; }
+.course-card { display: flex; flex-direction: column; margin: 0; }
+.course-card h2 { border-bottom: 0; margin: .5em 0 .2em; font-size: 1.25rem; }
+.course-card-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.course-card-meta { font-size: .85rem; color: #666; font-family: Arial, sans-serif; }
+.course-card-stats { font-size: .8rem; color: #777; font-family: Arial, sans-serif; }
+.course-card-actions { margin-top: auto; padding-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.owned-tag { color: var(--ok); background: var(--ok-bg); font-weight: 700; font-size: .78rem; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; }
+.course-card.coming-soon { opacity: .65; background: #f7f4ee; }
+
+/* ---------- paywall / sales ---------- */
+.paywall .badge { border-color: var(--red); color: var(--red); }
+.paywall-actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin: 14px 0 6px; }
+.paywall-actions .btn { text-decoration: none; display: inline-block; }
+.paywall-preview { font-size: .9rem; color: #555; }
+.sales-list { padding-left: 1.3em; }
+.sales-list li { margin: 6px 0; }
+.buy-wrap { display: inline-flex; flex-direction: column; gap: 4px; }
+.buy-error { color: var(--bad); font-size: .82rem; font-family: Arial, sans-serif; }
+.preview-banner {
+  background: var(--warn-bg); border: 1px solid #ecd9b0; border-left: 4px solid var(--warn);
+  border-radius: 0 6px 6px 0; padding: 10px 16px; margin-bottom: 14px; font-size: .9rem;
+}
+
+/* ---------- dashboard extras ---------- */
+.dash-next { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 4px 0 14px; }
+.dash-next .btn { text-decoration: none; display: inline-block; }
+.dash-next-hint { font-size: .88rem; color: #555; font-family: Arial, sans-serif; }
+.mock-history { margin-top: 18px; }
+.mock-history h3 { margin-top: 0; }
+.mock-history-table td, .mock-history-table th { text-align: center; }
+.mock-history-table td:first-child, .mock-history-table th:first-child { text-align: left; }
+
+/* ---------- auth ---------- */
+.auth-main { max-width: 460px; }
+.auth-card h2 { margin-top: .2em; }
+.auth-form { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
+.auth-form label { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; font-family: Arial, sans-serif; color: #444; }
+.auth-form input { font: inherit; font-size: 1rem; border: 1.5px solid #c9bda9; border-radius: 6px; padding: 8px 10px; background: #fffdf8; }
+.auth-form input:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+.auth-google { width: 100%; padding: 9px; font-weight: 700; }
+.auth-divider { display: flex; align-items: center; gap: 10px; color: #999; font-size: .8rem; margin: 14px 0 4px; font-family: Arial, sans-serif; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-top: 1px solid #e0d8ca; }
+.auth-error { color: var(--bad); background: var(--bad-bg); border-radius: 6px; padding: 8px 12px; font-size: .88rem; margin: 0; }
+.auth-info { color: var(--ok); background: var(--ok-bg); border-radius: 6px; padding: 8px 12px; font-size: .88rem; margin: 0; }
+.auth-notice { color: var(--warn); background: var(--warn-bg); border-radius: 6px; padding: 8px 12px; font-size: .88rem; }
+.auth-links { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; font-size: .88rem; }
+
+/* ---------- sidebar account section ---------- */
+.nav-account { margin-top: auto; }
+.nav-lock { font-size: .8rem; }
+.nav-email { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; display: block; font-size: .82rem; }
+.nav-signout {
+  background: none; border: 0; color: rgba(255,255,255,.85); cursor: pointer;
+  font-size: .85rem; padding: 7px 16px; text-align: left; width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+}
+.nav-signout:hover { background: rgba(255,255,255,.12); }
+
+/* ---------- account & admin tables ---------- */
+.account-table td, .account-table th { font-size: .9rem; }
+.admin-stats { display: flex; gap: 28px; flex-wrap: wrap; margin: 14px 0; }
+.admin-stats div { display: flex; flex-direction: column; }
+.admin-stats b { font-size: 1.6rem; color: var(--red); font-family: Arial, sans-serif; }
+.admin-stats span { font-size: .82rem; color: #777; font-family: Arial, sans-serif; }

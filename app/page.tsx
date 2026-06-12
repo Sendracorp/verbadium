@@ -1,29 +1,78 @@
-import { getCourse } from '@/lib/course';
-import Dashboard from '@/components/Dashboard';
-import Checklist from '@/components/Checklist';
-import SpeechScope from '@/components/SpeechScope';
+import Link from 'next/link';
+import SiteHeader from '@/components/SiteHeader';
 
-export default function HomePage() {
-  const course = getCourse();
-  const units = course.units.map(u => ({ num: u.num, title: u.title, exerciseIds: u.exerciseIds }));
+// Auth/ownership state must be evaluated per request, even when the build
+// runs with unconfigured placeholder credentials.
+export const dynamic = 'force-dynamic';
+
+import BuyButton from '@/components/BuyButton';
+import { COURSES } from '@/lib/courses';
+import { getSessionUser, paywallBypassed, userOwnsCourse } from '@/lib/access';
+import { countPassedExercises } from '@/lib/progress-server';
+
+export default async function CatalogPage() {
+  const user = await getSessionUser();
+  const cards = await Promise.all(COURSES.map(async meta => {
+    const owns = meta.available && (paywallBypassed() || (user ? await userOwnsCourse(user.id, meta.slug) : false));
+    const passed = owns && user ? await countPassedExercises(user.id, meta.slug) : 0;
+    return { meta, owns, passed };
+  }));
+
   return (
     <>
-      <div className="hero">
-        <div className="badge">CEFR · LEVEL A1 · EXAM PREPARATION</div>
-        <h1>Catalan from Scratch</h1>
-        <p className="hero-sub">
-          A complete beginner&apos;s course in Central Catalan for English-speaking adults — built to pass the official A1 exam.
-        </p>
-        <p className="hero-meta">
-          {course.counts.units} progressive units · 300+ words with full IPA · {course.counts.exercises} interactive
-          exercises · full mock A1 exam · complete glossary ({course.counts.glossary} entries)
-        </p>
-      </div>
-      <Dashboard units={units} />
-      <div className="card">
-        <SpeechScope html={course.introHtml} />
-      </div>
-      <Checklist items={course.checklist} footHtml={course.checklistFootHtml} citeHtml={course.citeHtml} />
+      <SiteHeader />
+      <main className="site-main">
+        <div className="hero">
+          <div className="badge">INTERACTIVE LANGUAGE COURSES</div>
+          <h1>Learn Catalan, properly</h1>
+          <p className="hero-sub">
+            Exam-focused courses for English-speaking adults — full IPA pronunciation,
+            audio, auto-marked exercises and mock exams.
+          </p>
+        </div>
+        <div className="catalog-grid" data-test="catalog">
+          {cards.map(({ meta, owns, passed }) => {
+            const base = `/courses/${meta.slug}`;
+            const pct = Math.round(passed / meta.stats.exercises * 100);
+            return (
+              <div className="card course-card" key={meta.slug} data-test={`course-${meta.slug}`}>
+                <div className="course-card-head">
+                  <span className="badge">{meta.language} · {meta.level}</span>
+                  {owns && <span className="owned-tag" data-test="owned-tag">Purchased ✓</span>}
+                </div>
+                <h2>{meta.title}</h2>
+                <p>{meta.tagline}</p>
+                <p className="course-card-meta">{meta.description}</p>
+                {owns ? (
+                  <>
+                    <div className="progress-bar">
+                      <div className="progress-fill" style={{ width: `${pct}%` }} />
+                    </div>
+                    <div className="course-card-stats">{passed} of {meta.stats.exercises} exercises passed</div>
+                    <div className="course-card-actions">
+                      <Link className="btn btn-primary" href={base} data-test="continue-course">
+                        {passed > 0 ? 'Continue learning' : 'Start the course'}
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <div className="course-card-actions">
+                    <BuyButton courseSlug={meta.slug} priceLabel={meta.priceLabel} returnTo={base} />
+                    <Link className="btn" href={`${base}/unit/${meta.freeUnits[0]}`} data-test="free-preview">
+                      Free preview · Unit {meta.freeUnits[0]}
+                    </Link>
+                  </div>
+                )}
+              </div>
+            );
+          })}
+          <div className="card course-card coming-soon">
+            <div className="course-card-head"><span className="badge">COMING NEXT</span></div>
+            <h2>Catalan A2</h2>
+            <p>The next level is in the works. Finish A1 first — it’s the foundation for everything that follows.</p>
+          </div>
+        </div>
+      </main>
     </>
   );
 }

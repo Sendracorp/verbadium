@@ -122,3 +122,34 @@ actual content (`.say`/`.dialogue-controls` present?) on every commit, not a
 one-shot flag — React can re-apply `dangerouslySetInnerHTML` content on
 subtree re-renders (hydration click-replay), which would otherwise silently
 strip the injected buttons.
+
+## Platform layer (accounts, payments, multi-course)
+
+```
+                    ┌─ Supabase Auth (email/password + Google, @supabase/ssr cookies)
+browser ── proxy.ts ┤
+                    └─ Postgres + RLS: profiles · purchases · exercise_progress
+                                       · mock_attempts · checklist_state
+                                       (schema: supabase/migrations/0001_init.sql)
+
+/                      catalog (lib/courses.ts metadata, state-aware CTAs)
+/courses/[slug]        course home: sales page ⟂ dashboard (by ownership)
+/courses/[slug]/…      unit/ipa/exam/mock/glossary — server-side gating via
+                       lib/access.ts; Paywall rendered instead of content
+/login /signup /…      Supabase auth flows, /auth/callback exchanges codes
+/account /admin        purchases view · service-role admin overview
+/api/checkout          creates a Lemon Squeezy hosted checkout (logged in)
+/api/webhooks/…        HMAC-verified LS webhook — sole writer of purchases
+```
+
+* **Access control** is evaluated per request in server components
+  (`getCourseAccess` → user + ownership); free-preview units come from
+  `CourseMeta.freeUnits`. Nothing gated is ever serialized to the client.
+* **Progress** (`lib/progress.ts`) keeps the original synchronous API used
+  by the exercise engine. `<ProgressProvider>` (mounted in the course
+  layout) seeds an in-memory cache from a server fetch; writes are
+  optimistic with a retrying push queue to Supabase. Logged out → plain
+  localStorage, namespaced `cfs.<slug>.*`.
+* **QA** is split: `qa/test.js` (content/exercises, run with
+  `COURSE_BYPASS_PAYWALL=true`) and `qa/gating.test.js` (paywall, redirects,
+  auth pages, checkout/webhook rejection — run against a normal server).

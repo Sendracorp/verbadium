@@ -1,9 +1,13 @@
-/* QA: drives the Next.js site with headless Chromium.
+/* QA: drives the Next.js site with headless Chromium. Exercise/content tests —
+   the server must run with COURSE_BYPASS_PAYWALL=true so gated units render
+   (paywall behaviour itself is covered by gating.test.js against a normal server).
    Usage: node test.js [baseURL]   (default http://localhost:3000/ — run `next start` first) */
 'use strict';
 const { chromium } = require('playwright');
 
 const BASE = (process.argv[2] || 'http://localhost:3000/').replace(/\/?$/, '/');
+const COURSE = BASE + 'courses/catalan-a1/';
+const NS = 'cfs.catalan-a1.';   // localStorage namespace (logged-out / local mode)
 let failures = 0;
 function ok(cond, label) {
   console.log((cond ? '  ✓ ' : '  ✗ FAIL ') + label);
@@ -19,7 +23,7 @@ function ok(cond, label) {
 
   // ---------- fidelity counts in the rendered site ----------
   console.log('counts');
-  await page.goto(BASE);
+  await page.goto(COURSE);
   ok(await page.locator('.nav-unit').count() === 12, '12 unit links in nav');
   ok(await page.locator('.unit-card').count() === 12, '12 unit cards on the dashboard');
   ok((await page.locator('#overallStats').textContent()).includes('of 83 exercises'), 'dashboard reports 83 exercises');
@@ -27,12 +31,12 @@ function ok(cond, label) {
 
   let domEx = 0;
   for (let u = 1; u <= 12; u++) {
-    await page.goto(BASE + 'unit/' + u);
+    await page.goto(COURSE + 'unit/' + u);
     domEx += await page.locator('.ex[data-ex]').count();
   }
   ok(domEx === 83, '83 exercise blocks rendered across unit pages (got ' + domEx + ')');
 
-  await page.goto(BASE + 'glossary');
+  await page.goto(COURSE + 'glossary');
   ok(await page.locator('#glosTable tbody tr').count() === 275, '275 glossary rows rendered');
 
   // ---------- glossary search + sort ----------
@@ -48,7 +52,7 @@ function ok(cond, label) {
 
   // ---------- gap-fill (EX 2.1) with accent tolerance ----------
   console.log('unit 2 — gap, match, reorder, model, free');
-  await page.goto(BASE + 'unit/2');
+  await page.goto(COURSE + 'unit/2');
   const gap = page.locator('.ex[data-ex="2.1"]');
   const inputs = gap.locator('.gap-input');
   const vals = ['soc', 'ets', 'es', 'som', 'són', 'sou'];   // item 3 missing accent → almost
@@ -57,7 +61,7 @@ function ok(cond, label) {
   ok(await gap.locator('.gap-input.ok').count() === 5, 'gap: 5 exact answers green');
   ok(await gap.locator('.gap-input.almost').count() === 1, 'gap: missing accent flagged as almost');
   ok((await gap.locator('.ex-score').textContent()).includes('6 / 6'), 'gap: score 6/6 (accent leniency counts)');
-  let state = await page.evaluate(() => JSON.parse(localStorage.getItem('catalanA1.ex.2.1')).state);
+  let state = await page.evaluate(() => JSON.parse(localStorage.getItem('cfs.catalan-a1.ex.2.1')).state);
   ok(state === 'passed', 'gap: state saved as passed');
 
   await gap.locator('.ex-controls .btn:not(.btn-primary)').click();   // Retry
@@ -99,7 +103,7 @@ function ok(cond, label) {
   await free.locator('.free-text').fill('Hola! Em dic QA. Soc de Testlàndia. Soc robot.');
   await free.locator('.ex-controls .btn:not(.btn-primary)').first().click();
   await free.locator('.sm-yes').click();
-  state = await page.evaluate(() => JSON.parse(localStorage.getItem('catalanA1.ex.2.8')).state);
+  state = await page.evaluate(() => JSON.parse(localStorage.getItem('cfs.catalan-a1.ex.2.8')).state);
   ok(state === 'passed', 'free: self-marked passed');
 
   // ---------- char strip ----------
@@ -110,7 +114,7 @@ function ok(cond, label) {
 
   // ---------- true/false (EX 1.4) + write (EX 1.2) ----------
   console.log('unit 1 — true/false, write');
-  await page.goto(BASE + 'unit/1');
+  await page.goto(COURSE + 'unit/1');
   const tf = page.locator('.ex[data-ex="1.4"]');
   await tf.locator('[data-item="0"] .tf-btn[data-val="true"]').click();   // correct
   await tf.locator('[data-item="1"] .tf-btn[data-val="true"]').click();   // wrong (key: false)
@@ -128,7 +132,7 @@ function ok(cond, label) {
 
   // ---------- choice (EX 8.4) ----------
   console.log('unit 8 — choice');
-  await page.goto(BASE + 'unit/8');
+  await page.goto(COURSE + 'unit/8');
   const ch = page.locator('.ex[data-ex="8.4"]');
   await ch.locator('[data-item="0"] .tf-btn[data-val="beguda"]').click();
   ok(await ch.locator('[data-item="0"] .tf-btn.ok').count() === 1, 'choice: aigua → beguda green');
@@ -137,7 +141,7 @@ function ok(cond, label) {
 
   // ---------- paradigm (EX 5.4) ----------
   console.log('unit 5 — paradigm');
-  await page.goto(BASE + 'unit/5');
+  await page.goto(COURSE + 'unit/5');
   const pa = page.locator('.ex[data-ex="5.4"]');
   const forms = ['compro', 'compres', 'compra', 'comprem', 'compreu', 'compren'];
   for (let i = 0; i < 6; i++) await pa.locator('.gap-input').nth(i).fill(forms[i]);
@@ -147,15 +151,15 @@ function ok(cond, label) {
 
   // ---------- personal (EX 12.5) ----------
   console.log('unit 12 — personal');
-  await page.goto(BASE + 'unit/12');
+  await page.goto(COURSE + 'unit/12');
   const pe = page.locator('.ex[data-ex="12.5"]');
   await pe.locator('.sm-yes').click();
-  state = await page.evaluate(() => JSON.parse(localStorage.getItem('catalanA1.ex.12.5')).state);
+  state = await page.evaluate(() => JSON.parse(localStorage.getItem('cfs.catalan-a1.ex.12.5')).state);
   ok(state === 'passed', 'personal: done button saves passed');
 
   // ---------- persistence across reload + dashboard ----------
   console.log('persistence');
-  await page.goto(BASE);
+  await page.goto(COURSE);
   const stats = await page.locator('#overallStats').textContent();
   ok(/[1-9]\d* of 83 exercises passed/.test(stats), 'dashboard counts passed exercises (' + stats.trim() + ')');
   await page.locator('.check-item').first().check();
@@ -167,7 +171,7 @@ function ok(cond, label) {
 
   // ---------- mock exam ----------
   console.log('mock exam');
-  await page.goto(BASE + 'mock');
+  await page.goto(COURSE + 'mock');
   ok(await page.locator('.script-text').isHidden(), 'listening script hidden initially');
   const key = [false, true, false, true, false, false];
   for (let i = 0; i < 6; i++) {
@@ -198,7 +202,7 @@ function ok(cond, label) {
   console.log('mobile 380px');
   const mob = await browser.newPage({ viewport: { width: 380, height: 740 } });
   mob.on('pageerror', e => { console.log('  ✗ MOBILE PAGE ERROR: ' + e.message); failures++; });
-  await mob.goto(BASE + 'unit/3');
+  await mob.goto(COURSE + 'unit/3');
   ok(await mob.locator('.topbar').isVisible(), 'mobile: topbar visible');
   ok(await mob.locator('#sidebar').evaluate(el => el.getBoundingClientRect().right <= 0), 'mobile: sidebar off-canvas');
   await mob.click('#navToggle');
@@ -216,7 +220,7 @@ function ok(cond, label) {
 
   // ---------- IPA quick-reference drawer ----------
   console.log('IPA drawer');
-  await page.goto(BASE + 'unit/5');
+  await page.goto(COURSE + 'unit/5');
   ok(await page.locator('#ipaTab').isVisible(), 'IPA tab visible on a unit page');
   let offscreen = await page.locator('#ipaDrawer').evaluate(el => el.getBoundingClientRect().left >= window.innerWidth - 2);
   ok(offscreen, 'drawer starts off-screen');
@@ -237,11 +241,11 @@ function ok(cond, label) {
   ok(offscreen, 'Escape closes the drawer');
   ok(await page.locator('#ipaTab').isVisible(), 'tab still visible after closing');
   // glossary page too — available on every page
-  await page.goto(BASE + 'glossary');
+  await page.goto(COURSE + 'glossary');
   ok(await page.locator('#ipaTab').isVisible(), 'IPA tab visible on the glossary page');
 
   // mobile drawer at 380px
-  await mob.goto(BASE + 'unit/2');
+  await mob.goto(COURSE + 'unit/2');
   ok(await mob.locator('#ipaTab').isVisible(), 'mobile: IPA tab visible');
   await mob.click('#ipaTab');
   await mob.waitForTimeout(300);
@@ -259,20 +263,20 @@ function ok(cond, label) {
   ok(hscroll2 <= 1, 'mobile: no horizontal scroll with drawer mounted (overflow ' + hscroll2 + 'px)');
 
   // ---------- resource links open in new tabs ----------
-  await page.goto(BASE + 'unit/2');
+  await page.goto(COURSE + 'unit/2');
   const extLinks = await page.locator('.res a[href^="http"]').count();
   const blankLinks = await page.locator('.res a[target="_blank"]').count();
   ok(extLinks > 0 && extLinks === blankLinks, 'all .res external links target=_blank (' + extLinks + ')');
 
   // ---------- reset ----------
   console.log('reset');
-  await page.goto(BASE);
+  await page.goto(COURSE);
   page.once('dialog', d => d.accept());
   await page.click('#resetProgress');
   await page.waitForTimeout(300);
-  const cleared = await page.evaluate(() =>
-    Object.keys(localStorage).filter(k => k.startsWith('catalanA1.')).length);
-  ok(cleared === 0, 'reset clears all catalanA1.* keys');
+  const cleared = await page.evaluate(ns =>
+    Object.keys(localStorage).filter(k => k.startsWith(ns)).length, NS);
+  ok(cleared === 0, 'reset clears all ' + NS + '* keys');
 
   await browser.close();
   console.log(failures === 0 ? '\nALL TESTS PASSED' : '\n' + failures + ' FAILURES');
