@@ -76,13 +76,18 @@ assertions; two ambiguous keys (`6.2`, `6.3`) are curated in
 diacritics counts correct but shows amber “✓ (check the accents!)”
 (`lib/check.ts`).
 
-## Audio (Web Speech API — `lib/speech.ts`, `components/SpeechScope.tsx`)
+## Audio (`lib/speech.ts`, `components/SpeechScope.tsx`)
 
 * 🔊 on every `td.ca` / `span.ca` and every dialogue line — but not inside
   exercises (would give answers away) or model-answer boxes.
-* Voice: prefer exact `ca-ES`, else any `ca*`; `onvoiceschanged` re-picks.
-  No Catalan voice → one-time dismissible notice linking
-  forvo.com/languages/ca (dismissal persisted).
+* **Native recordings first**: `speak()` normalizes the text and looks it up
+  in `lib/native-audio.json` (built by `scripts/fetch-native-audio.mjs` from
+  Lingua Libre / Wikimedia Commons, CC BY-SA 4.0, static MP3s in
+  `public/audio/ca/`). Multi-part entries chain their recordings; playback
+  errors fall through to the TTS path, never a dead button.
+* TTS fallback (sentences, dialogues, mock listening): prefer exact `ca-ES`,
+  else any `ca*`; `onvoiceschanged` re-picks. No Catalan voice → one-time
+  dismissible notice linking forvo.com/languages/ca (dismissal persisted).
 * Dialogues: “▶ Play whole dialogue”, sequential lines, current line
   highlighted. Mock Paper 1 speaks the hidden script twice with a 5 s pause.
 

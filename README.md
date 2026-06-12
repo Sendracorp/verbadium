@@ -10,8 +10,10 @@ deployable on Vercel with zero configuration.
 * **83 interactive exercises** auto-marked from the course answer key
   (gap-fill, matching, reorder, true/false, translation with model answers,
   free writing, oral rehearsal…)
-* 🔊 **audio on every Catalan word, phrase and dialogue line** via the Web
-  Speech API (prefers a `ca-ES` voice)
+* 🔊 **audio on every Catalan word, phrase and dialogue line** — vocabulary
+  uses **native-speaker recordings** (Lingua Libre / Wikimedia Commons,
+  CC BY-SA 4.0, shipped as static MP3s); sentences and dialogues fall back
+  to the Web Speech API (prefers a `ca-ES` voice)
 * a full **mock A1 exam** — TTS listening paper, optional exam-condition
   timers, auto-marking, attempt history
 * a searchable, sortable **glossary** (275 entries)
@@ -31,6 +33,25 @@ Production build (this is also what Vercel runs):
 ```sh
 npm run build && npm start
 ```
+
+## Native pronunciation audio
+
+`scripts/fetch-native-audio.mjs` matches every Catalan vocabulary string in
+the course against the ~23,000 native-speaker recordings of the
+[Lingua Libre](https://lingualibre.org) project on Wikimedia Commons,
+downloads the MP3s into `public/audio/ca/` (committed — no runtime
+dependency on Commons) and writes `lib/native-audio.json`. At runtime
+`speak()` plays the native recording when one exists — chaining the parts of
+multi-word entries like *abril, maig, juny* — and falls back to Web Speech
+TTS for sentences and dialogue lines. Re-run the script only when course
+vocabulary changes. Attribution (CC BY-SA 4.0) is rendered on the glossary
+page from the manifest's credits.
+
+**Recording the rest yourself**: the script writes `recordings/TODO.txt` —
+every sentence/dialogue line still on TTS. Record them with a native
+speaker, map them in `recordings/index.json`
+(`{ "Quants anys tens?": "quants-anys.mp3" }`, files in the same folder) and
+re-run the script; own recordings take priority over everything.
 
 ## Source of truth
 

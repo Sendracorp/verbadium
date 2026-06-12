@@ -3,6 +3,7 @@ import { useMemo, useState } from 'react';
 import type { GlossaryRow } from '@/lib/types';
 import { deaccent } from '@/lib/check';
 import { speak, stopSpeak } from '@/lib/speech';
+import AudioCredits from './AudioCredits';
 
 type SortCol = 0 | 1 | 2 | 3;
 
@@ -78,6 +79,7 @@ export default function Glossary({ rows }: { rows: GlossaryRow[] }) {
           ))}
         </tbody>
       </table>
+      <AudioCredits />
     </div>
   );
 }

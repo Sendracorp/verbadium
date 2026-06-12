@@ -46,6 +46,20 @@ function ok(cond, label) {
   ok(firstUnit.trim() === '1', 'sort by unit puts unit 1 first');
   ok(await page.locator('#glosTable .say').count() === 275, 'speaker button on every glossary entry');
 
+  // ---------- native-speaker audio (Lingua Libre) ----------
+  console.log('native audio');
+  ok((await page.locator('.audio-credits').textContent()).includes('CC BY-SA'), 'glossary shows CC BY-SA audio credits');
+  await page.fill('#glosSearch', 'formatge');
+  await page.locator('#glosTable tbody tr', { hasText: 'cheese' }).locator('.say').click();
+  ok(await page.evaluate(() => window.__audioMode) === 'native', 'single word plays a native recording');
+  await page.fill('#glosSearch', 'abril');
+  await page.locator('#glosTable tbody tr', { hasText: 'maig' }).locator('.say').click();
+  ok(await page.evaluate(() => window.__audioMode) === 'native', 'multi-word entry chains native recordings');
+  await page.fill('#glosSearch', 'Quants anys tens');
+  await page.locator('#glosTable tbody tr').first().locator('.say').click();
+  ok(await page.evaluate(() => window.__audioMode) === 'tts', 'sentence falls back to TTS');
+  await page.fill('#glosSearch', '');
+
   // ---------- gap-fill (EX 2.1) with accent tolerance ----------
   console.log('unit 2 — gap, match, reorder, model, free');
   await page.goto(BASE + 'unit/2');

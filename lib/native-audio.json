@@ -1,0 +1,848 @@
+{
+ "source": "Lingua Libre (lingualibre.org) via Wikimedia Commons",
+ "license": "CC BY-SA 4.0",
+ "fetched": "2026-06-12",
+ "credits": {
+  "Unjoanqualsevol": 205,
+  "Marvives": 79,
+  "Millars": 53,
+  "Toniher": 9,
+  "TaronjaSatsuma": 6
+ },
+ "entries": {
+  "set": [
+   "/audio/ca/set-702db7.mp3"
+  ],
+  "més": [
+   "/audio/ca/mes-2e1f49.mp3"
+  ],
+  "sis": [
+   "/audio/ca/sis-560269.mp3"
+  ],
+  "bo": [
+   "/audio/ca/bo-0ad494.mp3"
+  ],
+  "tot": [
+   "/audio/ca/tot-fd4943.mp3"
+  ],
+  "tu": [
+   "/audio/ca/tu-2821dd.mp3"
+  ],
+  "nou , mai": [
+   "/audio/ca/nou-9955d5.mp3",
+   "/audio/ca/mai-02494a.mp3"
+  ],
+  "lluny": [
+   "/audio/ca/lluny-8291d4.mp3"
+  ],
+  "any": [
+   "/audio/ca/any-afa04f.mp3"
+  ],
+  "peix": [
+   "/audio/ca/peix-6649d1.mp3"
+  ],
+  "jo": [
+   "/audio/ca/jo-8b035b.mp3"
+  ],
+  "cotxe , maig": [
+   "/audio/ca/cotxe-bd11e6.mp3",
+   "/audio/ca/maig-b99354.mp3"
+  ],
+  "formatge": [
+   "/audio/ca/formatge-533a4f.mp3"
+  ],
+  "avi": [
+   "/audio/ca/avi-e8e28e.mp3"
+  ],
+  "cada": [
+   "/audio/ca/cada-726d0e.mp3"
+  ],
+  "amiga": [
+   "/audio/ca/amiga-51e097.mp3"
+  ],
+  "cara": [
+   "/audio/ca/cara-2e2896.mp3"
+  ],
+  "carrer": [
+   "/audio/ca/carrer-2dd495.mp3"
+  ],
+  "cinc": [
+   "/audio/ca/cinc-36325d.mp3"
+  ],
+  "català": [
+   "/audio/ca/catala-3829ef.mp3"
+  ],
+  "llibre": [
+   "/audio/ca/llibre-1a84b4.mp3"
+  ],
+  "paral·lel": [
+   "/audio/ca/paral-lel-b5a45c.mp3"
+  ],
+  "xocolata": [
+   "/audio/ca/xocolata-110578.mp3"
+  ],
+  "hola": [
+   "/audio/ca/hola-8edca3.mp3"
+  ],
+  "vi": [
+   "/audio/ca/vi-87718a.mp3"
+  ],
+  "setembre": [
+   "/audio/ca/setembre-0be39a.mp3"
+  ],
+  "color": [
+   "/audio/ca/color-7ef532.mp3"
+  ],
+  "sí / no": [
+   "/audio/ca/si-8774f5.mp3",
+   "/audio/ca/no-6a413f.mp3"
+  ],
+  "i / o": [
+   "/audio/ca/i-376446.mp3",
+   "/audio/ca/o-9c9d6d.mp3"
+  ],
+  "què": [
+   "/audio/ca/que-5ff22a.mp3"
+  ],
+  "qui": [
+   "/audio/ca/qui-c954fd.mp3"
+  ],
+  "on": [
+   "/audio/ca/on-53ab8b.mp3"
+  ],
+  "quan": [
+   "/audio/ca/quan-7f19b8.mp3"
+  ],
+  "com": [
+   "/audio/ca/com-d6ba2b.mp3"
+  ],
+  "quant": [
+   "/audio/ca/quant-369041.mp3"
+  ],
+  "per què": [
+   "/audio/ca/per-que-ba77de.mp3"
+  ],
+  "perquè": [
+   "/audio/ca/perque-c1dcb6.mp3"
+  ],
+  "aquí / allà": [
+   "/audio/ca/aqui-49d435.mp3",
+   "/audio/ca/alla-25e59e.mp3"
+  ],
+  "això / allò": [
+   "/audio/ca/aixo-812993.mp3",
+   "/audio/ca/allo-beee88.mp3"
+  ],
+  "molt / poc": [
+   "/audio/ca/molt-f8bdaa.mp3",
+   "/audio/ca/poc-58f156.mp3"
+  ],
+  "bé / malament": [
+   "/audio/ca/be-6570c3.mp3",
+   "/audio/ca/malament-e328d4.mp3"
+  ],
+  "la paraula": [
+   "/audio/ca/paraula-fef59e.mp3"
+  ],
+  "la frase": [
+   "/audio/ca/frase-12102b.mp3"
+  ],
+  "la pregunta": [
+   "/audio/ca/pregunta-144701.mp3"
+  ],
+  "la resposta": [
+   "/audio/ca/resposta-f11310.mp3"
+  ],
+  "l'exemple": [
+   "/audio/ca/exemple-f345e2.mp3"
+  ],
+  "el so": [
+   "/audio/ca/so-8784dd.mp3"
+  ],
+  "soc": [
+   "/audio/ca/soc-889630.mp3"
+  ],
+  "és": [
+   "/audio/ca/es-a5fd6d.mp3"
+  ],
+  "som": [
+   "/audio/ca/som-81d559.mp3"
+  ],
+  "sou": [
+   "/audio/ca/sou-5153cf.mp3"
+  ],
+  "bon dia": [
+   "/audio/ca/bon-dia-72e8f7.mp3"
+  ],
+  "bona tarda": [
+   "/audio/ca/bona-tarda-219e68.mp3"
+  ],
+  "bona nit": [
+   "/audio/ca/bona-nit-4a0998.mp3"
+  ],
+  "fins aviat": [
+   "/audio/ca/fins-aviat-d0bc91.mp3"
+  ],
+  "gràcies": [
+   "/audio/ca/gracies-9e3e09.mp3"
+  ],
+  "de res": [
+   "/audio/ca/de-res-4886fc.mp3"
+  ],
+  "si us plau": [
+   "/audio/ca/si-us-plau-8571ee.mp3"
+  ],
+  "perdó": [
+   "/audio/ca/perdo-c1d55b.mp3"
+  ],
+  "el senyor / la senyora": [
+   "/audio/ca/senyor-e9dca8.mp3",
+   "/audio/ca/senyora-77661f.mp3"
+  ],
+  "el nom": [
+   "/audio/ca/nom-0c5eb5.mp3"
+  ],
+  "el cognom": [
+   "/audio/ca/cognom-93e3cb.mp3"
+  ],
+  "el país": [
+   "/audio/ca/pais-c3c1eb.mp3"
+  ],
+  "la ciutat": [
+   "/audio/ca/ciutat-a88c36.mp3"
+  ],
+  "anglès / anglesa": [
+   "/audio/ca/angles-ace512.mp3",
+   "/audio/ca/anglesa-d48a6b.mp3"
+  ],
+  "català / catalana": [
+   "/audio/ca/catala-3829ef.mp3",
+   "/audio/ca/catalana-afad2e.mp3"
+  ],
+  "irlandès / escocès": [
+   "/audio/ca/irlandes-7f2826.mp3",
+   "/audio/ca/escoces-75f07f.mp3"
+  ],
+  "l'idioma, la llengua": [
+   "/audio/ca/idioma-495f48.mp3",
+   "/audio/ca/llengua-3bfecd.mp3"
+  ],
+  "nosaltres": [
+   "/audio/ca/nosaltres-85fc82.mp3"
+  ],
+  "vosaltres": [
+   "/audio/ca/vosaltres-ec4570.mp3"
+  ],
+  "ell / ella": [
+   "/audio/ca/ell-79c6b7.mp3",
+   "/audio/ca/ella-c7d362.mp3"
+  ],
+  "ells / elles": [
+   "/audio/ca/ells-b501b8.mp3",
+   "/audio/ca/elles-bfd2e3.mp3"
+  ],
+  "vostè": [
+   "/audio/ca/voste-618e51.mp3"
+  ],
+  "vostès": [
+   "/audio/ca/vostes-2e3899.mp3"
+  ],
+  "tens": [
+   "/audio/ca/tens-9a0394.mp3"
+  ],
+  "zero, un dues, tres": [
+   "/audio/ca/zero-f4098f.mp3",
+   "/audio/ca/dues-2fb2e0.mp3",
+   "/audio/ca/tres-74b8d2.mp3"
+  ],
+  "quatre, cinc, sis, set": [
+   "/audio/ca/quatre-a0e545.mp3",
+   "/audio/ca/cinc-36325d.mp3",
+   "/audio/ca/sis-560269.mp3",
+   "/audio/ca/set-702db7.mp3"
+  ],
+  "vuit, nou, deu": [
+   "/audio/ca/vuit-2fc95b.mp3",
+   "/audio/ca/nou-9955d5.mp3",
+   "/audio/ca/deu-d3c077.mp3"
+  ],
+  "onze, dotze, tretze, catorze, quinze": [
+   "/audio/ca/onze-b846d9.mp3",
+   "/audio/ca/dotze-bb6c03.mp3",
+   "/audio/ca/tretze-859d05.mp3",
+   "/audio/ca/catorze-841c4d.mp3",
+   "/audio/ca/quinze-cdbc42.mp3"
+  ],
+  "setze, disset, divuit, dinou, vint": [
+   "/audio/ca/setze-e1b840.mp3",
+   "/audio/ca/disset-56252d.mp3",
+   "/audio/ca/divuit-eb54a8.mp3",
+   "/audio/ca/dinou-ea7adc.mp3",
+   "/audio/ca/vint-d06ba8.mp3"
+  ],
+  "trenta, quaranta, cinquanta": [
+   "/audio/ca/trenta-596c0e.mp3",
+   "/audio/ca/quaranta-6ce46c.mp3",
+   "/audio/ca/cinquanta-b0d0fe.mp3"
+  ],
+  "seixanta, setanta, vuitanta": [
+   "/audio/ca/seixanta-dad863.mp3",
+   "/audio/ca/setanta-397814.mp3",
+   "/audio/ca/vuitanta-1a19e7.mp3"
+  ],
+  "noranta, cent": [
+   "/audio/ca/noranta-e1172d.mp3",
+   "/audio/ca/cent-a405f8.mp3"
+  ],
+  "el gat / el gos": [
+   "/audio/ca/gat-0c477b.mp3",
+   "/audio/ca/gos-a40d81.mp3"
+  ],
+  "l'home / la dona": [
+   "/audio/ca/home-1b16cb.mp3",
+   "/audio/ca/dona-7a73c9.mp3"
+  ],
+  "la taula / la cadira": [
+   "/audio/ca/taula-2f05eb.mp3",
+   "/audio/ca/cadira-982407.mp3"
+  ],
+  "el llibre / la clau": [
+   "/audio/ca/llibre-1a84b4.mp3",
+   "/audio/ca/clau-b3b421.mp3"
+  ],
+  "el cotxe / la bici": [
+   "/audio/ca/cotxe-bd11e6.mp3",
+   "/audio/ca/bici-eaf34e.mp3"
+  ],
+  "els diners": [
+   "/audio/ca/diners-220cf6.mp3"
+  ],
+  "l'any": [
+   "/audio/ca/any-afa04f.mp3"
+  ],
+  "bonic": [
+   "/audio/ca/bonic-ef2b71.mp3"
+  ],
+  "verd": [
+   "/audio/ca/verd-62daa3.mp3"
+  ],
+  "gran": [
+   "/audio/ca/gran-2a52c9.mp3"
+  ],
+  "gran / petit": [
+   "/audio/ca/gran-2a52c9.mp3",
+   "/audio/ca/petit-fc9cd4.mp3"
+  ],
+  "nou / vell": [
+   "/audio/ca/nou-9955d5.mp3",
+   "/audio/ca/vell-6fcc53.mp3"
+  ],
+  "bo / dolent": [
+   "/audio/ca/bo-0ad494.mp3",
+   "/audio/ca/dolent-53940f.mp3"
+  ],
+  "car / barat": [
+   "/audio/ca/car-c90c0a.mp3",
+   "/audio/ca/barat-e08185.mp3"
+  ],
+  "bonic / lleig": [
+   "/audio/ca/bonic-ef2b71.mp3",
+   "/audio/ca/lleig-80dd4c.mp3"
+  ],
+  "fàcil / difícil": [
+   "/audio/ca/facil-1151f1.mp3",
+   "/audio/ca/dificil-9f5eec.mp3"
+  ],
+  "vermell / blau": [
+   "/audio/ca/vermell-3c2e66.mp3",
+   "/audio/ca/blau-6b6b96.mp3"
+  ],
+  "verd / groc": [
+   "/audio/ca/verd-62daa3.mp3",
+   "/audio/ca/groc-ebb168.mp3"
+  ],
+  "blanc / negre": [
+   "/audio/ca/blanc-59697d.mp3",
+   "/audio/ca/negre-dc55ca.mp3"
+  ],
+  "la casa / el pis": [
+   "/audio/ca/casa-ed1578.mp3",
+   "/audio/ca/pis-8392ef.mp3"
+  ],
+  "l'habitació": [
+   "/audio/ca/habitacio-c7969b.mp3"
+  ],
+  "la cuina / el bany": [
+   "/audio/ca/cuina-e125ab.mp3",
+   "/audio/ca/bany-5d9e41.mp3"
+  ],
+  "la porta / la finestra": [
+   "/audio/ca/porta-de3ae7.mp3",
+   "/audio/ca/finestra-6dd173.mp3"
+  ],
+  "el llit": [
+   "/audio/ca/llit-96b37d.mp3"
+  ],
+  "la mà / el pa": [
+   "/audio/ca/ma-5e9e05.mp3",
+   "/audio/ca/pa-5747c4.mp3"
+  ],
+  "el peix": [
+   "/audio/ca/peix-6649d1.mp3"
+  ],
+  "la cosa": [
+   "/audio/ca/cosa-374cfb.mp3"
+  ],
+  "parla": [
+   "/audio/ca/parla-51c4aa.mp3"
+  ],
+  "faig": [
+   "/audio/ca/faig-50e144.mp3"
+  ],
+  "vas": [
+   "/audio/ca/vas-2c47cf.mp3"
+  ],
+  "va": [
+   "/audio/ca/va-22afa8.mp3"
+  ],
+  "fa": [
+   "/audio/ca/fa-0cb1df.mp3"
+  ],
+  "vol": [
+   "/audio/ca/vol-38b340.mp3"
+  ],
+  "anem": [
+   "/audio/ca/anem-663d21.mp3"
+  ],
+  "fem": [
+   "/audio/ca/fem-706c5f.mp3"
+  ],
+  "feu": [
+   "/audio/ca/feu-808b28.mp3"
+  ],
+  "treballar": [
+   "/audio/ca/treballar-7a42f7.mp3"
+  ],
+  "estudiar": [
+   "/audio/ca/estudiar-f2a19b.mp3"
+  ],
+  "menjar": [
+   "/audio/ca/menjar-c4da55.mp3"
+  ],
+  "beure": [
+   "/audio/ca/beure-b9f8bf.mp3"
+  ],
+  "viure": [
+   "/audio/ca/viure-f9e062.mp3"
+  ],
+  "aprendre": [
+   "/audio/ca/aprendre-595d5e.mp3"
+  ],
+  "comprar": [
+   "/audio/ca/comprar-c0a5e3.mp3"
+  ],
+  "mirar": [
+   "/audio/ca/mirar-3e7df4.mp3"
+  ],
+  "escoltar": [
+   "/audio/ca/escoltar-ceca62.mp3"
+  ],
+  "venir": [
+   "/audio/ca/venir-d81a8e.mp3"
+  ],
+  "obrir / tancar": [
+   "/audio/ca/obrir-036319.mp3",
+   "/audio/ca/tancar-9158a6.mp3"
+  ],
+  "la feina": [
+   "/audio/ca/feina-a9785a.mp3"
+  ],
+  "els deures": [
+   "/audio/ca/deures-3f5184.mp3"
+  ],
+  "avui / demà": [
+   "/audio/ca/avui-d857db.mp3",
+   "/audio/ca/dema-475559.mp3"
+  ],
+  "ara / després": [
+   "/audio/ca/ara-cb06f3.mp3",
+   "/audio/ca/despres-3c7eb3.mp3"
+  ],
+  "sempre / mai": [
+   "/audio/ca/sempre-6e9cd9.mp3",
+   "/audio/ca/mai-02494a.mp3"
+  ],
+  "també / tampoc": [
+   "/audio/ca/tambe-a763c8.mp3",
+   "/audio/ca/tampoc-7f44ff.mp3"
+  ],
+  "però": [
+   "/audio/ca/pero-01ddff.mp3"
+  ],
+  "el meu": [
+   "/audio/ca/meu-caef37.mp3"
+  ],
+  "la meva": [
+   "/audio/ca/meva-6e90b5.mp3"
+  ],
+  "el teu": [
+   "/audio/ca/teu-aa1d34.mp3"
+  ],
+  "el seu": [
+   "/audio/ca/seu-e0c1f6.mp3"
+  ],
+  "el nostre": [
+   "/audio/ca/nostre-b02890.mp3"
+  ],
+  "el vostre": [
+   "/audio/ca/vostre-23c4ed.mp3"
+  ],
+  "la família": [
+   "/audio/ca/familia-e43274.mp3"
+  ],
+  "el pare / la mare": [
+   "/audio/ca/pare-949e39.mp3",
+   "/audio/ca/mare-2b2bdb.mp3"
+  ],
+  "els pares": [
+   "/audio/ca/pares-e35a92.mp3"
+  ],
+  "el fill / la filla": [
+   "/audio/ca/fill-197061.mp3",
+   "/audio/ca/filla-6c6803.mp3"
+  ],
+  "el germà / la germana": [
+   "/audio/ca/germa-8b228e.mp3",
+   "/audio/ca/germana-423681.mp3"
+  ],
+  "l'avi / l'àvia": [
+   "/audio/ca/avi-e8e28e.mp3",
+   "/audio/ca/avia-621a3c.mp3"
+  ],
+  "l'oncle / la tia": [
+   "/audio/ca/oncle-72cff1.mp3",
+   "/audio/ca/tia-7375e3.mp3"
+  ],
+  "el cosí / la cosina": [
+   "/audio/ca/cosi-d474c9.mp3",
+   "/audio/ca/cosina-a7f612.mp3"
+  ],
+  "el marit / la muller": [
+   "/audio/ca/marit-b3761f.mp3",
+   "/audio/ca/muller-2367a2.mp3"
+  ],
+  "l'amic / l'amiga": [
+   "/audio/ca/amic-83f177.mp3",
+   "/audio/ca/amiga-51e097.mp3"
+  ],
+  "el metge / la metgessa": [
+   "/audio/ca/metge-ad6492.mp3",
+   "/audio/ca/metgessa-3a89f8.mp3"
+  ],
+  "el cambrer / la cambrera": [
+   "/audio/ca/cambrer-cdd839.mp3",
+   "/audio/ca/cambrera-dc53c9.mp3"
+  ],
+  "l'estudiant": [
+   "/audio/ca/estudiant-eeb992.mp3"
+  ],
+  "alt / baix": [
+   "/audio/ca/alt-6400b3.mp3",
+   "/audio/ca/baix-03273d.mp3"
+  ],
+  "jove / gran": [
+   "/audio/ca/jove-e82c2d.mp3",
+   "/audio/ca/gran-2a52c9.mp3"
+  ],
+  "intel·ligent": [
+   "/audio/ca/intel-ligent-825a1e.mp3"
+  ],
+  "dilluns, dimarts, dimecres": [
+   "/audio/ca/dilluns-4871d9.mp3",
+   "/audio/ca/dimarts-72d014.mp3",
+   "/audio/ca/dimecres-53f5ec.mp3"
+  ],
+  "dijous, divendres": [
+   "/audio/ca/dijous-82e3e9.mp3",
+   "/audio/ca/divendres-bd8de3.mp3"
+  ],
+  "dissabte, diumenge": [
+   "/audio/ca/dissabte-3048e7.mp3",
+   "/audio/ca/diumenge-d9bee3.mp3"
+  ],
+  "gener, febrer, març": [
+   "/audio/ca/gener-224ead.mp3",
+   "/audio/ca/febrer-896abc.mp3",
+   "/audio/ca/marc-48e99a.mp3"
+  ],
+  "abril, maig, juny": [
+   "/audio/ca/abril-e9b32f.mp3",
+   "/audio/ca/maig-b99354.mp3",
+   "/audio/ca/juny-49ceab.mp3"
+  ],
+  "juliol, agost, setembre": [
+   "/audio/ca/juliol-c8709b.mp3",
+   "/audio/ca/agost-dd80d2.mp3",
+   "/audio/ca/setembre-0be39a.mp3"
+  ],
+  "octubre, novembre, desembre": [
+   "/audio/ca/octubre-94102f.mp3",
+   "/audio/ca/novembre-5c56f1.mp3",
+   "/audio/ca/desembre-cd8379.mp3"
+  ],
+  "l'hora": [
+   "/audio/ca/hora-5cacfb.mp3"
+  ],
+  "el matí / la tarda": [
+   "/audio/ca/mati-c748d1.mp3",
+   "/audio/ca/tarda-a7caa8.mp3"
+  ],
+  "el vespre / la nit": [
+   "/audio/ca/vespre-f906bb.mp3",
+   "/audio/ca/nit-34aa8e.mp3"
+  ],
+  "esmorzar": [
+   "/audio/ca/esmorzar-97c0c2.mp3"
+  ],
+  "dinar": [
+   "/audio/ca/dinar-86ec2f.mp3"
+  ],
+  "sopar": [
+   "/audio/ca/sopar-109da0.mp3"
+  ],
+  "tard / d'hora": [
+   "/audio/ca/tard-80e95f.mp3",
+   "/audio/ca/d-hora-ea783e.mp3"
+  ],
+  "el cap de setmana": [
+   "/audio/ca/cap-de-setmana-4d97a8.mp3"
+  ],
+  "l'aigua": [
+   "/audio/ca/aigua-bd5efe.mp3"
+  ],
+  "el te / la llet": [
+   "/audio/ca/te-52ab98.mp3",
+   "/audio/ca/llet-7780a1.mp3"
+  ],
+  "el vi / la cervesa": [
+   "/audio/ca/vi-87718a.mp3",
+   "/audio/ca/cervesa-689a90.mp3"
+  ],
+  "la fruita / la verdura": [
+   "/audio/ca/fruita-5df108.mp3",
+   "/audio/ca/verdura-9ab0d6.mp3"
+  ],
+  "la poma / el plàtan": [
+   "/audio/ca/poma-5db1c3.mp3",
+   "/audio/ca/platan-9c1be3.mp3"
+  ],
+  "la taronja": [
+   "/audio/ca/taronja-cae477.mp3"
+  ],
+  "la carn": [
+   "/audio/ca/carn-2d64b7.mp3"
+  ],
+  "l'arròs": [
+   "/audio/ca/arros-254c12.mp3"
+  ],
+  "el formatge": [
+   "/audio/ca/formatge-533a4f.mp3"
+  ],
+  "l'entrepà": [
+   "/audio/ca/entrepa-cd4ca0.mp3"
+  ],
+  "el sucre / la sal": [
+   "/audio/ca/sucre-3f7e8f.mp3",
+   "/audio/ca/sal-776d76.mp3"
+  ],
+  "l'oli": [
+   "/audio/ca/oli-0e2757.mp3"
+  ],
+  "l'ampolla": [
+   "/audio/ca/ampolla-c3361c.mp3"
+  ],
+  "l'euro / el cèntim": [
+   "/audio/ca/euro-3e11cf.mp3",
+   "/audio/ca/centim-b72ce9.mp3"
+  ],
+  "el compte": [
+   "/audio/ca/compte-4e8ed3.mp3"
+  ],
+  "el compte, si us plau": [
+   "/audio/ca/compte-4e8ed3.mp3",
+   "/audio/ca/si-us-plau-8571ee.mp3"
+  ],
+  "el carrer": [
+   "/audio/ca/carrer-2dd495.mp3"
+  ],
+  "la plaça": [
+   "/audio/ca/placa-143c3b.mp3"
+  ],
+  "l'estació": [
+   "/audio/ca/estacio-fdaf9d.mp3"
+  ],
+  "el mercat": [
+   "/audio/ca/mercat-a2604d.mp3"
+  ],
+  "la botiga": [
+   "/audio/ca/botiga-d0fb82.mp3"
+  ],
+  "el banc": [
+   "/audio/ca/banc-771e8d.mp3"
+  ],
+  "l'hospital": [
+   "/audio/ca/hospital-7d748d.mp3"
+  ],
+  "la farmàcia": [
+   "/audio/ca/farmacia-b6d59a.mp3"
+  ],
+  "l'escola": [
+   "/audio/ca/escola-8ac2ac.mp3"
+  ],
+  "la biblioteca": [
+   "/audio/ca/biblioteca-1e03af.mp3"
+  ],
+  "el museu": [
+   "/audio/ca/museu-a7ac0f.mp3"
+  ],
+  "la platja": [
+   "/audio/ca/platja-045872.mp3"
+  ],
+  "la cantonada": [
+   "/audio/ca/cantonada-cbd5d3.mp3"
+  ],
+  "sota / sobre": [
+   "/audio/ca/sota-86686e.mp3",
+   "/audio/ca/sobre-0ab1f3.mp3"
+  ],
+  "al costat de": [
+   "/audio/ca/al-costat-de-578a48.mp3"
+  ],
+  "entre": [
+   "/audio/ca/entre-c1c3c1.mp3"
+  ],
+  "llegir / escriure": [
+   "/audio/ca/llegir-f37139.mp3",
+   "/audio/ca/escriure-f52f72.mp3"
+  ],
+  "cuinar": [
+   "/audio/ca/cuinar-c83122.mp3"
+  ],
+  "córrer / nedar": [
+   "/audio/ca/correr-e8e443.mp3",
+   "/audio/ca/nedar-153e1f.mp3"
+  ],
+  "ballar / cantar": [
+   "/audio/ca/ballar-a9e4bd.mp3",
+   "/audio/ca/cantar-7513bc.mp3"
+  ],
+  "viatjar / passejar": [
+   "/audio/ca/viatjar-05f069.mp3",
+   "/audio/ca/passejar-a8be29.mp3"
+  ],
+  "la música": [
+   "/audio/ca/musica-70d83f.mp3"
+  ],
+  "la pel·lícula": [
+   "/audio/ca/pel-licula-81cc48.mp3"
+  ],
+  "l'esport": [
+   "/audio/ca/esport-c4af7b.mp3"
+  ],
+  "el futbol": [
+   "/audio/ca/futbol-7ef417.mp3"
+  ],
+  "la primavera / l'estiu": [
+   "/audio/ca/primavera-c3e1e7.mp3",
+   "/audio/ca/estiu-8210a2.mp3"
+  ],
+  "la tardor / l'hivern": [
+   "/audio/ca/tardor-e693e5.mp3",
+   "/audio/ca/hivern-f5321b.mp3"
+  ],
+  "el sol / el núvol": [
+   "/audio/ca/sol-f849f7.mp3",
+   "/audio/ca/nuvol-912798.mp3"
+  ],
+  "la pluja / la neu": [
+   "/audio/ca/pluja-829f87.mp3",
+   "/audio/ca/neu-ccb995.mp3"
+  ],
+  "el vent / el temps": [
+   "/audio/ca/vent-9b3588.mp3",
+   "/audio/ca/temps-692ec2.mp3"
+  ],
+  "anit": [
+   "/audio/ca/anit-31f1c7.mp3"
+  ],
+  "arribar / sortir": [
+   "/audio/ca/arribar-c832a0.mp3",
+   "/audio/ca/sortir-b9f0a3.mp3"
+  ],
+  "tornar": [
+   "/audio/ca/tornar-ab9ddf.mp3"
+  ],
+  "visitar / trobar": [
+   "/audio/ca/visitar-f47ba3.mp3",
+   "/audio/ca/trobar-2922e5.mp3"
+  ],
+  "esperar / ajudar": [
+   "/audio/ca/esperar-49ccda.mp3",
+   "/audio/ca/ajudar-b51896.mp3"
+  ],
+  "descansar": [
+   "/audio/ca/descansar-ae6fc7.mp3"
+  ],
+  "el restaurant / el cinema": [
+   "/audio/ca/restaurant-0e4dfe.mp3",
+   "/audio/ca/cinema-8a9d77.mp3"
+  ],
+  "el viatge / les vacances": [
+   "/audio/ca/viatge-c4d83d.mp3",
+   "/audio/ca/vacances-b413ab.mp3"
+  ],
+  "l'examen / la prova": [
+   "/audio/ca/examen-02cb40.mp3",
+   "/audio/ca/prova-009568.mp3"
+  ],
+  "el formulari": [
+   "/audio/ca/formulari-9d5a1a.mp3"
+  ],
+  "l'adreça": [
+   "/audio/ca/adreca-ed871e.mp3"
+  ],
+  "el correu electrònic": [
+   "/audio/ca/correu-electronic-dc0d72.mp3"
+  ],
+  "el telèfon": [
+   "/audio/ca/telefon-3de9f0.mp3"
+  ],
+  "la nacionalitat": [
+   "/audio/ca/nacionalitat-6fbb56.mp3"
+  ],
+  "l'edat": [
+   "/audio/ca/edat-095eb6.mp3"
+  ],
+  "la professió": [
+   "/audio/ca/professio-36e18a.mp3"
+  ],
+  "el codi postal": [
+   "/audio/ca/codi-postal-f68a06.mp3"
+  ],
+  "la signatura": [
+   "/audio/ca/signatura-53d53a.mp3"
+  ],
+  "la postal / la carta": [
+   "/audio/ca/postal-2845ae.mp3",
+   "/audio/ca/carta-ed1c63.mp3"
+  ],
+  "omplir / signar": [
+   "/audio/ca/omplir-7b5d00.mp3",
+   "/audio/ca/signar-dab31e.mp3"
+  ],
+  "marcar / escollir": [
+   "/audio/ca/marcar-82229e.mp3",
+   "/audio/ca/escollir-ac12c5.mp3"
+  ]
+ }
+}

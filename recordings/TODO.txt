@@ -1,0 +1,241 @@
+# 237 course texts without native audio (fall back to TTS).
+# Record these with a native speaker, list them in recordings/index.json
+# as { "<text>": "<file.mp3>" }, then re-run scripts/fetch-native-audio.mjs.
+
+-es
+-ns
+-os
+-ques / -gues
+-s
+a l'estiu fa molta calor
+a la plaça hi ha un mercat
+a les vuit del matí
+a prop (de) / lluny (de)
+a quina hora et lleves
+a què et dediques
+adeu
+ahir / abans-d'ahir
+alguna cosa més
+amiga → amigues
+aneu
+aquest matí
+benvolgut / benvolguda
+bonica
+bonics
+boniques
+casa — first a
+casa — second a
+casa → cases
+com es diu (vostè)
+com es diu en català
+com estàs? — molt bé, i tu
+com et dius
+com s'escriu
+com és casa teva
+com és el teu germà
+cotxe ; maig
+d'on ets
+davant (de) / darrere (de)
+de dilluns a divendres
+de quin color és
+despertar-se
+dorm
+dormen
+dormim
+dormiu
+dormo
+dorms
+dues taules
+dutxar-se
+el (l') / els
+el cafè amb llet
+el concert / la festa
+el document d'identitat
+el mercat és a la plaça
+el mes passat / l'any passat
+el pis és petit però bonic
+el professor / la professora
+els dissabtes no treballo
+els meus
+els nostres
+els seus
+els teus
+els vostres
+em dic anna
+em llevo
+em llevo a les set
+en vull tres
+encara aprenc
+es diu marc
+estic casat / casada
+està ennuvolat
+et lleves, es lleva, ens llevem, us lleveu, es lleven
+ets
+ets de londres
+fa sol calor / vent
+fan
+fas
+fins demà
+gira a la dreta / a l'esquerra
+gos → gossos ; peix → peixos
+grans
+h
+he acabat
+hi ha tres gats
+hi ha un banc a prop
+hi ha un gat
+ho sento
+j ; g+e,i
+jo ; gent
+jo soc anglès
+jugar (a futbol)
+l'enginyer / l'enginyera
+l'ou / els ous
+la (l') / les
+la data (de naixement)
+la dreta / l'esquerra
+la meva germana
+la meva habitació és gran
+la nostra
+la parada de metro
+la primera a la dreta
+la setmana passada
+la seva
+la teva
+la vostra
+les meves
+les nostres
+les seves
+les teves
+les vostres
+li agrada la música
+ll
+llevar-se
+llibre → llibres
+l·l
+m'agrada el cafè
+m'agrada molt cuinar
+m'agraden els llibres
+m'encanta
+m'ho vaig passar molt bé
+mig quilo
+molt de gust
+moltes gràcies
+més a poc a poc, si us plau
+neva
+no ens agrada gens
+no ho entenc
+no m'agrada gens el futbol
+no parlo gaire
+no puc venir avui
+no tinc temps
+no, no en tinc
+ny
+on vas anar de vacances
+on vius? — visc a barcelona
+pa → pans ; mà → mans
+parlem
+parlen
+parles
+parles anglès
+parleu
+parlo
+parlo una mica de català
+per a mi, un cafè amb llet
+perd
+perdem
+perden
+perdeu
+perdo
+perdoni, on és
+perds
+plaça ; cinc
+plou
+podem
+poden
+podeu
+pot
+pots
+pots ajudar-me
+pots repetir, si us plau
+puc
+puc fer una pregunta
+quant costa? és molt car
+quant de temps tenim
+quant és? / quant val
+quantes pomes vols
+quants anys tens
+quants anys tens? — tinc trenta anys
+quin dia és avui
+quin temps fa
+quin temps fa avui
+quin és el teu número de telèfon
+quina feina fas
+quina hora és
+què fas avui
+què t'agrada fer
+què vas fer ahir
+què vol dir
+què voleu (prendre)
+res més, gràcies
+ros / morè
+salutacions / una abraçada
+simpàtic / simpàtica
+soc anglès
+soc de manchester
+soc enginyera
+som amics
+sou estudiants
+sí, en vull
+són
+són de girona
+són les dues
+són les sis i mitja
+són les tres i deu
+són quatre euros amb cinquanta
+t'agrada llegir
+tenen
+tenim
+teniu
+tens cafè
+tens germans
+tinc
+tinc gana son
+tinc trenta-dos anys
+tx ; -ig final
+té
+un / uns
+un cotxe vermell
+un quilo de
+una / unes
+una casa vermella
+una mica de
+unstressed a, e
+unstressed o
+v
+va ser fantàstic
+vaig
+vaig anar
+vaig anar a la platja
+vam
+vam sopar fora
+van
+vau
+verda
+verdes
+verds
+ves tot recte
+vestir-se
+volem
+volen
+voleu
+vols
+vols pa
+vull
+vull aprendre català
+x
+ç ; c+e,i
+és alta i molt simpàtica
+és catalana
+és la una
+és lluny? — no, és a prop

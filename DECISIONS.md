@@ -71,3 +71,15 @@ Decisions made while building the site, and why.
     repo root (with `.nojekyll`), so GitHub Pages “deploy from branch /
     root” serves it with zero configuration and all-relative paths keep
     `file://` working from a clone.
+
+15. **Native-speaker audio over TTS, sourced from Lingua Libre.** Browser TTS
+    pronounces Catalan badly on most devices — unacceptable for a
+    pronunciation-focused course. Forvo (real speakers) forbids caching and
+    requires a commercial API agreement; Lingua Libre's ~23k Catalan
+    recordings on Wikimedia Commons are CC BY-SA 4.0, so they are fetched
+    once (`scripts/fetch-native-audio.mjs`), committed as static MP3s and
+    attributed on the glossary page. Coverage: every whole-entry match plus
+    multi-word entries whose every part is recorded (played in sequence) —
+    roughly half of all speakable strings, including most single-word
+    vocabulary. Sentences/dialogues keep the Web Speech fallback; recordists
+    are ranked by recording count so one voice dominates for consistency.
