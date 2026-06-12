@@ -78,3 +78,13 @@ cd qa && npm install && node test.js http://localhost:3411/
 
 Click-tests one exercise of every type, audio wiring, persistence across
 reloads, the mock exam and a 380 px mobile viewport.
+
+## Roadmap
+
+- [ ] **Sentence/dialogue audio**: the 237 texts in `recordings/TODO.txt`
+      still use browser TTS. Either record them with a native speaker
+      (drop files in `recordings/` + `index.json`, re-run
+      `scripts/fetch-native-audio.mjs`) or pre-generate static MP3s with
+      Azure neural Catalan TTS (`ca-ES-JoanaNeural` / `EnricNeural` /
+      `AlbaNeural`, free tier covers the whole course) once an Azure
+      Speech key exists.
