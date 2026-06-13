@@ -133,25 +133,36 @@ Import the GitHub repo at <https://vercel.com/new> (or `vercel link` +
 above; course pages are server-rendered per request (auth + ownership), so
 no extra configuration is needed.
 
-## QA suites
+## Tests
+
+Two layers, both TypeScript (`tests/`):
+
+- **Vitest** (`tests/unit/`) — pure logic, no browser: answer-checking
+  (`lib/check.ts`), the catalog, and native-audio key matching + manifest
+  integrity (every referenced MP3 exists). Milliseconds to run.
+- **Playwright Test** (`tests/e2e/`) — real-browser flows against a dev
+  server it starts itself (`webServer` in `playwright.config.ts`):
+  - `gating.spec.ts` — logged-out: catalog, old-URL redirects, free preview,
+    every gated page paywalled with no leaked content, `/api/checkout` 401,
+    unsigned-webhook 401, auth pages, 380 px mobile. **Needs no Supabase.**
+  - `auth.spec.ts` + `content.spec.ts` — log in as a real course-owning test
+    user (created/torn down via the Supabase admin API in a worker fixture),
+    then exercise every question type, the glossary + native audio, the mock
+    exam, the IPA drawer, mobile, and verify progress round-trips through the
+    database. These **skip automatically** when `.env.local` has placeholder
+    Supabase credentials.
 
 ```sh
-npm run build
-
-# 1) content & exercises (server with the paywall bypassed)
-COURSE_BYPASS_PAYWALL=true npx next start -p 3411 &
-cd qa && npm install && node test.js http://localhost:3411/
-
-# 2) paywall gating, redirects, auth pages (normal server, placeholder creds fine)
-npx next start -p 3412 &
-cd qa && node gating.test.js http://localhost:3412/
+npm test            # unit + e2e
+npm run test:unit   # Vitest only (fast, no browser, no Supabase)
+npm run test:e2e    # Playwright only
+npm run test:e2e:ui # Playwright interactive UI
 ```
 
-`test.js` click-tests one exercise of every type, audio wiring, persistence
-across reloads, the mock exam and a 380 px mobile viewport. `gating.test.js`
-verifies the catalog, old-URL redirects, the free preview, that every gated
-page shows the paywall with no leaked content, that `/api/checkout` requires
-login and the webhook rejects unsigned payloads, and the auth pages.
+First run needs the browser: `npx playwright install chromium`. The e2e
+suite runs against a **normal** server (no `COURSE_BYPASS_PAYWALL`) — gated
+content is reached by logging in a real owner, so the actual access path is
+what gets tested.
 
 ## Roadmap
 

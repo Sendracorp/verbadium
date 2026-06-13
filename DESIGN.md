@@ -101,15 +101,25 @@ A tiny pub/sub re-renders the sidebar badges and dashboard on any change.
 Storage is only read **after hydration** (initial client render matches the
 server-rendered zeros) to avoid hydration mismatches.
 
-## QA
+## Tests (`tests/`, TypeScript)
 
-`qa/test.js` (Playwright, headless Chromium) drives the real site:
-fidelity counts in the DOM, one click-test per exercise type,
-accent-leniency, localStorage persistence across reloads, glossary
-search/sort, mock listening/matching/timers/attempt history, 380 px viewport
-(hamburger nav, no horizontal scroll), reset.
-Run: `npm run build && npx next start -p 3411 &`, then
-`cd qa && npm i && node test.js http://localhost:3411/`.
+Two layers, per the 2026 Next.js-team convention:
+
+* **Vitest** (`tests/unit/`) — pure logic, no browser: `lib/check.ts`
+  marking, the catalog, and the native-audio key/manifest (asserts every
+  referenced MP3 exists on disk). The audio-key normalization is extracted to
+  `lib/native-audio-key.ts` so the runtime player, the build-time matcher and
+  the test all share one implementation.
+* **Playwright Test** (`tests/e2e/`) — real-browser flows; `playwright.config.ts`
+  starts `next dev` itself (normal mode, no `COURSE_BYPASS_PAYWALL`).
+  `gating.spec.ts` is the logged-out path (no Supabase needed).
+  `auth.spec.ts`/`content.spec.ts` log in a real course-owning user created
+  and torn down through the Supabase admin API in a worker-scoped fixture
+  (`tests/helpers/`), so gated content is reached via the actual access path
+  and progress is asserted round-tripping through Postgres. They `test.skip`
+  when Supabase creds are placeholders.
+
+Run: `npm test` (both), `npm run test:unit`, or `npm run test:e2e`.
 
 ## IPA quick-reference drawer
 

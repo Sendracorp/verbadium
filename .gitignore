@@ -7,3 +7,7 @@ qa/shot-*.png
 *.tsbuildinfo
 .env*.local
 .env
+/test-results/
+/playwright-report/
+/blob-report/
+.playwright/

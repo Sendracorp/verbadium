@@ -6,6 +6,9 @@
    Catalan voice exists on the device. */
 import { sget, sset } from './progress';
 import nativeAudio from './native-audio.json';
+import { cleanSpeak, nativeKey } from './native-audio-key';
+
+export { cleanSpeak };
 
 const NATIVE: Record<string, string[]> = nativeAudio.entries;
 
@@ -43,15 +46,6 @@ function ttsNotice(): void {
     n.remove();
   });
   document.body.appendChild(n);
-}
-
-export function cleanSpeak(text: string): string {
-  return text.replace(/\/[^/]*\//g, ' ').replace(/[«»]/g, '').replace(/…/g, '').replace(/\s+/g, ' ').trim();
-}
-
-/* normalization must mirror scripts/fetch-native-audio.mjs */
-function nativeKey(text: string): string {
-  return cleanSpeak(text).toLowerCase().replace(/[.!?]+$/, '').trim();
 }
 
 let currentAudio: HTMLAudioElement | null = null;

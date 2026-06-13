@@ -133,3 +133,16 @@ Decisions made while building the site, and why.
     themselves) instead of crashing — so the repo builds, deploys and QA-runs
     before any account is created. Auth-dependent routes are
     `force-dynamic` so a placeholder build never freezes that state.
+
+23. **Tests: Vitest + Playwright Test, TypeScript (replacing the hand-rolled
+    Playwright scripts).** The original `qa/*.js` used the raw `playwright`
+    library with a custom `ok()` helper. Researched the 2026 consensus and
+    migrated to the two-layer stack the Next.js team itself uses: Vitest for
+    pure logic (no browser) and Playwright Test for browser flows — gaining
+    per-test isolation, parallelism, retries, fixtures and HTML reports.
+    Notably this let the e2e suite drop the `COURSE_BYPASS_PAYWALL` crutch:
+    gated content is now reached by logging in a real course-owning user
+    created/torn down via the Supabase admin API in a worker fixture, so the
+    true access path is tested. Supabase-dependent specs `test.skip` when
+    credentials are placeholders; the logged-out gating spec always runs.
+    (Supersedes decision 13.)
