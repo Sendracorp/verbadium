@@ -36,21 +36,36 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
 }
 
 /* ---------- layout ---------- */
+/* Universal course-view topbar: light glass bar over the content area, hosts
+   the sidebar toggles + the account avatar (consistent with the rest of site). */
 .topbar {
-  display: none;
+  display: flex; align-items: center; gap: 12px;
   position: sticky; top: 0; z-index: 40;
-  background: var(--red); color: #fff;
-  padding: 10px 14px; align-items: center; gap: 12px;
+  margin-left: var(--sidebar-w);
+  padding: 9px clamp(14px, 4vw, 48px);
+  background: rgba(243,250,249,.85);
+  backdrop-filter: saturate(1.6) blur(12px);
+  border-bottom: 1px solid var(--vb-line);
+  transition: margin-left .2s ease;
 }
-.topbar-title { font-weight: 700; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.nav-toggle {
-  background: none; border: 1px solid rgba(255,255,255,.5); color: #fff;
-  font-size: 1.2rem; border-radius: 6px; padding: 2px 10px; cursor: pointer;
+.topbar-title { flex: 1 1 auto; min-width: 0; font-weight: 700; font-size: .98rem; color: var(--vb-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.topbar-right { flex: none; display: flex; align-items: center; }
+.topbar-login { padding: 7px 16px; }
+.nav-toggle, .nav-collapse {
+  background: #fff; border: 1px solid var(--vb-line); color: var(--vb-ink);
+  font-size: 1.05rem; line-height: 1; border-radius: 10px;
+  padding: 6px 11px; cursor: pointer; transition: border-color .15s, background .15s;
 }
+.nav-toggle:hover, .nav-collapse:hover { border-color: var(--vb-grape); background: var(--vb-paper); }
+.nav-toggle { display: none; }            /* mobile drawer trigger */
+.nav-collapse { display: inline-flex; }   /* desktop collapse trigger */
+.topbar-logo { display: none; align-items: center; }   /* shown only when collapsed */
+body.nav-collapsed .topbar-logo { display: inline-flex; }
+
 .sidebar {
   position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-w);
   background: var(--red); color: #fff; overflow-y: auto; z-index: 50;
-  padding-bottom: 24px;
+  padding-bottom: 24px; transition: transform .2s ease;
 }
 .nav-brand { padding: 18px 16px 12px; border-bottom: 1px solid rgba(255,255,255,.25); margin-bottom: 8px; }
 .sidebar .nav-brand a { color: #fff; text-decoration: none; font-weight: 800; font-size: 1.25rem; line-height: 1.1; word-break: normal; display: block; padding: 0; }
@@ -64,18 +79,36 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
 }
 .sidebar a:hover { background: rgba(255,255,255,.12); }
 .sidebar a.current { background: rgba(255,255,255,.18); border-left: 4px solid var(--gold); padding-left: 12px; font-weight: 700; }
-.nav-badge { font-size: .7rem; min-width: 2.4em; text-align: right; color: var(--gold); }
+/* unit rows: "Unit N" eyebrow + the unit's title */
+.sidebar a.nav-unit { align-items: flex-start; gap: 10px; }
+.sidebar a.nav-unit.current { padding-left: 12px; }
+.nav-unit-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
+.nav-unit-num { font-size: .66rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--gold); opacity: .9; }
+.nav-unit-title { font-size: .82rem; line-height: 1.25; color: #fff; opacity: .92; }
+.nav-unit-title i { font-style: italic; }
+.nav-badge { font-size: .7rem; min-width: 2.4em; text-align: right; color: var(--gold); flex: none; }
+.nav-unit .nav-badge { margin-top: 2px; }
 .nav-badge.done::after { content: " ✓"; }
 .backdrop { display: none; }
 .content {
   margin-left: var(--sidebar-w);
   padding: 28px clamp(14px, 4vw, 48px) 64px;
   max-width: 980px;
+  transition: margin-left .2s ease;
+}
+
+/* desktop: collapsing slides the rail away and reclaims its width */
+@media (min-width: 861px) {
+  body.nav-collapsed .sidebar { transform: translateX(-100%); }
+  body.nav-collapsed .topbar { margin-left: 0; }
+  body.nav-collapsed .content { margin-left: 0; max-width: 1120px; }
 }
 
 @media (max-width: 860px) {
-  .topbar { display: flex; }
-  .sidebar { transform: translateX(-100%); transition: transform .2s ease; width: min(78vw, 300px); }
+  .nav-toggle { display: inline-flex; }
+  .nav-collapse, .topbar-logo { display: none; }
+  .topbar { margin-left: 0; }
+  .sidebar { transform: translateX(-100%); width: min(78vw, 300px); }
   body.nav-open .sidebar { transform: translateX(0); }
   body.nav-open .backdrop { display: block; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 45; }
   .content { margin-left: 0; padding-top: 16px; }
@@ -419,13 +452,6 @@ body.exam-mode .paper-timer { display: inline-flex; }
 /* ---------- sidebar account section ---------- */
 .nav-account { margin-top: auto; }
 .nav-lock { font-size: .8rem; }
-.nav-email { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 100%; display: block; font-size: .82rem; }
-.nav-signout {
-  background: none; border: 0; color: rgba(255,255,255,.85); cursor: pointer;
-  font-size: .85rem; padding: 7px 16px; text-align: left; width: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-}
-.nav-signout:hover { background: rgba(255,255,255,.12); }
 
 /* ---------- account & admin tables ---------- */
 .account-table td, .account-table th { font-size: .9rem; }

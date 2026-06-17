@@ -1,11 +1,12 @@
 'use client';
 import Link from 'next/link';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { exState, subscribe } from '@/lib/progress';
-import { getBrowserSupabase } from '@/lib/supabase/client';
+import AccountMenu from './AccountMenu';
+import Logo from './Logo';
 
-export interface UnitMeta { num: number; exerciseIds: string[] }
+export interface UnitMeta { num: number; title: string; exerciseIds: string[] }
 
 function useUnitProgress(units: UnitMeta[]) {
   const [, setTick] = useState(0);
@@ -22,18 +23,24 @@ function useUnitProgress(units: UnitMeta[]) {
   };
 }
 
-function titleFor(path: string): string {
+const stripHtml = (s: string) =>
+  s.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim();
+
+function titleFor(path: string, units: UnitMeta[]): string {
   if (path === '' || path === '/') return 'Home & progress';
   if (path === '/ipa') return 'Reading the IPA';
   if (path === '/exam') return 'The Official A1 Exam';
   if (path === '/mock') return 'Mock A1 Exam';
   if (path === '/glossary') return 'Glossary';
   const um = path.match(/^\/unit\/(\d+)/);
-  if (um) return `Unit ${um[1]}`;
+  if (um) {
+    const u = units.find(x => x.num === Number(um[1]));
+    return u ? `Unit ${u.num} · ${stripHtml(u.title)}` : `Unit ${um[1]}`;
+  }
   return 'Verbadium';
 }
 
-export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel, owns, freeUnits, userEmail }: {
+export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel, owns, freeUnits, userEmail, isAdmin = false }: {
   units: UnitMeta[];
   courseSlug: string;
   courseLanguage: string;
@@ -41,38 +48,60 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
   owns: boolean;
   freeUnits: number[];
   userEmail: string | null;
+  isAdmin?: boolean;
 }) {
   const pathname = usePathname() ?? '/';
-  const router = useRouter();
   const base = `/courses/${courseSlug}`;
   const sub = pathname.startsWith(base) ? pathname.slice(base.length) : pathname;
-  const pageTitle = titleFor(sub);
-  const [open, setOpen] = useState(false);
+  const pageTitle = titleFor(sub, units);
+  const [open, setOpen] = useState(false);          // mobile drawer
+  const [collapsed, setCollapsed] = useState(false); // desktop rail
   const progress = useUnitProgress(units);
+
+  // restore the desktop collapsed preference
+  useEffect(() => {
+    setCollapsed(localStorage.getItem('vb-nav-collapsed') === '1');
+  }, []);
 
   useEffect(() => { setOpen(false); }, [pathname]);
   useEffect(() => {
     document.body.classList.toggle('nav-open', open);
     return () => document.body.classList.remove('nav-open');
   }, [open]);
+  useEffect(() => {
+    document.body.classList.toggle('nav-collapsed', collapsed);
+    return () => document.body.classList.remove('nav-collapsed');
+  }, [collapsed]);
+
+  function toggleCollapse() {
+    setCollapsed(c => {
+      const next = !c;
+      localStorage.setItem('vb-nav-collapsed', next ? '1' : '0');
+      return next;
+    });
+  }
 
   const cls = (href: string, extra = '') =>
     `${extra}${pathname === href ? ' current' : ''}`.trim();
-
-  async function signOut() {
-    await getBrowserSupabase()?.auth.signOut();
-    router.push('/');
-    router.refresh();
-  }
 
   return (
     <>
       <header className="topbar">
         <button
-          className="nav-toggle" id="navToggle" aria-label="Menu"
+          className="nav-toggle" id="navToggle" aria-label="Open menu"
           aria-expanded={open} onClick={() => setOpen(o => !o)}
         >☰</button>
+        <button
+          className="nav-collapse" aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          aria-pressed={collapsed} onClick={toggleCollapse}
+        >{collapsed ? '»' : '«'}</button>
+        <Link href={base} className="topbar-logo" aria-label="Verbadium home"><Logo size={30} /></Link>
         <span className="topbar-title">{pageTitle}</span>
+        <div className="topbar-right">
+          {userEmail
+            ? <AccountMenu userEmail={userEmail} isAdmin={isAdmin} />
+            : <Link href={`/login?next=${encodeURIComponent(pathname)}`} className="btn btn-primary topbar-login" data-test="nav-login">Log in</Link>}
+        </div>
       </header>
       <nav className="sidebar" id="sidebar" aria-label="Course navigation">
         <div className="nav-brand">
@@ -88,7 +117,10 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
             const p = progress(u);
             return (
               <Link key={u.num} href={`${base}/unit/${u.num}`} className={cls(`${base}/unit/${u.num}`, 'nav-unit')}>
-                <span className="nav-unit-label">Unit {u.num}</span>
+                <span className="nav-unit-text">
+                  <span className="nav-unit-num">Unit {u.num}</span>
+                  <span className="nav-unit-title" dangerouslySetInnerHTML={{ __html: u.title }} />
+                </span>
                 {locked ? (
                   <span className="nav-badge nav-lock" data-unit={u.num} aria-label="Locked">🔒</span>
                 ) : (
@@ -111,16 +143,6 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
         </div>
         <div className="nav-group nav-account">
           <Link href="/">All courses</Link>
-          {userEmail ? (
-            <>
-              <Link href="/account" className={cls('/account')} title={userEmail}>
-                <span className="nav-email">{userEmail}</span>
-              </Link>
-              <button type="button" className="nav-signout" onClick={signOut}>Sign out</button>
-            </>
-          ) : (
-            <Link href={`/login?next=${encodeURIComponent(pathname)}`} data-test="nav-login">Log in</Link>
-          )}
         </div>
       </nav>
       <div className="backdrop" id="backdrop" onClick={() => setOpen(false)} />
