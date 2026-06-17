@@ -1,6 +1,6 @@
-# Català from Scratch — interactive course platform
+# Verbadium — interactive language-course platform
 
-An interactive course platform for learning Catalan, currently offering a
+**Verbadium** is an interactive language-course platform. Its first course is a
 complete beginner's course in Central Catalan (CEFR A1) built to prepare for
 the official A1 exam (*Certificat de nivell inicial de català*).
 **Next.js + TypeScript + React + Supabase + Paddle**, deployable on Vercel.

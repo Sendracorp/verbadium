@@ -17,7 +17,7 @@ import crypto from 'node:crypto';
 const ROOT = path.join(import.meta.dirname, '..');
 const OUT_DIR = path.join(ROOT, 'public', 'audio', 'ca');
 const MANIFEST = path.join(ROOT, 'lib', 'native-audio.json');
-const UA = { 'User-Agent': 'catalan-course-audio/1.0 (sendracorp@protonmail.com)' };
+const UA = { 'User-Agent': 'verbadium-audio/1.0 (sendracorp@protonmail.com)' };
 
 // ─────────────────────── collect course texts ───────────────────────
 
