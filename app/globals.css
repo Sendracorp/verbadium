@@ -632,3 +632,61 @@ body:has(> .site-header) .site-footer { margin-top: auto; }
 .site-footer-links a { color: var(--vb-ink); opacity: .85; font-weight: 500; }
 .site-footer-links a:hover { color: var(--vb-grape); opacity: 1; }
 .content .site-footer { border: 1px solid var(--vb-line); border-radius: 18px; background: var(--vb-surface); }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PHASE 2 — in-course UI on the Verbadium system. Remap the legacy workbook
+   brand vars (red→ink, gold→teal); cool-ify warm tan details. Functional
+   feedback colors (--ok / --bad / --warn) are left untouched.
+   ═══════════════════════════════════════════════════════════════════════ */
+:root {
+  --red: #1F2A30;        /* brand primary: sidebar, labels, primary buttons, heading text */
+  --red-dark: #15232a;
+  --gold: #11B39B;       /* accent: underlines, current-nav, badges, progress */
+  --ink: #1F2A30;
+  --paper: #F3FAF9;
+}
+
+/* headings: teal underline already via --gold; keep ink text */
+.content h2 { border-bottom-color: var(--gold); }
+
+/* unit header → light, airy pastel (matches the hero) instead of a solid band */
+.content .unit-head {
+  background:
+    radial-gradient(85% 130% at 0% 0%, var(--vb-lilac) 0%, transparent 58%),
+    radial-gradient(75% 130% at 100% 0%, var(--vb-mint) 0%, transparent 58%),
+    var(--vb-surface);
+  color: var(--vb-ink); border: 1px solid var(--vb-line); border-radius: 18px;
+}
+.content .unit-head .unit-num { color: #0c7a69; opacity: 1; }
+.content .unit-head h2 { color: var(--vb-ink); }
+
+/* cards / inputs / controls → cool */
+.content .unit-card { border-color: var(--vb-line); background: var(--vb-surface); border-radius: 16px; }
+.content .unit-card:hover { border-color: var(--vb-grape); box-shadow: 0 8px 22px rgba(17,179,155,.16); }
+.content .gap-input, .content .free-text, .content .model-input { border-color: var(--vb-line); background: #fff; }
+.content .gap-input:focus, .content .free-text:focus, .content .model-input:focus { outline-color: var(--vb-grape); border-color: var(--vb-grape); }
+.content .tf-btn, .content .match-item, .content .chip, .content .sm-btn { border-color: var(--vb-line); background: #fff; }
+.content .chip:hover, .content .tf-btn:hover, .content .match-item:hover { border-color: var(--vb-grape); }
+
+/* buttons: primary stays ink (via --red); secondary → clean cool pill */
+.content .btn { border-radius: 999px; }
+.content .btn:not(.btn-primary):not(.btn-danger) { background: #fff; border: 1px solid var(--vb-line); color: var(--vb-ink); }
+.content .btn:not(.btn-primary):not(.btn-danger):hover { background: var(--vb-paper); border-color: var(--vb-grape); }
+
+/* progress bars → teal */
+.content .progress-bar { background: #e3efec; }
+.content .progress-fill { background: linear-gradient(90deg, var(--vb-grape), #6fd3c2); }
+
+/* tables (vocab + glossary) → mint-tinted heads, cool rules */
+.content table th { background: #e7f5f0; color: #0c7a69; border-color: #d4e8e2; }
+.content td { border-color: #eaf1ef; }
+.content tr:nth-child(even) td { background: #f6fbfa; }
+
+/* boxes */
+.content .can-do { background: #ecf8f3; border-left-color: var(--vb-grape); }
+.content .can-do b { color: #0c7a69; }
+.content .exam { background: #f1f8f6; border-color: #d6e8e2; }
+.content .ex .label { background: var(--vb-ink); }
+
+/* IPA quick-reference tab/drawer accent */
+#ipaTab { background: var(--vb-ink) !important; }
