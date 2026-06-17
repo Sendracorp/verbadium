@@ -30,12 +30,13 @@ function titleFor(path: string): string {
   if (path === '/glossary') return 'Glossary';
   const um = path.match(/^\/unit\/(\d+)/);
   if (um) return `Unit ${um[1]}`;
-  return 'Català from Scratch';
+  return 'Verbadium';
 }
 
-export default function Sidebar({ units, courseSlug, courseLevel, owns, freeUnits, userEmail }: {
+export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel, owns, freeUnits, userEmail }: {
   units: UnitMeta[];
   courseSlug: string;
+  courseLanguage: string;
   courseLevel: string;
   owns: boolean;
   freeUnits: number[];
@@ -75,7 +76,7 @@ export default function Sidebar({ units, courseSlug, courseLevel, owns, freeUnit
       </header>
       <nav className="sidebar" id="sidebar" aria-label="Course navigation">
         <div className="nav-brand">
-          <Link href={base}>Català<br /><span>from Scratch · {courseLevel}</span></Link>
+          <Link href={base}>Verbadium<br /><span>{courseLanguage} · {courseLevel}</span></Link>
         </div>
         <div className="nav-group">
           <Link href={base} className={cls(base)}>Home &amp; progress</Link>

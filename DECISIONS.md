@@ -166,10 +166,19 @@ Decisions made while building the site, and why.
     when empty (only `legalName` + `email` are needed; legalName is still a
     placeholder to set before launch). Added `/pricing`, `/terms`, `/refunds`,
     `/privacy`, `/contact`, linked from a `SiteFooter` on every public page and
-    the course layout. Content follows common practice for EU digital-course
-    sellers: courses are non-refundable once accessed (relying on the EU
-    digital-content withdrawal waiver consented to at checkout), with
-    exceptions for technical failure, duplicate charges, or never accessing
-    beyond the free preview. No money-back guarantee — the course is short
-    enough to finish inside any refund window, so a guarantee would invite
-    finish-then-refund abuse. Not legal advice — review before launch.
+    the course layout. Refund policy is **progress-gated**: a full refund
+    within 14 days as long as the buyer hasn't started the paid material (no
+    exercises/mock attempts beyond the free Unit 1 preview — verifiable from
+    server-side progress), non-refundable once they begin or after 14 days.
+    This is the abuse-proof middle ground (can't finish-then-refund because any
+    real usage of paid content voids it) while still being customer-friendly
+    for genuine "changed my mind, haven't used it" cases. Backed by the EU
+    digital-content withdrawal waiver consented to at checkout. Not legal
+    advice — review before launch.
+
+26. **Platform rebrand → Verbadium.** Bought verbadium.com; the platform
+    (header, footer, catalog, metadata, legal pages, email sender) is now
+    "Verbadium" via `SITE.brand`, while each course keeps its own name
+    ("Catalan from Scratch (A1)" in `lib/courses.ts`). The in-course sidebar
+    shows the Verbadium brand + course label (language · level). Course content
+    is untouched.

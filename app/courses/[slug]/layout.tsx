@@ -27,6 +27,7 @@ export default async function CourseLayout({ children, params }: {
       <Sidebar
         units={units}
         courseSlug={slug}
+        courseLanguage={meta.language}
         courseLevel={meta.level}
         owns={access.owns}
         freeUnits={meta.freeUnits}

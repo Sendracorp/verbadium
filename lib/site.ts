@@ -5,7 +5,7 @@
    them; fill them in if you'd rather show them. */
 
 export const SITE = {
-  brand: 'Català from Scratch',
+  brand: 'Verbadium',
   legalName: 'SENDRACORP, SLU',               // registered legal name
   email: 'support@verbadium.com',             // required — buyer contact
   phone: '',                                  // optional — shown only if set

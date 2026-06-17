@@ -7,7 +7,7 @@ export default async function SiteHeader() {
   const user = await getSessionUser();
   return (
     <header className="site-header">
-      <Link href="/" className="site-brand">Català <span>from Scratch</span></Link>
+      <Link href="/" className="site-brand">Verbadium</Link>
       <nav className="site-nav">
         <Link href="/">Courses</Link>
         {user ? (

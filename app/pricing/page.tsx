@@ -28,7 +28,7 @@ const FAQ: { q: string; a: React.ReactNode }[] = [
   },
   {
     q: 'Can I get a refund?',
-    a: <>Courses are digital content with immediate lifetime access, so they’re non-refundable once accessed — please use the free preview before buying. See our <Link href="/refunds">refund policy</Link> for the exceptions we do cover.</>,
+    a: <>Yes — within 14 days, as long as you haven’t started the paid material (your account shows no progress beyond the free Unit 1 preview). Once you begin the paid units it’s non-refundable. See our <Link href="/refunds">refund policy</Link>.</>,
   },
 ];
 

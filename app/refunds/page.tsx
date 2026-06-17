@@ -9,34 +9,37 @@ export default function RefundsPage() {
   return (
     <LegalPage title="Refund Policy" updated={SITE.lastUpdated}>
       <p>
-        This policy explains our approach to refunds for purchases from {SITE.brand}, operated by{' '}
-        {SITE.legalName}.
+        This policy explains refunds for course purchases on {SITE.brand}, operated by {SITE.legalName}.
       </p>
 
-      <h2>Digital courses are non-refundable once accessed</h2>
+      <h2>14-day refund if you haven’t started the paid course</h2>
       <p>
-        Our courses are digital content delivered online, giving you immediate, lifetime access to all
-        the material. Because of this, purchases are <strong>non-refundable once you have accessed the
-        paid course content</strong>. We encourage you to use the free preview before buying — the
-        first unit of every course, the IPA guide and the exam information are available free, with no
-        account required.
+        Within <strong>14 days</strong> of your purchase you can request a full refund, as long as you
+        <strong> haven’t started working through the paid material</strong> — that is, your account
+        shows no completed or attempted exercises and no mock-exam attempts beyond the free Unit 1
+        preview. Because your progress is saved to your account, we can verify this quickly. The free
+        preview (Unit 1, the IPA guide and the exam information) doesn’t count against you — try it
+        before you buy.
+      </p>
+      <p>
+        Once you’ve begun the paid units, or after 14 days, the course is <strong>non-refundable</strong>,
+        since you keep full lifetime access to all of its content.
       </p>
 
       <h2>Your right of withdrawal (EU consumers)</h2>
       <p>
         EU consumers normally have a 14-day right of withdrawal for online purchases. For digital
-        content, this right ends once supply has begun with your prior consent. At checkout you agree
-        to immediate access and acknowledge that, once the paid content is made available to you, the
-        statutory right of withdrawal no longer applies. Until you access the paid content, you may
-        still request cancellation.
+        content, this right ends once supply has begun with your prior consent: at checkout you agree
+        to immediate access and acknowledge that, once you start the paid content, the statutory right
+        of withdrawal no longer applies. Our 14-day "not started" refund above is offered voluntarily
+        on top of that.
       </p>
 
-      <h2>Exceptions — when we will help</h2>
-      <p>We’ll review a refund request in these cases:</p>
+      <h2>Exceptions — when we’ll always help</h2>
+      <p>Regardless of the above, contact us if:</p>
       <ul>
-        <li>A technical problem that prevents you from using the course and that we’re unable to resolve.</li>
-        <li>A duplicate or accidental charge.</li>
-        <li>You bought the course but never accessed anything beyond the free preview.</li>
+        <li>A technical problem prevents you from using the course and we’re unable to resolve it.</li>
+        <li>You were charged twice or by accident.</li>
       </ul>
 
       <h2>How to contact us</h2>
