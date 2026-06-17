@@ -1,20 +1,24 @@
 import type { Metadata } from 'next';
+import Link from 'next/link';
 import { notFound, redirect } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import UsersTable from '@/components/admin/UsersTable';
+import AdminUserSearch from '@/components/admin/AdminUserSearch';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
 import { getAdminSupabase } from '@/lib/supabase/admin';
 import { COURSES } from '@/lib/courses';
 import { priceIdFor } from '@/lib/paddle';
 import { resolveCoursePrice } from '@/lib/pricing';
-import { listUsers } from '@/lib/admin';
+import { listUsers, getOverviewStats } from '@/lib/admin';
 
 export const metadata: Metadata = { title: 'Admin' };
 export const dynamic = 'force-dynamic';
 
 /* Restricted to profiles.is_admin. Cross-user reads use the service-role client. */
-export default async function AdminPage() {
+export default async function AdminPage({ searchParams }: {
+  searchParams: Promise<{ q?: string; page?: string }>;
+}) {
   const user = await getSessionUser();
   if (!user) redirect('/login?next=/admin');
 
@@ -36,24 +40,26 @@ export default async function AdminPage() {
     );
   }
 
-  const users = await listUsers();
-  const paidCount = users.reduce((n, u) => n + u.purchases, 0);
-  const grantCount = users.reduce((n, u) => n + u.grants, 0);
-  const resetCount = users.reduce((n, u) => n + u.resets, 0);
+  const sp = await searchParams;
+  const q = (sp.q ?? '').toString();
+  const page = Math.max(0, parseInt((sp.page ?? '0').toString(), 10) || 0);
+  const [stats, usersPage, pricing] = await Promise.all([
+    getOverviewStats(),
+    listUsers({ q, page }),
+    Promise.all(COURSES.map(async meta => ({
+      meta, priceId: priceIdFor(meta.slug), price: await resolveCoursePrice(meta.slug),
+    }))),
+  ]);
 
-  // gross revenue from purchase amounts
-  const { data: paid } = await admin.from('purchases')
-    .select('amount_cents, currency').eq('status', 'paid');
-  const byCur = new Map<string, number>();
-  for (const p of paid ?? []) {
-    const cur = (p.currency ?? 'USD').toUpperCase();
-    byCur.set(cur, (byCur.get(cur) ?? 0) + (p.amount_cents ?? 0));
-  }
-  const revenue = [...byCur.entries()].map(([c, v]) => `${(v / 100).toFixed(2)} ${c}`).join(' + ') || '0';
-
-  const pricing = await Promise.all(COURSES.map(async meta => ({
-    meta, priceId: priceIdFor(meta.slug), price: await resolveCoursePrice(meta.slug),
-  })));
+  const { rows, total, pageSize } = usersPage;
+  const start = total === 0 ? 0 : page * pageSize + 1;
+  const end = Math.min(total, (page + 1) * pageSize);
+  const mkHref = (p: number) => {
+    const params = new URLSearchParams();
+    if (q) params.set('q', q);
+    if (p > 0) params.set('page', String(p));
+    return `/admin${params.toString() ? `?${params}` : ''}`;
+  };
 
   return (
     <>
@@ -62,18 +68,30 @@ export default async function AdminPage() {
         <div className="card">
           <h1>Admin</h1>
           <div className="admin-stats">
-            <div><b>{users.length}</b><span>registered students</span></div>
-            <div><b>{paidCount}</b><span>paid purchases</span></div>
-            <div><b>{grantCount}</b><span>comp grants</span></div>
-            <div><b>{resetCount}</b><span>progress resets</span></div>
-            <div><b>{revenue}</b><span>gross revenue (before fees)</span></div>
+            <div><b>{stats.users}</b><span>registered students</span></div>
+            <div><b>{stats.paid}</b><span>paid purchases</span></div>
+            <div><b>{stats.grants}</b><span>comp grants</span></div>
+            <div><b>{stats.resets}</b><span>progress resets</span></div>
+            <div><b>{stats.revenue}</b><span>gross revenue (before fees)</span></div>
           </div>
           <p className="note">Finance detail (fees, payouts, taxes) lives in the Paddle dashboard.</p>
         </div>
 
         <div className="card">
           <h2>Users</h2>
-          <UsersTable users={users} />
+          <AdminUserSearch total={stats.users} />
+          <UsersTable users={rows} />
+          <div className="admin-pager">
+            <span className="muted">{start}–{end} of {total}</span>
+            <span className="admin-pager-btns">
+              {page > 0
+                ? <Link href={mkHref(page - 1)} className="btn">← Prev</Link>
+                : <span className="btn admin-pager-disabled">← Prev</span>}
+              {end < total
+                ? <Link href={mkHref(page + 1)} className="btn">Next →</Link>
+                : <span className="btn admin-pager-disabled">Next →</span>}
+            </span>
+          </div>
         </div>
 
         <div className="card" data-test="admin-pricing">

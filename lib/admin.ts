@@ -17,12 +17,40 @@ export interface UserRow {
   last_active: string | null;
 }
 
-export async function listUsers(): Promise<UserRow[]> {
+export interface UsersPage { rows: UserRow[]; total: number; page: number; pageSize: number }
+
+export async function listUsers({ q = '', page = 0, pageSize = 25 }: {
+  q?: string; page?: number; pageSize?: number;
+} = {}): Promise<UsersPage> {
   const a = getAdminSupabase();
-  if (!a) return [];
-  const { data } = await a.from('admin_user_overview').select('*')
-    .order('created_at', { ascending: false }).limit(1000);
-  return (data ?? []) as UserRow[];
+  if (!a) return { rows: [], total: 0, page, pageSize };
+  const from = page * pageSize;
+  let query = a.from('admin_user_overview').select('*', { count: 'exact' });
+  if (q.trim()) query = query.ilike('email', `%${q.trim()}%`);
+  const { data, count } = await query
+    .order('created_at', { ascending: false }).range(from, from + pageSize - 1);
+  return { rows: (data ?? []) as UserRow[], total: count ?? 0, page, pageSize };
+}
+
+export interface OverviewStats { users: number; paid: number; grants: number; resets: number; revenue: string }
+
+export async function getOverviewStats(): Promise<OverviewStats> {
+  const a = getAdminSupabase();
+  if (!a) return { users: 0, paid: 0, grants: 0, resets: 0, revenue: '0' };
+  const [users, paid, grants, resets, paidRows] = await Promise.all([
+    a.from('profiles').select('id', { count: 'exact', head: true }),
+    a.from('purchases').select('id', { count: 'exact', head: true }).eq('status', 'paid'),
+    a.from('access_grants').select('id', { count: 'exact', head: true }).is('revoked_at', null),
+    a.from('progress_resets').select('id', { count: 'exact', head: true }),
+    a.from('purchases').select('amount_cents, currency').eq('status', 'paid'),
+  ]);
+  const byCur = new Map<string, number>();
+  for (const p of (paidRows.data ?? []) as { amount_cents: number | null; currency: string | null }[]) {
+    const c = (p.currency ?? 'USD').toUpperCase();
+    byCur.set(c, (byCur.get(c) ?? 0) + (p.amount_cents ?? 0));
+  }
+  const revenue = [...byCur.entries()].map(([c, v]) => `${(v / 100).toFixed(2)} ${c}`).join(' + ') || '0';
+  return { users: users.count ?? 0, paid: paid.count ?? 0, grants: grants.count ?? 0, resets: resets.count ?? 0, revenue };
 }
 
 export interface CourseProgress { course_slug: string; passed: number; attempted: number; total: number }

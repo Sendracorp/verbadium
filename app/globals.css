@@ -739,3 +739,8 @@ body:has(> .site-header) .site-footer { margin-top: auto; }
 .admin-list li { margin: 3px 0; }
 .account-table .btn { padding: 5px 12px; font-size: .82rem; }
 .account-table form { margin: 0; }
+
+.admin-pager { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 14px; font-size: .88rem; flex-wrap: wrap; }
+.admin-pager-btns { display: flex; gap: 8px; }
+.admin-pager .btn { padding: 7px 14px; }
+.admin-pager-disabled { opacity: .4; pointer-events: none; }
