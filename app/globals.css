@@ -36,14 +36,23 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
 }
 
 /* ---------- layout ---------- */
-/* ═══ course view: floating glass nav panel + shared site header ═══
-   The marketing SiteHeader floats centered on top; the course menu is a
-   detached frosted-glass card on the left; content sits on the paper bg. */
-:root { --course-nav-w: 256px; --course-top: 96px; }
+/* ═══ course view: centered shell (nav + content) under the shared header ═══
+   The whole course area is a centered container that lines up with the
+   marketing SiteHeader; the menu is a sticky frosted-glass card in the left
+   column, the content sits in the right column on the paper background. */
+:root { --course-nav-w: 256px; --course-max: 1140px; --course-top: 92px; }
+
+.course-shell {
+  width: min(var(--course-max), calc(100% - 32px));
+  margin: 0 auto;
+  display: grid; grid-template-columns: var(--course-nav-w) 1fr; gap: 28px;
+  align-items: start;
+}
 
 .course-nav {
-  position: fixed; left: 16px; top: var(--course-top); bottom: 16px; width: var(--course-nav-w);
-  z-index: 40; display: flex; flex-direction: column;
+  position: sticky; top: var(--course-top); align-self: start;
+  max-height: calc(100vh - var(--course-top) - 16px);
+  display: flex; flex-direction: column;
   background:
     linear-gradient(165deg, rgba(191,233,216,.42), rgba(187,217,242,.34) 55%, rgba(203,206,248,.34)),
     rgba(255,255,255,.72);
@@ -53,17 +62,31 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
   border-radius: 22px; padding: 8px 8px 4px;
   transition: transform .24s ease, opacity .2s ease;
 }
-.course-nav-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 6px 8px; }
+.course-nav-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 6px 6px 8px; }
 .course-nav-brand { display: flex; flex-direction: column; line-height: 1.05; text-decoration: none; padding: 4px 6px; border-radius: 12px; }
 .course-nav-brand:hover { background: rgba(255,255,255,.55); text-decoration: none; }
 .course-nav-brand .course-name { font-family: var(--font-display), system-ui, sans-serif; font-weight: 800; font-size: 1.02rem; color: var(--vb-ink); letter-spacing: -.02em; }
 .course-nav-brand .course-level { font-size: .64rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--vb-grape); margin-top: 2px; }
-.course-nav-collapse, .course-nav-reopen, .course-nav-fab {
-  background: rgba(255,255,255,.8); border: 1px solid rgba(255,255,255,.9); color: var(--vb-ink);
-  font-size: 1rem; line-height: 1; cursor: pointer; border-radius: 11px; padding: 7px 10px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,.7); transition: background .15s, border-color .15s, transform .15s;
+
+/* toggles: clearly-visible teal-tinted control (collapse) + logo-matched pill (reopen) */
+.course-nav-collapse {
+  display: inline-flex; align-items: center; justify-content: center; flex: none;
+  width: 34px; height: 34px; cursor: pointer; font-size: 1.1rem; line-height: 1;
+  color: #0c7a69; background: var(--vb-accent-soft); border: 1px solid rgba(17,179,155,.28);
+  border-radius: 11px; transition: background .15s, border-color .15s;
 }
-.course-nav-collapse:hover, .course-nav-reopen:hover, .course-nav-fab:hover { border-color: var(--vb-grape); background: #fff; }
+.course-nav-collapse:hover { background: rgba(17,179,155,.22); border-color: var(--vb-grape); }
+.course-nav-mark { display: none; align-items: center; padding: 2px; }
+.course-nav-fab {
+  align-items: center; gap: 8px; cursor: pointer; color: var(--vb-ink); font-weight: 700; font-size: 1.15rem;
+  background:
+    linear-gradient(120deg, rgba(191,233,216,.5), rgba(187,217,242,.42) 55%, rgba(203,206,248,.42)),
+    rgba(255,255,255,.78);
+  backdrop-filter: saturate(1.7) blur(16px);
+  border: 1px solid rgba(255,255,255,.9); border-radius: 999px; padding: 11px 13px;
+  box-shadow: var(--vb-shadow-lg); transition: transform .15s, box-shadow .15s;
+}
+.course-nav-fab:hover { transform: translateY(-1px); }
 
 .course-nav-scroll { overflow-y: auto; padding: 0 2px 8px; scrollbar-width: thin; }
 .course-nav .nav-group { padding: 7px 0; border-top: 1px solid rgba(31,42,48,.08); }
@@ -89,33 +112,35 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
 .nav-badge.nav-lock { background: rgba(31,42,48,.07); color: rgba(31,42,48,.5); padding: 3px 7px; }
 .nav-unit .nav-badge { margin-top: 1px; }
 
-/* floating reopen (desktop) + menu FAB (mobile): hidden unless needed */
-.course-nav-reopen { position: fixed; left: 16px; top: var(--course-top); z-index: 41; display: none; }
-.course-nav-fab { position: fixed; right: 16px; bottom: 18px; z-index: 41; display: none; font-size: 1.15rem; padding: 11px 13px; box-shadow: var(--vb-shadow-lg); }
+/* menu FAB (mobile only) */
+.course-nav-fab { position: fixed; right: 16px; bottom: 18px; z-index: 41; display: none; }
 
 .backdrop { display: none; }
-.content {
-  margin-left: calc(32px + var(--course-nav-w));
-  padding: 18px clamp(14px, 3vw, 40px) 64px;
-  max-width: 1040px;
-  transition: margin-left .2s ease;
-}
+.content { min-width: 0; padding: 18px 0 56px; }
 
-/* desktop: collapsing slides the panel away and reclaims its width */
+/* desktop: collapsing shrinks the nav to a slim rail (logo + expand toggle),
+   so the toggle stays visible in place and content keeps (almost) full width */
 @media (min-width: 861px) {
-  body.nav-collapsed .course-nav { transform: translateX(calc(-100% - 24px)); opacity: 0; pointer-events: none; }
-  body.nav-collapsed .content { margin-left: 0; max-width: 1120px; }
-  body.nav-collapsed .course-nav-reopen { display: inline-flex; }
+  body.nav-collapsed .course-shell { grid-template-columns: 58px 1fr; }
+  body.nav-collapsed .course-nav { padding: 8px 6px; }
+  body.nav-collapsed .course-nav-head { flex-direction: column; align-items: center; gap: 10px; padding: 4px 0; }
+  body.nav-collapsed .course-nav-brand,
+  body.nav-collapsed .course-nav-scroll { display: none; }
+  body.nav-collapsed .course-nav-mark { display: inline-flex; }
 }
 
 @media (max-width: 860px) {
+  .course-shell { display: block; width: auto; margin: 0; }
   /* full-height left drawer that overlays everything (incl. the floating header) */
-  .course-nav { left: 8px; top: 8px; bottom: 8px; width: min(82vw, 320px); z-index: 70; transform: translateX(calc(-100% - 24px)); }
+  .course-nav {
+    position: fixed; left: 8px; top: 8px; bottom: 8px; width: min(82vw, 320px); max-height: none;
+    z-index: 70; transform: translateX(calc(-100% - 24px));
+  }
   body.nav-open .course-nav { transform: none; }
   .course-nav-collapse { display: none; }
   .course-nav-fab { display: inline-flex; z-index: 55; }
   body.nav-open .backdrop { display: block; position: fixed; inset: 0; background: rgba(15,25,30,.45); z-index: 65; }
-  .content { margin-left: 0; padding-top: 8px; }
+  .content { padding: 8px 14px 48px; }
 }
 
 /* ---------- headings & course content ---------- */

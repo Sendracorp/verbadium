@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { exState, subscribe } from '@/lib/progress';
+import Logo from './Logo';
 
 export interface UnitMeta { num: number; title: string; exerciseIds: string[] }
 
@@ -66,11 +67,6 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
         id="navToggle" className="course-nav-fab" aria-label="Course menu"
         aria-expanded={open} onClick={() => setOpen(o => !o)}
       >☰</button>
-      {/* desktop: reappear after collapsing */}
-      <button
-        className="course-nav-reopen" aria-label="Show course menu"
-        onClick={() => collapse(false)}
-      >»</button>
 
       <nav className="course-nav" id="sidebar" aria-label="Course navigation">
         <div className="course-nav-head">
@@ -78,10 +74,13 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
             <span className="course-name">{courseLanguage}</span>
             <span className="course-level">{courseLevel}</span>
           </Link>
+          <Link href={base} className="course-nav-mark" aria-label="Verbadium home"><Logo variant="mark" size={30} /></Link>
           <button
-            className="course-nav-collapse" aria-label="Collapse course menu"
-            onClick={() => collapse(true)}
-          >«</button>
+            className="course-nav-collapse"
+            aria-label={collapsed ? 'Expand course menu' : 'Collapse course menu'}
+            aria-pressed={collapsed}
+            onClick={() => collapse(!collapsed)}
+          >{collapsed ? '»' : '«'}</button>
         </div>
 
         <div className="course-nav-scroll">

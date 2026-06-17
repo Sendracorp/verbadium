@@ -26,19 +26,19 @@ export default async function CourseLayout({ children, params }: {
   return (
     <ProgressProvider userId={access.user?.id ?? null} courseSlug={slug} initial={initial}>
       <SiteHeader />
-      <Sidebar
-        units={units}
-        courseSlug={slug}
-        courseLanguage={meta.language}
-        courseLevel={meta.level}
-        owns={access.owns}
-        freeUnits={meta.freeUnits}
-        userEmail={access.user?.email ?? null}
-      />
-      <main className="content">
-        {children}
-        <SiteFooter />
-      </main>
+      <div className="course-shell">
+        <Sidebar
+          units={units}
+          courseSlug={slug}
+          courseLanguage={meta.language}
+          courseLevel={meta.level}
+          owns={access.owns}
+          freeUnits={meta.freeUnits}
+          userEmail={access.user?.email ?? null}
+        />
+        <main className="content">{children}</main>
+      </div>
+      <SiteFooter />
       <IpaDrawer html={course.ipaCheatHtml} />
       <CharStrip />
     </ProgressProvider>
