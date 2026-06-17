@@ -8,7 +8,7 @@ export default async function SiteHeader() {
   const user = await getSessionUser();
   return (
     <header className="site-header">
-      <Link href="/" className="site-brand" aria-label="Verbadium home"><Logo /></Link>
+      <Link href="/" className="site-brand vb-chip" aria-label="Verbadium home"><Logo size={40} /></Link>
       <HeaderNav userEmail={user?.email ?? null} />
     </header>
   );

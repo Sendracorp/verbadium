@@ -496,28 +496,51 @@ h1, h2, h3, h4,
 .vb-mark { display: block; border-radius: 11px; }
 .vb-logo-word { font-weight: 800; font-size: 1.32rem; color: var(--vb-ink); letter-spacing: -0.03em; }
 
-/* ---- site header: floating full-pill nav (detached, blurred, tinted) ---- */
+/* ---- site header: split floating islands (logo · centered nav · actions) ---- */
 .site-header {
-  position: sticky; top: 16px; z-index: 60;
-  width: min(980px, calc(100% - 28px)); margin: 16px auto 0;
-  display: flex; justify-content: space-between; align-items: center; gap: 14px;
-  padding: 7px 7px 7px 18px; border-radius: 999px; color: var(--vb-ink);
+  position: sticky; top: 18px; z-index: 60;
+  width: min(1140px, calc(100% - 32px)); margin: 18px auto 0;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 14px;
+  background: transparent; border: 0; box-shadow: none; padding: 0; color: var(--vb-ink);
+  transition: top .2s ease;
+}
+/* the three floating glass pills */
+.site-brand.vb-chip, .site-nav, .site-actions {
   background:
-    linear-gradient(115deg, rgba(191,233,216,.45), rgba(187,217,242,.40) 55%, rgba(203,206,248,.40)),
-    rgba(255,255,255,.66);
+    linear-gradient(120deg, rgba(191,233,216,.5), rgba(187,217,242,.42) 55%, rgba(203,206,248,.42)),
+    rgba(255,255,255,.62);
   backdrop-filter: saturate(1.7) blur(18px);
   border: 1px solid rgba(255,255,255,.85);
-  box-shadow: 0 14px 40px rgba(31,42,48,.14), inset 0 1px 0 rgba(255,255,255,.7);
+  box-shadow: 0 14px 38px rgba(31,42,48,.13), inset 0 1px 0 rgba(255,255,255,.7);
+  border-radius: 999px;
+  transition: box-shadow .2s ease, transform .2s ease;
 }
-.site-nav { display: flex; align-items: center; gap: 4px; }
-.site-nav a { padding: 8px 14px; border-radius: 999px; font-weight: 600; color: var(--vb-ink); opacity: .78; transition: background .15s, opacity .15s; }
-.site-nav a:hover { background: var(--vb-accent-soft); opacity: 1; color: var(--vb-ink); text-decoration: none; }
-.site-nav a.active { background: var(--vb-accent-soft); color: #0c7a69; opacity: 1; }
-.site-nav .site-cta.active { color: #fff; }
+.site-brand.vb-chip { justify-self: start; display: inline-flex; padding: 8px 20px 8px 9px; color: var(--vb-ink); text-transform: none; }
+.site-nav { justify-self: center; display: flex; align-items: center; gap: 3px; padding: 7px; }
+.site-actions { justify-self: end; display: flex; align-items: center; gap: 4px; padding: 6px; }
+.site-nav a, .site-actions a, .site-actions .site-signout {
+  padding: 9px 15px; border-radius: 999px; font-weight: 600; color: var(--vb-ink); opacity: .8;
+  transition: background .15s, opacity .15s; border: 0; background: transparent; cursor: pointer;
+}
+.site-nav a:hover, .site-actions a:hover, .site-actions .site-signout:hover { background: var(--vb-accent-soft); opacity: 1; color: var(--vb-ink); text-decoration: none; }
+.site-nav a.active, .site-actions a.active { background: var(--vb-accent-soft); color: #0c7a69; opacity: 1; }
+
+/* scroll-shrink: pills tuck up + tighten when the page is scrolled */
+.site-header.scrolled { top: 8px; }
+.site-header.scrolled .vb-logo-word { font-size: 1.18rem; }
+.site-header.scrolled .site-brand.vb-chip,
+.site-header.scrolled .site-nav,
+.site-header.scrolled .site-actions { box-shadow: 0 8px 22px rgba(31,42,48,.17); }
+
+@media (max-width: 760px) {
+  .site-header { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; top: 10px; margin-top: 10px; }
+  .site-brand.vb-chip, .site-nav, .site-actions { justify-self: auto; }
+  .site-nav a, .site-actions a, .site-actions .site-signout { padding: 8px 12px; }
+}
 .site-header .site-brand { display: inline-flex; color: var(--vb-ink); text-transform: none; }
 /* neutralize the legacy gold/small/uppercase .site-brand span styling for the
    wordmark; text-transform:none also un-caps the inherited SVG tile text (Vb) */
-.site-header .vb-logo-word { color: var(--vb-ink); font-weight: 800; font-size: 1.32rem; letter-spacing: -0.03em; text-transform: none; }
+.site-header .vb-logo-word { color: var(--vb-ink); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; text-transform: none; transition: font-size .2s ease; }
 .site-header .vb-mark text { text-transform: none; }
 
 /* sticky footer on platform pages (they have a top-level .site-header); the
