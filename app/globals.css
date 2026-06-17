@@ -525,9 +525,11 @@ h1, h2, h3, h4,
 .site-nav a:hover, .site-actions a:hover, .site-actions .site-signout:hover { background: var(--vb-accent-soft); opacity: 1; color: var(--vb-ink); text-decoration: none; }
 .site-nav a.active, .site-actions a.active { background: var(--vb-accent-soft); color: #0c7a69; opacity: 1; }
 
-/* scroll-shrink: pills tuck up + tighten when the page is scrolled */
+/* on scroll the logo island drops the wordmark and becomes a compact mark-only
+   badge (so it doesn't crowd the content it floats over); pills tuck up */
 .site-header.scrolled { top: 8px; }
-.site-header.scrolled .vb-logo-word { font-size: 1.18rem; }
+.site-header.scrolled .vb-logo-word { display: none; }
+.site-header.scrolled .site-brand.vb-chip { padding: 7px; }
 .site-header.scrolled .site-brand.vb-chip,
 .site-header.scrolled .site-nav,
 .site-header.scrolled .site-actions { box-shadow: 0 8px 22px rgba(31,42,48,.17); }
@@ -540,8 +542,10 @@ h1, h2, h3, h4,
 .site-header .site-brand { display: inline-flex; color: var(--vb-ink); text-transform: none; }
 /* neutralize the legacy gold/small/uppercase .site-brand span styling for the
    wordmark; text-transform:none also un-caps the inherited SVG tile text (Vb) */
-.site-header .vb-logo-word { color: var(--vb-ink); font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; text-transform: none; transition: font-size .2s ease; }
+.site-header .vb-logo-word { color: var(--vb-ink); font-weight: 800; font-size: 1.55rem; letter-spacing: -0.03em; text-transform: none; }
 .site-header .vb-mark text { text-transform: none; }
+/* larger mark in the header (overrides the SVG's intrinsic size), both states */
+.site-header .vb-mark { width: 48px; height: 48px; }
 
 /* sticky footer on platform pages (they have a top-level .site-header); the
    course layout has no body > .site-header, so it's untouched */
