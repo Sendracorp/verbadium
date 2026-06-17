@@ -501,9 +501,11 @@ h1, h2, h3, h4,
   border-bottom: 1px solid var(--vb-line); color: var(--vb-ink);
   padding: 13px clamp(16px, 4vw, 48px);
 }
-.site-header .site-brand { display: inline-flex; color: var(--vb-ink); }
-/* neutralize the legacy gold/small .site-brand span styling for the wordmark */
-.site-header .vb-logo-word { color: var(--vb-ink); font-weight: 800; font-size: 1.32rem; letter-spacing: -0.03em; }
+.site-header .site-brand { display: inline-flex; color: var(--vb-ink); text-transform: none; }
+/* neutralize the legacy gold/small/uppercase .site-brand span styling for the
+   wordmark; text-transform:none also un-caps the inherited SVG tile text (Vb) */
+.site-header .vb-logo-word { color: var(--vb-ink); font-weight: 800; font-size: 1.32rem; letter-spacing: -0.03em; text-transform: none; }
+.site-header .vb-mark text { text-transform: none; }
 
 /* sticky footer on platform pages (they have a top-level .site-header); the
    course layout has no body > .site-header, so it's untouched */

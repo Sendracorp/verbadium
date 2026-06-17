@@ -27,10 +27,10 @@ export default async function CatalogPage() {
       <main className="site-main">
         <div className="hero">
           <div className="badge">INTERACTIVE LANGUAGE COURSES</div>
-          <h1>Learn Catalan, properly</h1>
+          <h1>Learn languages, properly</h1>
           <p className="hero-sub">
-            Exam-focused courses for English-speaking adults — full IPA pronunciation,
-            audio, auto-marked exercises and mock exams.
+            Exam-focused courses with full IPA pronunciation, native-speaker audio,
+            auto-marked exercises and real mock exams.
           </p>
         </div>
         <div className="catalog-grid" data-test="catalog">

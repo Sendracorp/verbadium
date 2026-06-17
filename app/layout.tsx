@@ -9,7 +9,7 @@ const body = Hanken_Grotesk({ subsets: ['latin'], variable: '--font-body', displ
 
 export const metadata: Metadata = {
   title: { default: 'Verbadium — interactive language courses', template: '%s — Verbadium' },
-  description: 'Verbadium — interactive language courses for English-speaking adults: full IPA, native-speaker audio, mock exams and progress tracking. First course: Catalan A1.',
+  description: 'Verbadium — interactive language courses: full IPA, native-speaker audio, auto-marked exercises, mock exams and progress tracking. First course: Catalan A1.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
