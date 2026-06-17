@@ -187,9 +187,9 @@ test.describe('course content (owner)', () => {
     test.use({ viewport: { width: 380, height: 740 } });
     test('unit page: hamburger nav, no horizontal scroll, exercise works', async ({ ownerPage: page }) => {
       await page.goto(`${COURSE}/unit/3`);
-      await expect(page.locator('.topbar')).toBeVisible();
+      await expect(page.locator('#navToggle')).toBeVisible();   // floating course-menu button
       await page.click('#navToggle');
-      await expect.poll(() => page.locator('#sidebar').evaluate(el => el.getBoundingClientRect().left === 0)).toBe(true);
+      await expect.poll(() => page.locator('#sidebar').evaluate(el => el.getBoundingClientRect().left >= 0 && el.getBoundingClientRect().left < 60)).toBe(true);
       await page.locator('#backdrop').click({ position: { x: 370, y: 500 } });
       const overflow = await page.evaluate(() =>
         document.documentElement.scrollWidth - document.documentElement.clientWidth);

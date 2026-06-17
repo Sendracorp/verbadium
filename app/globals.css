@@ -36,82 +36,86 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
 }
 
 /* ---------- layout ---------- */
-/* Universal course-view topbar: light glass bar over the content area, hosts
-   the sidebar toggles + the account avatar (consistent with the rest of site). */
-.topbar {
-  display: flex; align-items: center; gap: 12px;
-  position: sticky; top: 0; z-index: 40;
-  margin-left: var(--sidebar-w);
-  padding: 9px clamp(14px, 4vw, 48px);
-  background: rgba(243,250,249,.85);
-  backdrop-filter: saturate(1.6) blur(12px);
-  border-bottom: 1px solid var(--vb-line);
-  transition: margin-left .2s ease;
-}
-.topbar-title { flex: 1 1 auto; min-width: 0; font-weight: 700; font-size: .98rem; color: var(--vb-ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.topbar-right { flex: none; display: flex; align-items: center; }
-.topbar-login { padding: 7px 16px; }
-.nav-toggle, .nav-collapse {
-  background: #fff; border: 1px solid var(--vb-line); color: var(--vb-ink);
-  font-size: 1.05rem; line-height: 1; border-radius: 10px;
-  padding: 6px 11px; cursor: pointer; transition: border-color .15s, background .15s;
-}
-.nav-toggle:hover, .nav-collapse:hover { border-color: var(--vb-grape); background: var(--vb-paper); }
-.nav-toggle { display: none; }            /* mobile drawer trigger */
-.nav-collapse { display: inline-flex; }   /* desktop collapse trigger */
-.topbar-logo { display: none; align-items: center; }   /* shown only when collapsed */
-body.nav-collapsed .topbar-logo { display: inline-flex; }
+/* ═══ course view: floating glass nav panel + shared site header ═══
+   The marketing SiteHeader floats centered on top; the course menu is a
+   detached frosted-glass card on the left; content sits on the paper bg. */
+:root { --course-nav-w: 256px; --course-top: 96px; }
 
-.sidebar {
-  position: fixed; top: 0; left: 0; bottom: 0; width: var(--sidebar-w);
-  background: var(--red); color: #fff; overflow-y: auto; z-index: 50;
-  padding-bottom: 24px; transition: transform .2s ease;
+.course-nav {
+  position: fixed; left: 16px; top: var(--course-top); bottom: 16px; width: var(--course-nav-w);
+  z-index: 40; display: flex; flex-direction: column;
+  background:
+    linear-gradient(165deg, rgba(191,233,216,.42), rgba(187,217,242,.34) 55%, rgba(203,206,248,.34)),
+    rgba(255,255,255,.72);
+  backdrop-filter: saturate(1.7) blur(20px);
+  border: 1px solid rgba(255,255,255,.85);
+  box-shadow: var(--vb-shadow-lg);
+  border-radius: 22px; padding: 8px 8px 4px;
+  transition: transform .24s ease, opacity .2s ease;
 }
-.nav-brand { padding: 18px 16px 12px; border-bottom: 1px solid rgba(255,255,255,.25); margin-bottom: 8px; }
-.sidebar .nav-brand a { color: #fff; text-decoration: none; font-weight: 800; font-size: 1.25rem; line-height: 1.1; word-break: normal; display: block; padding: 0; }
-.sidebar .nav-brand a:hover { background: none; }
-.nav-brand span { font-weight: 400; font-size: .75rem; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; }
-.nav-group { padding: 6px 0; border-bottom: 1px solid rgba(255,255,255,.15); }
-.nav-group:last-child { border-bottom: 0; }
-.sidebar a {
-  display: flex; justify-content: space-between; align-items: center;
-  color: #fff; text-decoration: none; padding: 7px 16px; font-size: .9rem;
+.course-nav-head { display: flex; align-items: center; justify-content: space-between; padding: 6px 6px 8px; }
+.course-nav-brand { display: flex; flex-direction: column; line-height: 1.05; text-decoration: none; padding: 4px 6px; border-radius: 12px; }
+.course-nav-brand:hover { background: rgba(255,255,255,.55); text-decoration: none; }
+.course-nav-brand .course-name { font-family: var(--font-display), system-ui, sans-serif; font-weight: 800; font-size: 1.02rem; color: var(--vb-ink); letter-spacing: -.02em; }
+.course-nav-brand .course-level { font-size: .64rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--vb-grape); margin-top: 2px; }
+.course-nav-collapse, .course-nav-reopen, .course-nav-fab {
+  background: rgba(255,255,255,.8); border: 1px solid rgba(255,255,255,.9); color: var(--vb-ink);
+  font-size: 1rem; line-height: 1; cursor: pointer; border-radius: 11px; padding: 7px 10px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.7); transition: background .15s, border-color .15s, transform .15s;
 }
-.sidebar a:hover { background: rgba(255,255,255,.12); }
-.sidebar a.current { background: rgba(255,255,255,.18); border-left: 4px solid var(--gold); padding-left: 12px; font-weight: 700; }
+.course-nav-collapse:hover, .course-nav-reopen:hover, .course-nav-fab:hover { border-color: var(--vb-grape); background: #fff; }
+
+.course-nav-scroll { overflow-y: auto; padding: 0 2px 8px; scrollbar-width: thin; }
+.course-nav .nav-group { padding: 7px 0; border-top: 1px solid rgba(31,42,48,.08); }
+.course-nav .nav-group:first-child { border-top: 0; }
+.course-nav a {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  color: var(--vb-ink); text-decoration: none; padding: 8px 10px; border-radius: 12px;
+  font-size: .9rem; font-weight: 600; transition: background .14s;
+}
+.course-nav a:hover { background: rgba(255,255,255,.62); text-decoration: none; }
+.course-nav a.current { background: var(--vb-accent-soft); color: #0c7a69; }
 /* unit rows: "Unit N" eyebrow + the unit's title */
-.sidebar a.nav-unit { align-items: flex-start; gap: 10px; }
-.sidebar a.nav-unit.current { padding-left: 12px; }
+.course-nav a.nav-unit { align-items: flex-start; }
 .nav-unit-text { display: flex; flex-direction: column; gap: 1px; min-width: 0; }
-.nav-unit-num { font-size: .66rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--gold); opacity: .9; }
-.nav-unit-title { font-size: .82rem; line-height: 1.25; color: #fff; opacity: .92; }
+.nav-unit-num { font-size: .62rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; color: var(--vb-grape); opacity: .9; }
+.nav-unit-title { font-size: .82rem; line-height: 1.25; color: var(--vb-ink); font-weight: 600; }
 .nav-unit-title i { font-style: italic; }
-.nav-badge { font-size: .7rem; min-width: 2.4em; text-align: right; color: var(--gold); flex: none; }
-.nav-unit .nav-badge { margin-top: 2px; }
-.nav-badge.done::after { content: " ✓"; }
+.nav-badge {
+  font-size: .66rem; font-weight: 800; color: #0c7a69; background: var(--vb-accent-soft);
+  border-radius: 999px; padding: 3px 8px; flex: none; line-height: 1.1;
+}
+.nav-badge.done { background: var(--vb-grape); color: #fff; }
+.nav-badge.nav-lock { background: rgba(31,42,48,.07); color: rgba(31,42,48,.5); padding: 3px 7px; }
+.nav-unit .nav-badge { margin-top: 1px; }
+
+/* floating reopen (desktop) + menu FAB (mobile): hidden unless needed */
+.course-nav-reopen { position: fixed; left: 16px; top: var(--course-top); z-index: 41; display: none; }
+.course-nav-fab { position: fixed; right: 16px; bottom: 18px; z-index: 41; display: none; font-size: 1.15rem; padding: 11px 13px; box-shadow: var(--vb-shadow-lg); }
+
 .backdrop { display: none; }
 .content {
-  margin-left: var(--sidebar-w);
-  padding: 28px clamp(14px, 4vw, 48px) 64px;
-  max-width: 980px;
+  margin-left: calc(32px + var(--course-nav-w));
+  padding: 18px clamp(14px, 3vw, 40px) 64px;
+  max-width: 1040px;
   transition: margin-left .2s ease;
 }
 
-/* desktop: collapsing slides the rail away and reclaims its width */
+/* desktop: collapsing slides the panel away and reclaims its width */
 @media (min-width: 861px) {
-  body.nav-collapsed .sidebar { transform: translateX(-100%); }
-  body.nav-collapsed .topbar { margin-left: 0; }
+  body.nav-collapsed .course-nav { transform: translateX(calc(-100% - 24px)); opacity: 0; pointer-events: none; }
   body.nav-collapsed .content { margin-left: 0; max-width: 1120px; }
+  body.nav-collapsed .course-nav-reopen { display: inline-flex; }
 }
 
 @media (max-width: 860px) {
-  .nav-toggle { display: inline-flex; }
-  .nav-collapse, .topbar-logo { display: none; }
-  .topbar { margin-left: 0; }
-  .sidebar { transform: translateX(-100%); width: min(78vw, 300px); }
-  body.nav-open .sidebar { transform: translateX(0); }
-  body.nav-open .backdrop { display: block; position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 45; }
-  .content { margin-left: 0; padding-top: 16px; }
+  /* full-height left drawer that overlays everything (incl. the floating header) */
+  .course-nav { left: 8px; top: 8px; bottom: 8px; width: min(82vw, 320px); z-index: 70; transform: translateX(calc(-100% - 24px)); }
+  body.nav-open .course-nav { transform: none; }
+  .course-nav-collapse { display: none; }
+  .course-nav-fab { display: inline-flex; z-index: 55; }
+  body.nav-open .backdrop { display: block; position: fixed; inset: 0; background: rgba(15,25,30,.45); z-index: 65; }
+  .content { margin-left: 0; padding-top: 8px; }
 }
 
 /* ---------- headings & course content ---------- */
