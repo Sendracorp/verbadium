@@ -21,7 +21,12 @@ export async function grantAccess(formData: FormData) {
   const note = String(formData.get('note') || '') || null;
   const a = getAdminSupabase();
   if (a && userId && courseSlug) {
-    await a.from('access_grants').insert({ user_id: userId, course_slug: courseSlug, granted_by: admin.id, note });
+    // Idempotent: skip if the user already has an active grant for this course.
+    const { data: existing } = await a.from('access_grants').select('id')
+      .eq('user_id', userId).eq('course_slug', courseSlug).is('revoked_at', null).limit(1);
+    if (!existing?.length) {
+      await a.from('access_grants').insert({ user_id: userId, course_slug: courseSlug, granted_by: admin.id, note });
+    }
   }
   revalidatePath(`/admin/users/${userId}`);
 }

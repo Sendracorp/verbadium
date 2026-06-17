@@ -67,6 +67,10 @@ export default async function AdminPage({ searchParams }: {
       <main className="site-main">
         <div className="card">
           <h1>Admin</h1>
+          <p className="note">
+            Grant a course to anyone from their user page below — or{' '}
+            <Link href={`/admin/users/${user.id}`}>to yourself</Link>.
+          </p>
           <div className="admin-stats">
             <div><b>{stats.users}</b><span>registered students</span></div>
             <div><b>{stats.paid}</b><span>paid purchases</span></div>

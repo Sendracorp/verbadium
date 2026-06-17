@@ -26,6 +26,14 @@ export default async function AdminUserPage({ params }: { params: Promise<{ id: 
   const d = await getUserDetail(id);
   if (!d || !d.profile) notFound();
   const p = d.profile;
+  const isSelf = p.id === me.id;
+
+  // Courses this user can still be given (no paid purchase, no active grant).
+  const ownedSlugs = new Set<string>([
+    ...d.purchases.filter(pu => pu.status === 'paid').map(pu => pu.course_slug),
+    ...d.grants.filter(g => !g.revoked_at).map(g => g.course_slug),
+  ]);
+  const grantable = COURSES.filter(c => !ownedSlugs.has(c.slug));
 
   return (
     <>
@@ -34,7 +42,7 @@ export default async function AdminUserPage({ params }: { params: Promise<{ id: 
         <p className="admin-back"><Link href="/admin">← All users</Link></p>
 
         <div className="card">
-          <h1>{p.email ?? p.id}</h1>
+          <h1>{p.email ?? p.id}{isSelf && <span className="admin-tag">you</span>}</h1>
           <p className="note">
             Joined {date(p.created_at)} · ID <code>{p.id}</code>
             {p.is_admin && <span className="admin-tag">admin</span>}
@@ -51,15 +59,21 @@ export default async function AdminUserPage({ params }: { params: Promise<{ id: 
         {/* Access: grant + current grants + purchases */}
         <div className="card">
           <h2>Course access</h2>
-          <form action={grantAccess} className="admin-grant-form">
-            <input type="hidden" name="userId" value={p.id} />
-            <select name="courseSlug" required defaultValue="">
-              <option value="" disabled>Choose a course…</option>
-              {COURSES.map(c => <option key={c.slug} value={c.slug}>{c.title}</option>)}
-            </select>
-            <input type="text" name="note" placeholder="note (optional)" />
-            <button type="submit" className="btn btn-primary">Grant access</button>
-          </form>
+          <h3>Add a course{isSelf ? ' to yourself' : ''}</h3>
+          {grantable.length ? (
+            <>
+              <form action={grantAccess} className="admin-grant-form">
+                <input type="hidden" name="userId" value={p.id} />
+                <select name="courseSlug" required defaultValue="">
+                  <option value="" disabled>Choose a course…</option>
+                  {grantable.map(c => <option key={c.slug} value={c.slug}>{c.title}</option>)}
+                </select>
+                <input type="text" name="note" placeholder="note (optional)" />
+                <button type="submit" className="btn btn-primary">Grant access</button>
+              </form>
+              <p className="note">Grants free access (no payment). Revoke any time below.</p>
+            </>
+          ) : <p className="muted">This user already has access to every course.</p>}
 
           <h3>Comp grants</h3>
           {d.grants.length ? (
