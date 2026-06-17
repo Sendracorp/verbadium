@@ -21,7 +21,9 @@ test.describe('authenticated flows', () => {
     await page.fill('input[type="password"]', owner.password);
     await page.click('button[type="submit"]');
     await page.waitForURL(u => !u.pathname.startsWith('/login'));
-    await expect(page.locator('[data-test="account-link"]')).toContainText(owner.email);
+    await expect(page.locator('[data-test="account-menu"]')).toBeVisible();
+    await page.click('[data-test="account-menu"]');
+    await expect(page.locator('[data-test="account-email"]')).toContainText(owner.email);
     await ctx.close();
   });
 
