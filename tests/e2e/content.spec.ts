@@ -190,7 +190,7 @@ test.describe('course content (owner)', () => {
       await expect(page.locator('#navToggle')).toBeVisible();   // floating course-menu button
       await page.click('#navToggle');
       await expect.poll(() => page.locator('#sidebar').evaluate(el => el.getBoundingClientRect().left >= 0 && el.getBoundingClientRect().left < 60)).toBe(true);
-      await page.locator('#backdrop').click({ position: { x: 370, y: 500 } });
+      await page.locator('#backdrop').click({ position: { x: 360, y: 120 } });  // right sliver, clear of the side tabs
       const overflow = await page.evaluate(() =>
         document.documentElement.scrollWidth - document.documentElement.clientWidth);
       expect(overflow).toBeLessThanOrEqual(1);

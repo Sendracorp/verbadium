@@ -356,10 +356,43 @@ ol.q li { margin: 8px 0; }
 .ipa-drawer-body .tip { font-size: .85rem; }
 .ipa-drawer-body .note { font-size: .82rem; }
 
+/* glossary quick-access drawer — a teal tab under the IPA one */
+.glos-tab {
+  position: fixed; right: 0; top: 61%; z-index: 80;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl; text-orientation: mixed;
+  background: var(--vb-grape); color: #fff;
+  border: 2px solid var(--vb-grape); border-right: 0;
+  border-radius: 10px 0 0 10px;
+  font-weight: 800; font-size: .88rem; letter-spacing: 1px;
+  padding: 14px 7px; cursor: pointer;
+  box-shadow: -2px 2px 8px rgba(0,0,0,.22);
+  transition: right .22s ease, background .15s;
+}
+.glos-tab:hover { background: #0c7a69; }
+.glos-tab.open { right: min(460px, 94vw); }
+.glos-drawer {
+  position: fixed; top: 0; right: 0; bottom: 0; z-index: 85;
+  width: min(460px, 94vw);
+  background: var(--card); border-left: 3px solid var(--vb-grape);
+  box-shadow: -4px 0 18px rgba(0,0,0,.25);
+  transform: translateX(102%); transition: transform .22s ease;
+  display: flex; flex-direction: column;
+}
+.glos-drawer.open { transform: translateX(0); }
+.glos-drawer .ipa-drawer-head { background: var(--vb-grape); }
+.glos-drawer .ipa-drawer-head a { color: #e9fff9; }
+.glos-drawer-body { padding: 12px 14px 24px; }
+.glos-drawer-body .glos-compact { display: block; }
+.glos-drawer-body .glos-tools { position: sticky; top: 0; background: var(--card); padding-bottom: 8px; z-index: 1; }
+.glos-drawer-body table.glos { display: block; overflow-x: auto; }
+
 @media (max-width: 480px) {
-  .ipa-tab { font-size: .8rem; padding: 11px 6px; top: 55%; }
+  .ipa-tab { font-size: .8rem; padding: 11px 6px; top: 50%; }
   .ipa-tab.open { right: 0; opacity: 0; pointer-events: none; } /* drawer covers the edge; close via × or backdrop */
   .ipa-drawer-body table { display: block; overflow-x: auto; }
+  .glos-tab { font-size: .78rem; padding: 11px 6px; top: 70%; }
+  .glos-tab.open { right: 0; opacity: 0; pointer-events: none; }
 }
 
 /* character strip */

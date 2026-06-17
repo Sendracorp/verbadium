@@ -9,7 +9,7 @@ type SortCol = 0 | 1 | 2 | 3;
 
 const ARTICLES = /^(el |la |els |les |l'|un |una )/;
 
-export default function Glossary({ rows }: { rows: GlossaryRow[] }) {
+export default function Glossary({ rows, compact = false }: { rows: GlossaryRow[]; compact?: boolean }) {
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<{ col: SortCol; dir: 1 | -1 } | null>(null);
   const [speaking, setSpeaking] = useState<number | null>(null);
@@ -36,23 +36,25 @@ export default function Glossary({ rows }: { rows: GlossaryRow[] }) {
     `sortable${sort?.col === col ? (sort.dir === 1 ? ' asc' : ' desc') : ''}`;
 
   return (
-    <div className="card">
-      <h2>Glossary — every word in this course</h2>
-      <p className="note">
-        Alphabetical (articles ignored). U = the unit where the word is first taught.
-        Pronunciations are Central Catalan, IPA. Click a column header to sort; click 🔊 to hear the word.
-      </p>
+    <div className={compact ? 'glos-compact' : 'card'}>
+      {!compact && <>
+        <h2>Glossary — every word in this course</h2>
+        <p className="note">
+          Alphabetical (articles ignored). U = the unit where the word is first taught.
+          Pronunciations are Central Catalan, IPA. Click a column header to sort; click 🔊 to hear the word.
+        </p>
+      </>}
       <div className="glos-tools">
         <input
-          type="search" id="glosSearch"
+          type="search" id={compact ? undefined : 'glosSearch'}
           placeholder={`Search Catalan, IPA or English… (${rows.length} entries)`}
           value={query} onChange={e => setQuery(e.target.value)}
         />
-        <span id="glosCount">
+        <span id={compact ? undefined : 'glosCount'}>
           {visible.length === rows.length ? `${rows.length} entries` : `${visible.length} of ${rows.length} entries`}
         </span>
       </div>
-      <table className="glos" id="glosTable">
+      <table className="glos" id={compact ? undefined : 'glosTable'}>
         <thead>
           <tr>
             <th className={sortCls(0)} data-sort={0} onClick={() => clickSort(0)}>Catalan</th>
@@ -79,7 +81,7 @@ export default function Glossary({ rows }: { rows: GlossaryRow[] }) {
           ))}
         </tbody>
       </table>
-      <AudioCredits />
+      {!compact && <AudioCredits />}
     </div>
   );
 }

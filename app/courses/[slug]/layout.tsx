@@ -3,6 +3,7 @@ import Sidebar from '@/components/Sidebar';
 import SiteHeader from '@/components/SiteHeader';
 import CharStrip from '@/components/CharStrip';
 import IpaDrawer from '@/components/IpaDrawer';
+import GlossaryDrawer from '@/components/GlossaryDrawer';
 import ProgressProvider from '@/components/ProgressProvider';
 import SiteFooter from '@/components/SiteFooter';
 import { getCourseContent } from '@/lib/content';
@@ -40,6 +41,7 @@ export default async function CourseLayout({ children, params }: {
       </div>
       <SiteFooter />
       <IpaDrawer html={course.ipaCheatHtml} />
+      {access.owns && <GlossaryDrawer rows={course.glossary} base={`/courses/${slug}`} />}
       <CharStrip />
     </ProgressProvider>
   );
