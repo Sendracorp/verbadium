@@ -1,18 +1,19 @@
 import type { Metadata } from 'next';
 import { notFound, redirect } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
+import SiteFooter from '@/components/SiteFooter';
+import UsersTable from '@/components/admin/UsersTable';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
 import { getAdminSupabase } from '@/lib/supabase/admin';
-import { COURSES, getCourseMeta } from '@/lib/courses';
+import { COURSES } from '@/lib/courses';
 import { priceIdFor } from '@/lib/paddle';
 import { resolveCoursePrice } from '@/lib/pricing';
+import { listUsers } from '@/lib/admin';
 
 export const metadata: Metadata = { title: 'Admin' };
 export const dynamic = 'force-dynamic';
 
-/* Restricted to profiles.is_admin (set it once in the Supabase SQL editor:
-   `update profiles set is_admin = true where email = '...';`).
-   Cross-user reads use the service-role client, server-side only. */
+/* Restricted to profiles.is_admin. Cross-user reads use the service-role client. */
 export default async function AdminPage() {
   const user = await getSessionUser();
   if (!user) redirect('/login?next=/admin');
@@ -30,34 +31,28 @@ export default async function AdminPage() {
         <main className="site-main"><div className="card"><h2>Admin</h2>
           <p>SUPABASE_SERVICE_ROLE_KEY is not configured on this deployment.</p>
         </div></main>
+        <SiteFooter />
       </>
     );
   }
 
-  const [{ count: userCount }, { data: purchases }] = await Promise.all([
-    admin.from('profiles').select('id', { count: 'exact', head: true }),
-    admin.from('purchases')
-      .select('course_slug, status, amount_cents, currency, created_at, profiles:user_id (email)')
-      .order('created_at', { ascending: false }).limit(200),
-  ]);
+  const users = await listUsers();
+  const paidCount = users.reduce((n, u) => n + u.purchases, 0);
+  const grantCount = users.reduce((n, u) => n + u.grants, 0);
+  const resetCount = users.reduce((n, u) => n + u.resets, 0);
 
-  const paid = (purchases ?? []).filter(p => p.status === 'paid');
-  const revenueByCurrency = new Map<string, number>();
-  for (const p of paid) {
+  // gross revenue from purchase amounts
+  const { data: paid } = await admin.from('purchases')
+    .select('amount_cents, currency').eq('status', 'paid');
+  const byCur = new Map<string, number>();
+  for (const p of paid ?? []) {
     const cur = (p.currency ?? 'USD').toUpperCase();
-    revenueByCurrency.set(cur, (revenueByCurrency.get(cur) ?? 0) + (p.amount_cents ?? 0));
+    byCur.set(cur, (byCur.get(cur) ?? 0) + (p.amount_cents ?? 0));
   }
-  const revenue = [...revenueByCurrency.entries()]
-    .map(([cur, cents]) => `${(cents / 100).toFixed(2)} ${cur}`).join(' + ') || '0';
+  const revenue = [...byCur.entries()].map(([c, v]) => `${(v / 100).toFixed(2)} ${c}`).join(' + ') || '0';
 
-  // Pricing source of truth: the live Paddle price (falls back to the catalog
-  // label only when Paddle isn't wired up yet). Read-only here — prices are
-  // edited in the Paddle dashboard so the shown price can never desync from
-  // what's actually charged.
   const pricing = await Promise.all(COURSES.map(async meta => ({
-    meta,
-    priceId: priceIdFor(meta.slug),
-    price: await resolveCoursePrice(meta.slug),
+    meta, priceId: priceIdFor(meta.slug), price: await resolveCoursePrice(meta.slug),
   })));
 
   return (
@@ -65,14 +60,22 @@ export default async function AdminPage() {
       <SiteHeader />
       <main className="site-main">
         <div className="card">
-          <h2>Admin overview</h2>
+          <h1>Admin</h1>
           <div className="admin-stats">
-            <div><b>{userCount ?? 0}</b><span>registered students</span></div>
-            <div><b>{paid.length}</b><span>active purchases</span></div>
-            <div><b>{revenue}</b><span>gross revenue (before Paddle fees)</span></div>
+            <div><b>{users.length}</b><span>registered students</span></div>
+            <div><b>{paidCount}</b><span>paid purchases</span></div>
+            <div><b>{grantCount}</b><span>comp grants</span></div>
+            <div><b>{resetCount}</b><span>progress resets</span></div>
+            <div><b>{revenue}</b><span>gross revenue (before fees)</span></div>
           </div>
           <p className="note">Finance detail (fees, payouts, taxes) lives in the Paddle dashboard.</p>
         </div>
+
+        <div className="card">
+          <h2>Users</h2>
+          <UsersTable users={users} />
+        </div>
+
         <div className="card" data-test="admin-pricing">
           <h2>Pricing</h2>
           <table className="account-table">
@@ -84,39 +87,16 @@ export default async function AdminPage() {
                   <td>{price.label || '—'}{price.currency ? ` (${price.currency})` : ''}</td>
                   <td>{price.source === 'paddle'
                     ? <span className="owned-tag">live from Paddle ✓</span>
-                    : <span title="Set PADDLE_API_KEY + PADDLE_PRICE_… to pull the live price">catalog fallback</span>}
-                  </td>
+                    : <span title="Set PADDLE_API_KEY + PADDLE_PRICE_… to pull the live price">catalog fallback</span>}</td>
                   <td><code>{priceId ?? 'not set'}</code></td>
                 </tr>
               ))}
             </tbody>
           </table>
-          <p className="note">
-            Prices are managed in the Paddle dashboard (the merchant of record), so the amount shown
-            here is exactly what customers are charged. To change a price, edit the Paddle price and
-            it updates everywhere within an hour.
-          </p>
-        </div>
-        <div className="card">
-          <h2>Purchases</h2>
-          {purchases?.length ? (
-            <table className="account-table">
-              <thead><tr><th>Date</th><th>Student</th><th>Course</th><th>Amount</th><th>Status</th></tr></thead>
-              <tbody>
-                {purchases.map((p, i) => (
-                  <tr key={i}>
-                    <td>{new Date(p.created_at).toLocaleDateString('en-GB')}</td>
-                    <td>{(p.profiles as unknown as { email: string } | null)?.email ?? '—'}</td>
-                    <td>{getCourseMeta(p.course_slug)?.title ?? p.course_slug}</td>
-                    <td>{p.amount_cents != null ? `${(p.amount_cents / 100).toFixed(2)} ${p.currency ?? ''}` : '—'}</td>
-                    <td>{p.status}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : <p>No purchases yet.</p>}
+          <p className="note">Prices are managed in Paddle (merchant of record); the amount shown is what customers are charged.</p>
         </div>
       </main>
+      <SiteFooter />
     </>
   );
 }

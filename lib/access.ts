@@ -10,17 +10,17 @@ export function paywallBypassed(): boolean {
   return process.env.COURSE_BYPASS_PAYWALL === 'true';
 }
 
+/** Access = a paid Paddle purchase OR an active admin grant. */
 export async function userOwnsCourse(userId: string, courseSlug: string): Promise<boolean> {
   const supabase = await getServerSupabase();
   if (!supabase) return false;
-  const { data } = await supabase
-    .from('purchases')
-    .select('id')
-    .eq('user_id', userId)
-    .eq('course_slug', courseSlug)
-    .eq('status', 'paid')
-    .limit(1);
-  return !!data?.length;
+  const [paid, granted] = await Promise.all([
+    supabase.from('purchases').select('id')
+      .eq('user_id', userId).eq('course_slug', courseSlug).eq('status', 'paid').limit(1),
+    supabase.from('access_grants').select('id')
+      .eq('user_id', userId).eq('course_slug', courseSlug).is('revoked_at', null).limit(1),
+  ]);
+  return !!(paid.data?.length || granted.data?.length);
 }
 
 export interface CourseAccess {

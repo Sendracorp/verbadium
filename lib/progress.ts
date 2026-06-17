@@ -175,6 +175,8 @@ async function flush(): Promise<void> {
             .delete().eq('user_id', userId).eq('course_slug', slug);
           if (error) throw error;
         }
+        // log the reset (best-effort; admin visibility)
+        await supabase.from('progress_resets').insert({ user_id: userId, course_slug: slug });
       }
       pending.shift();
       backoffMs = 1000;
