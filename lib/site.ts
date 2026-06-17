@@ -7,10 +7,10 @@
 export const SITE = {
   brand: 'Català from Scratch',
   legalName: 'SENDRACORP, SLU',               // registered legal name
-  email: 'sendracorp@protonmail.com',         // required — buyer contact
+  email: 'support@verbadium.com',             // required — buyer contact
   phone: '',                                  // optional — shown only if set
   address: '',                                // optional — shown only if set
   country: 'Andorra',
   jurisdiction: 'Andorra',
-  lastUpdated: '16 June 2026',
+  lastUpdated: '17 June 2026',
 };
