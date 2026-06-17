@@ -166,15 +166,15 @@ Decisions made while building the site, and why.
     when empty (only `legalName` + `email` are needed; legalName is still a
     placeholder to set before launch). Added `/pricing`, `/terms`, `/refunds`,
     `/privacy`, `/contact`, linked from a `SiteFooter` on every public page and
-    the course layout. Refund policy is **progress-gated**: a full refund
-    within 14 days as long as the buyer hasn't started the paid material (no
-    exercises/mock attempts beyond the free Unit 1 preview — verifiable from
-    server-side progress), non-refundable once they begin or after 14 days.
-    This is the abuse-proof middle ground (can't finish-then-refund because any
-    real usage of paid content voids it) while still being customer-friendly
-    for genuine "changed my mind, haven't used it" cases. Backed by the EU
-    digital-content withdrawal waiver consented to at checkout. Not legal
-    advice — review before launch.
+    the course layout. Refund policy: **all sales final / no refunds** (owner
+    decision). Legal for immediately-delivered digital content because the
+    buyer consents to immediate access + waives the 14-day EU withdrawal right
+    at Paddle checkout; the free preview is the try-before-you-buy. Keeps a
+    minimal carve-out for faulty/undelivered content + duplicate charges
+    (statutory, can't be waived) — and Paddle may still refund chargebacks/
+    fraud regardless. (Earlier iterations tried a 14-day guarantee, then a
+    progress-gated 14-day refund; owner chose strict all-sales-final.) Not
+    legal advice — review before launch.
 
 26. **Platform rebrand → Verbadium.** Bought verbadium.com; the platform
     (header, footer, catalog, metadata, legal pages, email sender) is now

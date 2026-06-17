@@ -60,10 +60,9 @@ export default function TermsPage() {
 
       <h2>6. Refunds</h2>
       <p>
-        Our <Link href="/refunds">Refund Policy</Link> forms part of these terms: a full refund is
-        available within 14 days as long as you haven’t started the paid course material; once you
-        begin it (or after 14 days) courses are non-refundable. See the policy for details, exceptions
-        and your statutory rights.
+        Our <Link href="/refunds">Refund Policy</Link> forms part of these terms: courses are digital
+        content and all sales are final, subject to your statutory rights (e.g. faulty or undelivered
+        content). Try the free preview before buying. See the policy for details.
       </p>
 
       <h2>7. Availability and changes</h2>
