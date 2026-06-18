@@ -4,6 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { exState, subscribe } from '@/lib/progress';
 import Logo from './Logo';
+import SignOutButton from './SignOutButton';
 
 export interface UnitMeta { num: number; title: string; exerciseIds: string[] }
 
@@ -22,7 +23,7 @@ function useUnitProgress(units: UnitMeta[]) {
   };
 }
 
-export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel, owns, freeUnits, userEmail }: {
+export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel, owns, freeUnits, userEmail, isAdmin = false }: {
   units: UnitMeta[];
   courseSlug: string;
   courseLanguage: string;
@@ -30,6 +31,7 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
   owns: boolean;
   freeUnits: number[];
   userEmail: string | null;
+  isAdmin?: boolean;
 }) {
   const pathname = usePathname() ?? '/';
   const base = `/courses/${courseSlug}`;
@@ -43,7 +45,7 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
   }, []);
 
   useEffect(() => { setOpen(false); }, [pathname]);
-  // the toggle lives in the header (<CourseMenuButton/>); talk to it via events
+  // the mobile toggle lives in the topbar (<CourseMenuButton/>); talk via events
   useEffect(() => {
     const toggle = () => setOpen(o => !o);
     window.addEventListener('vb-nav-toggle', toggle);
@@ -69,7 +71,7 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
 
   return (
     <>
-      {/* mobile drawer toggle lives in the header — see <CourseMenuButton/> */}
+      {/* mobile drawer toggle lives in the topbar — see <CourseMenuButton/> */}
       <nav className="course-nav" id="sidebar" aria-label="Course navigation">
         <div className="course-nav-head">
           <Link href={base} className="course-nav-brand">
@@ -120,12 +122,24 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
               Glossary{!owns && <span className="nav-badge nav-lock" aria-label="Locked">🔒</span>}
             </Link>
           </div>
-          <div className="nav-group nav-account">
-            <Link href="/">All courses</Link>
-            {!userEmail && (
-              <Link href={`/login?next=${encodeURIComponent(pathname)}`} data-test="nav-login">Log in</Link>
-            )}
-          </div>
+        </div>
+
+        {/* pinned base: conversion (non-owners) + account / session */}
+        <div className="course-nav-foot">
+          {!owns && (
+            <Link href="/pricing" className="nav-foot-cta">Get the full course</Link>
+          )}
+          <Link href="/" className="nav-foot-link nav-foot-courses">All courses</Link>
+          {userEmail ? (
+            <div className="nav-foot-account">
+              <span className="nav-foot-email" title={userEmail}>{userEmail}</span>
+              <Link href="/account" className="nav-foot-link">Account &amp; purchases</Link>
+              {isAdmin && <Link href="/admin" className="nav-foot-link">Admin dashboard</Link>}
+              <SignOutButton className="nav-foot-link nav-foot-signout" />
+            </div>
+          ) : (
+            <Link href={`/login?next=${encodeURIComponent(pathname)}`} className="nav-foot-link" data-test="nav-login">Log in</Link>
+          )}
         </div>
       </nav>
       <div className="backdrop" id="backdrop" onClick={() => setOpen(false)} />

@@ -40,11 +40,11 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
    The whole course area is a centered container that lines up with the
    marketing SiteHeader; the menu is a sticky frosted-glass card in the left
    column, the content sits in the right column on the paper background. */
-:root { --course-nav-w: 256px; --course-max: 1140px; --course-top: 92px; }
+:root { --course-nav-w: 256px; --course-max: 1140px; --course-top: 24px; }
 
 .course-shell {
   width: min(var(--course-max), calc(100% - 32px));
-  margin: 0 auto;
+  margin: 24px auto 0;
   display: grid; grid-template-columns: var(--course-nav-w) 1fr; gap: 28px;
   align-items: start;
 }
@@ -117,6 +117,45 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
 .nav-badge.nav-lock { background: rgba(31,42,48,.07); color: rgba(31,42,48,.5); padding: 3px 7px; }
 .nav-unit .nav-badge { margin-top: 1px; }
 
+/* pinned base of the sidebar: conversion CTA + account / session controls */
+.course-nav-foot {
+  flex: none; margin-top: 6px; padding: 10px 2px 2px;
+  border-top: 1px solid rgba(31,42,48,.1);
+  display: flex; flex-direction: column; gap: 2px;
+}
+.nav-foot-link {
+  display: block; width: 100%; text-align: left; cursor: pointer;
+  padding: 8px 10px; border: 0; border-radius: 11px; background: transparent;
+  color: var(--vb-ink); font-family: inherit; font-weight: 600; font-size: .88rem;
+  text-decoration: none; transition: background .14s;
+}
+.nav-foot-link:hover { background: rgba(255,255,255,.62); text-decoration: none; }
+.nav-foot-cta {
+  display: block; text-align: center; margin-bottom: 6px;
+  padding: 10px 12px; border-radius: 12px; font-weight: 700; font-size: .9rem;
+  color: #fff; background: linear-gradient(135deg, var(--vb-grape), #0c7a69);
+  text-decoration: none; box-shadow: 0 8px 20px rgba(12,122,105,.28);
+}
+.nav-foot-cta:hover { text-decoration: none; transform: translateY(-1px); }
+.nav-foot-account { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; padding-top: 6px; border-top: 1px solid rgba(31,42,48,.07); }
+.nav-foot-email { padding: 4px 10px 6px; font-size: .76rem; color: var(--vb-ink-soft); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nav-foot-signout { color: #b4232a; }
+
+/* mobile course app-bar — desktop hides it (the sidebar carries identity +
+   account there); shown on mobile in the media query below */
+.course-topbar { display: none; }
+.course-topbar-right { display: inline-flex; align-items: center; gap: 8px; }
+.course-topbar-cta {
+  font-weight: 700; font-size: .88rem; color: #fff; text-decoration: none;
+  background: var(--vb-ink); padding: 9px 14px; border-radius: 999px;
+}
+.course-topbar-cta:hover { background: #15232a; text-decoration: none; }
+.course-topbar-login {
+  font-weight: 600; font-size: .9rem; color: var(--vb-ink); text-decoration: none;
+  padding: 9px 12px; border-radius: 999px;
+}
+.course-topbar-login:hover { background: var(--vb-accent-soft); text-decoration: none; }
+
 .backdrop { display: none; }
 .content { min-width: 0; padding: 18px 0 56px; }
 
@@ -127,7 +166,8 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
   body.nav-collapsed .course-nav { padding: 8px 6px; }
   body.nav-collapsed .course-nav-head { flex-direction: column; align-items: center; gap: 10px; padding: 4px 0; }
   body.nav-collapsed .course-nav-brand,
-  body.nav-collapsed .course-nav-scroll { display: none; }
+  body.nav-collapsed .course-nav-scroll,
+  body.nav-collapsed .course-nav-foot { display: none; }
   body.nav-collapsed .course-nav-mark { display: inline-flex; }
 }
 
@@ -148,6 +188,17 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
   .course-menu-btn { display: inline-flex; }
   body.nav-open .backdrop { display: block; position: fixed; inset: 0; background: rgba(15,25,30,.45); z-index: 65; }
   .content { padding: 8px 14px 48px; }
+  /* the mobile app-bar: menu (left) · account / CTA (right) */
+  .course-topbar {
+    display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    position: sticky; top: 0; z-index: 50; padding: 10px 12px;
+    background:
+      linear-gradient(120deg, rgba(191,233,216,.62), rgba(187,217,242,.52) 55%, rgba(203,206,248,.52)),
+      rgba(255,255,255,.84);
+    backdrop-filter: saturate(1.7) blur(16px);
+    border-bottom: 1px solid rgba(255,255,255,.7);
+    box-shadow: 0 6px 20px rgba(31,42,48,.08);
+  }
 }
 
 /* ---------- headings & course content ---------- */
@@ -629,9 +680,7 @@ h1, h2, h3, h4,
 .site-header.scrolled .site-nav,
 .site-header.scrolled .site-actions { box-shadow: 0 8px 22px rgba(31,42,48,.17); }
 
-/* matches the course drawer breakpoint (860px) so the header wraps-centered
-   whenever the course-menu hamburger is shown */
-@media (max-width: 860px) {
+@media (max-width: 760px) {
   .site-header { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; top: 10px; margin-top: 10px; }
   .site-brand.vb-chip, .site-nav, .site-actions { justify-self: auto; }
   .site-nav a, .site-actions a, .site-actions .site-signout { padding: 8px 12px; }
@@ -689,7 +738,7 @@ h1, h2, h3, h4,
 }
 .account-dropdown-admin { color: #0c7a69 !important; }
 .account-dropdown-sep { height: 1px; margin: 6px 4px; background: rgba(31,42,48,.1); }
-@media (max-width: 860px) { .account-menu { justify-self: auto; } }
+@media (max-width: 760px) { .account-menu { justify-self: auto; } }
 
 /* sticky footer on platform pages (they have a top-level .site-header); the
    course layout has no body > .site-header, so it's untouched */
