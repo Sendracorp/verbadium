@@ -144,7 +144,7 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
               <SignOutButton className="nav-foot-link nav-foot-signout" />
             </div>
           ) : (
-            <Link href={`/login?next=${encodeURIComponent(pathname)}`} className="nav-foot-link" data-test="nav-login">Log in</Link>
+            <Link href={`/login?next=${encodeURIComponent(pathname)}`} className="nav-foot-link nav-foot-auth" data-test="nav-login">Log in</Link>
           )}
         </div>
       </nav>

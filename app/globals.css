@@ -192,6 +192,8 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
   body.nav-open .course-nav { transform: none; }
   .course-nav-collapse { display: none; }
   .course-menu-btn { display: inline-flex; }
+  /* account / sign-in already live in the top app-bar — drop them from the drawer */
+  .nav-foot-account, .nav-foot-auth { display: none; }
   body.nav-open .backdrop { display: block; position: fixed; inset: 0; background: rgba(15,25,30,.45); z-index: 65; }
   .content { padding: 8px 14px 48px; }
   /* the mobile app-bar: menu (left) · account / CTA (right) */
@@ -561,19 +563,46 @@ body.exam-mode .paper-timer { display: inline-flex; }
 .mock-history-table td:first-child, .mock-history-table th:first-child { text-align: left; }
 
 /* ---------- auth ---------- */
-.auth-main { max-width: 460px; }
-.auth-card h2 { margin-top: .2em; }
-.auth-form { display: flex; flex-direction: column; gap: 12px; margin-top: 10px; }
-.auth-form label { display: flex; flex-direction: column; gap: 4px; font-size: .9rem; font-family: Arial, sans-serif; color: #444; }
-.auth-form input { font: inherit; font-size: 1rem; border: 1.5px solid #c9bda9; border-radius: 6px; padding: 8px 10px; background: #fffdf8; }
-.auth-form input:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
-.auth-google { width: 100%; padding: 9px; font-weight: 700; }
-.auth-divider { display: flex; align-items: center; gap: 10px; color: #999; font-size: .8rem; margin: 14px 0 4px; font-family: Arial, sans-serif; }
-.auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-top: 1px solid #e0d8ca; }
-.auth-error { color: var(--bad); background: var(--bad-bg); border-radius: 6px; padding: 8px 12px; font-size: .88rem; margin: 0; }
-.auth-info { color: var(--ok); background: var(--ok-bg); border-radius: 6px; padding: 8px 12px; font-size: .88rem; margin: 0; }
-.auth-notice { color: var(--warn); background: var(--warn-bg); border-radius: 6px; padding: 8px 12px; font-size: .88rem; }
-.auth-links { display: flex; flex-direction: column; gap: 6px; margin-top: 14px; font-size: .88rem; }
+.auth-main { max-width: none; display: flex; align-items: center; justify-content: center;
+  min-height: calc(100svh - 96px); padding: 28px 16px 48px; }
+.auth-card {
+  width: 100%; max-width: 410px; margin: 0; padding: 32px 32px 26px;
+  background: var(--vb-surface); border: 1px solid var(--vb-line); border-radius: 22px;
+  box-shadow: 0 24px 60px rgba(31,42,48,.13);
+}
+.auth-head { text-align: center; margin-bottom: 20px; }
+.auth-head .vb-mark { width: 44px; height: 44px; }
+.auth-card h2 { margin: 12px 0 5px; font-size: 1.5rem; line-height: 1.1; }
+.auth-sub { color: var(--vb-ink-soft); font-size: .92rem; line-height: 1.45; margin: 0 auto; max-width: 32ch; }
+
+/* Sign-in-with-Google button — Google branding: white, 1px border, colour mark */
+.auth-google {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; padding: 11px 16px; border-radius: 999px; cursor: pointer;
+  background: #fff; color: #1f1f1f; border: 1px solid #dadce0;
+  font-family: var(--font-body), sans-serif; font-weight: 600; font-size: .95rem;
+  transition: background .15s, box-shadow .15s, border-color .15s;
+}
+.auth-google:hover { background: #f8f9fa; border-color: #d2d5d9; box-shadow: 0 1px 4px rgba(60,64,67,.2); }
+.auth-google:active { background: #f1f3f4; }
+.auth-google:disabled { opacity: .55; cursor: default; box-shadow: none; }
+.auth-google-icon { width: 18px; height: 18px; flex: none; }
+
+.auth-divider { display: flex; align-items: center; gap: 12px; color: var(--vb-ink-soft);
+  font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; margin: 16px 0 8px; }
+.auth-divider::before, .auth-divider::after { content: ''; flex: 1; border-top: 1px solid var(--vb-line); }
+
+.auth-form { display: flex; flex-direction: column; gap: 13px; margin-top: 4px; }
+.auth-form label { display: flex; flex-direction: column; gap: 5px; font-size: .82rem; font-weight: 600; color: var(--vb-ink-soft); }
+.auth-form input { font: inherit; font-size: 1rem; color: var(--vb-ink);
+  border: 1.5px solid var(--vb-line); border-radius: 12px; padding: 11px 13px; background: var(--vb-surface);
+  transition: border-color .15s, box-shadow .15s; }
+.auth-form input:focus { outline: none; border-color: var(--vb-grape); box-shadow: 0 0 0 3px var(--vb-accent-soft); }
+.auth-form .btn-primary { margin-top: 4px; }
+.auth-error { color: var(--bad); background: var(--bad-bg); border-radius: 10px; padding: 9px 12px; font-size: .88rem; margin: 0; }
+.auth-info { color: var(--ok); background: var(--ok-bg); border-radius: 10px; padding: 9px 12px; font-size: .88rem; margin: 0; }
+.auth-notice { color: var(--warn); background: var(--warn-bg); border-radius: 10px; padding: 9px 12px; font-size: .88rem; }
+.auth-links { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; font-size: .9rem; text-align: center; }
 
 /* ---------- sidebar account section ---------- */
 .nav-account { margin-top: auto; }
@@ -822,13 +851,9 @@ body:has(> .site-header) .site-footer { margin-top: auto; }
 }
 .site-main .btn-primary:hover, .paywall .btn-primary:hover, .buy-btn:hover { background: #15232a; color: #fff; }
 
-/* ---- auth / inputs ---- */
-.auth-card, .card { border-color: var(--vb-line); }
-.auth-card { border-radius: 22px; box-shadow: var(--vb-shadow); }
-.auth-form input { border: 1.5px solid var(--vb-line); border-radius: 12px; background: var(--vb-surface); }
-.auth-form input:focus { outline: 2px solid var(--vb-grape); border-color: var(--vb-grape); }
-.auth-google { border-radius: 999px; border: 1px solid var(--vb-line); }
-.auth-divider::before, .auth-divider::after { border-top-color: var(--vb-line); }
+/* ---- cards ---- */
+.card { border-color: var(--vb-line); }
+/* (auth card/inputs/google styles live in the “auth” section above) */
 
 /* ---- footer ---- */
 /* ---- footer: deep teal panel, branded ---- */
