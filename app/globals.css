@@ -88,7 +88,7 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
 }
 .course-nav-fab:hover { transform: translateY(-1px); }
 
-.course-nav-scroll { overflow-y: auto; padding: 0 2px 8px; scrollbar-width: thin; }
+.course-nav-scroll { flex: 1 1 auto; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain; padding: 0 2px 8px; scrollbar-width: thin; }
 .course-nav .nav-group { padding: 7px 0; border-top: 1px solid rgba(31,42,48,.08); }
 .course-nav .nav-group:first-child { border-top: 0; }
 .course-nav a {
@@ -133,7 +133,12 @@ h1, h2, h3, h4, .unit-num, .label, th, .toc-line, .nav-brand, .btn, .chip,
   .course-shell { display: block; width: auto; margin: 0; }
   /* full-height left drawer that overlays everything (incl. the floating header) */
   .course-nav {
-    position: fixed; left: 8px; top: 8px; bottom: 8px; width: min(82vw, 320px); max-height: none;
+    position: fixed; left: 8px; top: 8px; width: min(82vw, 320px); max-height: none;
+    /* explicit viewport-bound height: top+bottom together mis-resolves the
+       fixed height on mobile, leaving the list taller than the screen and
+       unscrollable. dvh tracks the visible area (with a vh fallback). */
+    height: calc(100vh - 16px);
+    height: calc(100dvh - 16px);
     z-index: 70; transform: translateX(calc(-100% - 24px));
   }
   body.nav-open .course-nav { transform: none; }
