@@ -198,7 +198,8 @@ function loadOwnRecordings() {
   const wanted = new Set([...files.values(),
     ...Object.values(own).map(p => p[0].replace('/audio/ca/', ''))]);
   for (const f of fs.readdirSync(OUT_DIR)) {
-    if (!wanted.has(f)) { fs.unlinkSync(path.join(OUT_DIR, f)); console.log('  pruned', f); }
+    // tts-*.mp3 are owned by scripts/generate-tts.mjs — leave them alone
+    if (!wanted.has(f) && !f.startsWith('tts-')) { fs.unlinkSync(path.join(OUT_DIR, f)); console.log('  pruned', f); }
   }
 
   // recording session script: everything still on TTS, one line per item

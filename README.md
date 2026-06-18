@@ -120,6 +120,16 @@ speaker, map them in `recordings/index.json`
 (`{ "Quants anys tens?": "quants-anys.mp3" }`, files in the same folder) and
 re-run the script; own recordings take priority over everything.
 
+**Pre-generated TTS for the rest**: `scripts/generate-tts.mjs` synthesizes the
+sentences + dialogue lines that have no native recording into static MP3s
+(`public/audio/ca/tts-*.mp3` + `lib/tts-audio.json`), so every device hears a
+correct, consistent Catalan voice instead of the unreliable per-device browser
+TTS. It uses Google Cloud Text-to-Speech (`ca-ES-Standard-B`, Google's only
+Catalan voice; dialogue speakers are pitch-shifted to sound distinct). Needs
+`GOOGLE_TTS_API_KEY` in `.env.local`. At runtime a real recording always wins
+over the TTS clip. Run `npm run audio:native` then `npm run audio:tts` when
+course text changes.
+
 ## Source of truth
 
 Course content lives in `course_source.html`. Pages are generated from it at
@@ -170,10 +180,8 @@ what gets tested.
 
 ## Roadmap
 
-- [ ] **Sentence/dialogue audio**: the 237 texts in `recordings/TODO.txt`
-      still use browser TTS. Either record them with a native speaker
-      (drop files in `recordings/` + `index.json`, re-run
-      `scripts/fetch-native-audio.mjs`) or pre-generate static MP3s with
-      Azure neural Catalan TTS (`ca-ES-JoanaNeural` / `EnricNeural` /
-      `AlbaNeural`, free tier covers the whole course) once an Azure
-      Speech key exists.
+- [x] **Sentence/dialogue audio**: pre-generated as static MP3s with Google
+      Cloud TTS (`scripts/generate-tts.mjs` → `lib/tts-audio.json`), replacing
+      per-device browser TTS. Upgrade path: swap in higher-quality neural
+      voices, or record the lines with a native speaker (`recordings/` +
+      `index.json`) — native recordings always override the TTS clips.

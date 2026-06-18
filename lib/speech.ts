@@ -6,11 +6,15 @@
    Catalan voice exists on the device. */
 import { sget, sset } from './progress';
 import nativeAudio from './native-audio.json';
+import ttsAudio from './tts-audio.json';
 import { cleanSpeak, nativeKey } from './native-audio-key';
 
 export { cleanSpeak };
 
-const NATIVE: Record<string, string[]> = nativeAudio.entries;
+/* Native-speaker recordings (Lingua Libre) first; pre-generated Google TTS
+   (scripts/generate-tts.mjs) fills the gaps for sentences/dialogue. A real
+   recording always wins, so it spreads last. */
+const NATIVE: Record<string, string[]> = { ...ttsAudio.entries, ...nativeAudio.entries };
 
 let caVoice: SpeechSynthesisVoice | null = null;
 let wired = false;

@@ -123,9 +123,11 @@ test.describe('course content (owner)', () => {
     await page.locator('#glosTable tbody tr', { hasText: 'maig' }).locator('.say').click();
     expect(await page.evaluate(() => window.__audioMode)).toBe('native');
 
+    // sentences now have pre-generated Google TTS clips (scripts/generate-tts.mjs),
+    // so they play a static file (native mode) instead of browser Web Speech TTS
     await page.fill('#glosSearch', 'Quants anys tens');
     await page.locator('#glosTable tbody tr').first().locator('.say').click();
-    expect(await page.evaluate(() => window.__audioMode)).toBe('tts');
+    expect(await page.evaluate(() => window.__audioMode)).toBe('native');
   });
 
   test('mock exam: listening, auto-marking, timers, attempt history', async ({ ownerPage: page }) => {
