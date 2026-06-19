@@ -67,6 +67,6 @@ test.describe('authenticated flows', () => {
       await expect(gap.locator('.ex-score')).toContainText('6 / 6');
     }
     await ownerPage.goto(COURSE);
-    await expect(ownerPage.locator('#overallStats')).toContainText(/[1-9]\d* of 85 exercises passed/);
+    await expect(ownerPage.locator('#overallStats')).toContainText(/[1-9]\d* of 108 exercises passed/);
   });
 });

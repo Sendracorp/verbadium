@@ -17,7 +17,7 @@ the official A1 exam (*Certificat de nivell inicial de català*).
   devices (logged-out preview progress stays in localStorage)
 * **12 units** of theory, vocabulary (300+ words, every one with IPA),
   dialogues and verified external resources
-* **85 interactive exercises** auto-marked from the course answer key
+* **108 interactive exercises** auto-marked from the course answer key
 * 🔊 **audio on every Catalan word, phrase and dialogue line** — vocabulary
   uses **native-speaker recordings** (Lingua Libre / Wikimedia Commons,
   CC BY-SA 4.0, shipped as static MP3s); sentences and dialogues fall back
@@ -134,7 +134,7 @@ course text changes.
 
 Course content lives in `course_source.html`. Pages are generated from it at
 build time by `lib/course.ts`, which **asserts content fidelity** — exactly
-12 units, 85 exercises and 275 glossary rows — and fails the build if the
+12 units, 108 exercises and 275 glossary rows — and fails the build if the
 source drifts. The catalog itself is `lib/courses.ts`; adding a course means
 adding an entry there, a content source wired in `lib/content.ts`, and a
 `PADDLE_PRICE_<SLUG>` env var. See `DESIGN.md` for architecture and

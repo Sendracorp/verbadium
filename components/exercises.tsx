@@ -561,6 +561,7 @@ function Personal({ ex }: { ex: Exercise }) {
    the pre-generated Google clip); the Catalan stays hidden until revealed. */
 function Listen({ ex }: { ex: Exercise }) {
   const items = ex.items as ListenItem[];
+  const dict = ex.type === 'dictation';   // write the Catalan you hear (vs the English meaning)
   const [values, setValues] = useState<string[]>(items.map(() => ''));
   const [results, setResults] = useState<(CheckResult | null)[]>(items.map(() => null));
   const [score, setScore] = useState<number | null>(null);
@@ -606,12 +607,12 @@ function Listen({ ex }: { ex: Exercise }) {
             <input
               type="text"
               className={`gap-input listen-input${revealed ? ' revealed' : (results[i] ? ' ' + results[i] : '')}`}
-              readOnly={revealed} placeholder="…in English"
+              readOnly={revealed} placeholder={dict ? '…in Catalan' : '…in English'}
               autoCapitalize="off" autoComplete="off" spellCheck={false}
               value={values[i] ?? ''}
               onChange={e => setValues(v => v.map((x, vi) => vi === i ? e.target.value : x))}
             />{' '}
-            {showCa && <span className="listen-ca">{it.ca}</span>}{' '}
+            {!dict && showCa && <span className="listen-ca">{it.ca}</span>}{' '}
             <Feedback res={results[i]} />
           </li>
         ))}
@@ -619,7 +620,7 @@ function Listen({ ex }: { ex: Exercise }) {
       <div className="ex-controls">
         <button type="button" className="btn btn-primary" onClick={check}>Check answers</button>
         <Score score={score} total={total} />
-        {score !== null && !showCa && <button type="button" className="btn" onClick={() => setShowCa(true)}>Show the Catalan</button>}
+        {!dict && score !== null && !showCa && <button type="button" className="btn" onClick={() => setShowCa(true)}>Show the Catalan</button>}
         {score !== null && score < total && !revealed && (
           <button type="button" className="btn btn-reveal" onClick={reveal}>Show correct answers</button>
         )}
@@ -730,7 +731,7 @@ export default function ExerciseCard({ ex }: { ex: Exercise }) {
     ex.type === 'reorder' ? <Reorder ex={ex} /> :
     ex.type === 'model' ? <Model ex={ex} /> :
     ex.type === 'free' ? <Free ex={ex} /> :
-    ex.type === 'listen' ? <Listen ex={ex} /> :
+    ex.type === 'listen' || ex.type === 'dictation' ? <Listen ex={ex} /> :
     ex.type === 'listenmatch' ? <ListenMatch ex={ex} /> :
     <Personal ex={ex} />;
   const showNote = !['model', 'free', 'personal'].includes(ex.type) && ex.noteHtml;

@@ -35,7 +35,7 @@ test.describe('free preview (unit 1)', () => {
   test('is fully usable without an account and saves progress locally', async ({ page }) => {
     await page.goto(`${COURSE}/unit/1`);
     await expect(page.locator('[data-test="preview-banner"]')).toBeVisible();
-    await expect(page.locator('.ex[data-ex]')).toHaveCount(6);
+    await expect(page.locator('.ex[data-ex]')).toHaveCount(8);  // 1.1–1.6 + listen + dictation
 
     const wr = page.locator('.ex[data-ex="1.2"]');
     for (const [n, v] of [[1, 'llibre'], [2, 'hola'], [3, 'cafè'], [4, 'maig']] as const) {

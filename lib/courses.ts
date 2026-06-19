@@ -22,10 +22,10 @@ export const COURSES: CourseMeta[] = [
     level: 'A1',
     title: 'Catalan from Scratch (A1)',
     tagline: 'A complete beginner’s course in Central Catalan for English-speaking adults — built to pass the official A1 exam.',
-    description: '12 progressive units · 300+ words with full IPA · 85 interactive exercises · full mock A1 exam with timers · complete glossary (275 entries).',
+    description: '12 progressive units · 300+ words with full IPA · 108 interactive exercises · full mock A1 exam with timers · complete glossary (275 entries).',
     priceLabel: '€70',
     freeUnits: [1],
-    stats: { units: 12, exercises: 85, glossary: 275 },
+    stats: { units: 12, exercises: 108, glossary: 275 },
     available: true,
   },
 ];

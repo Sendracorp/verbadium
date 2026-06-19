@@ -1,7 +1,7 @@
 /**
  * Build-time parser for course_source.html — the single source of truth.
  * Runs on the server (Next.js build / SSG). Throws if the fidelity counts
- * drift: 12 units, 85 exercises, 275 glossary rows, 15 checklist items —
+ * drift: 12 units, 108 exercises, 275 glossary rows, 15 checklist items —
  * so `next build` fails loudly instead of shipping lost content.
  */
 import fs from 'fs';
@@ -62,8 +62,8 @@ function extBlank(html: string): string {
 
 const EX_TYPES: Record<string, ExerciseType> = {
   '1.1': 'write', '1.2': 'write', '1.3': 'write', '1.4': 'tf', '1.5': 'match', '1.6': 'model',
-  '2.1': 'gap', '2.2': 'match', '2.3': 'model', '2.4': 'reorder', '2.5': 'model', '2.6': 'write', '2.7': 'write', '2.8': 'free', '2.9': 'listen',
-  '3.1': 'gap', '3.2': 'write', '3.3': 'gap', '3.4': 'write', '3.5': 'model', '3.6': 'gap', '3.7': 'gap', '3.8': 'listenmatch',
+  '2.1': 'gap', '2.2': 'match', '2.3': 'model', '2.4': 'reorder', '2.5': 'model', '2.6': 'write', '2.7': 'write', '2.8': 'free',
+  '3.1': 'gap', '3.2': 'write', '3.3': 'gap', '3.4': 'write', '3.5': 'model', '3.6': 'gap', '3.7': 'gap',
   '4.1': 'write', '4.2': 'gap', '4.3': 'gap', '4.4': 'model', '4.5': 'gap', '4.6': 'model', '4.7': 'free',
   '5.1': 'gap', '5.2': 'gap', '5.3': 'model', '5.4': 'paradigm', '5.5': 'model', '5.6': 'model', '5.7': 'model',
   '6.1': 'gap', '6.2': 'gap', '6.3': 'gap', '6.4': 'write', '6.5': 'model', '6.6': 'model', '6.7': 'free',
@@ -89,6 +89,17 @@ function splitNumbered(txt: string): string[] {
 }
 function splitDots(txt: string): string[] {
   return txt.split('·').map(s => s.replace(/[.\s]+$/, '').trim()).filter(Boolean);
+}
+
+/* Audio exercises are self-describing via their title (so they need no
+   EX_TYPES entry): "Listen and …" → listen (write English) / listenmatch
+   (match) / dictation (write the Catalan). */
+function audioType(headHtml: string): ExerciseType | null {
+  const t = headHtml.replace(/<[^>]+>/g, '');
+  if (!/^\s*Listen\b/i.test(t)) return null;
+  if (/\bmatch\b/i.test(t)) return 'listenmatch';
+  if (/\benglish\b/i.test(t)) return 'listen';
+  return 'dictation';
 }
 
 function parseExercise(id: string, type: ExerciseType, headHtml: string, body: string,
@@ -192,6 +203,13 @@ function parseExercise(id: string, type: ExerciseType, headHtml: string, body: s
       assert(ca && ca.trim(), id + ' listenmatch empty item');
       (ex.items as ListenItem[]).push({ ca: ca.trim(), answers: [], label: label?.trim() || undefined });
     });
+  } else if (type === 'dictation') {
+    // hear the Catalan, write it — the spoken text is its own answer
+    liMatches.forEach(li => {
+      const ca = stripTags(li).trim();
+      assert(ca, id + ' dictation empty item');
+      (ex.items as ListenItem[]).push({ ca, answers: [ca] });
+    });
   }
   return ex;
 }
@@ -266,7 +284,7 @@ function parse(): Course {
         const id = labM[1];
         const titleM = b.inner.match(/<h4>([\s\S]*?)<\/h4>/);
         assert(titleM, 'exercise without title: ' + id);
-        const type = EX_TYPES[id];
+        const type = audioType(titleM[1]) ?? EX_TYPES[id];
         assert(type, 'exercise ' + id + ' missing from EX_TYPES — source changed?');
         blocks.push({ kind: 'exercise', ex: parseExercise(id, type, titleM[1], b.inner, answerKey) });
         exerciseIds.push(id);
@@ -277,8 +295,8 @@ function parse(): Course {
     }
     return { num, title: headM[1], blocks, exerciseIds };
   });
-  assert(totalEx === 85, 'expected 85 exercises, got ' + totalEx);
-  assert(Object.keys(EX_TYPES).length === 85, 'EX_TYPES must list exactly 85 exercises');
+  assert(totalEx === 108, 'expected 108 exercises, got ' + totalEx);
+  assert(Object.keys(EX_TYPES).length === 83, 'EX_TYPES must list exactly 83 keyed (non-audio) exercises');
 
   // mock exam
   const papers = topLevel(mockDiv.inner).filter(b => b.tag === 'div' && b.cls === 'exam');

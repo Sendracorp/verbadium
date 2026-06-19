@@ -7,7 +7,7 @@ describe('course catalog', () => {
     expect(meta).toBeDefined();
     expect(meta!.slug).toBe('catalan-a1');
     expect(meta!.freeUnits).toContain(1);
-    expect(meta!.stats).toMatchObject({ units: 12, exercises: 85, glossary: 275 });
+    expect(meta!.stats).toMatchObject({ units: 12, exercises: 108, glossary: 275 });
   });
 
   it('returns undefined for an unknown or unavailable slug', () => {

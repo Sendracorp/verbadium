@@ -1,7 +1,7 @@
 export type ExerciseType =
   | 'gap' | 'write' | 'paradigm' | 'tf' | 'choice'
   | 'match' | 'reorder' | 'model' | 'free' | 'personal'
-  | 'listen' | 'listenmatch';
+  | 'listen' | 'listenmatch' | 'dictation';
 
 export interface GapItem { html: string; gaps: number; answers: string[] }
 export interface WriteItem { html: string; answers: string[]; ipaNote?: string }

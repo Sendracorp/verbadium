@@ -12,7 +12,7 @@ test.describe('course content (owner)', () => {
   test('fidelity counts render', async ({ ownerPage: page }) => {
     await page.goto(COURSE);
     await expect(page.locator('.unit-card')).toHaveCount(12);
-    await expect(page.locator('#overallStats')).toContainText('of 85 exercises');
+    await expect(page.locator('#overallStats')).toContainText('of 108 exercises');
     await page.goto(`${COURSE}/glossary`);
     await expect(page.locator('#glosTable tbody tr')).toHaveCount(275);
   });
@@ -180,9 +180,9 @@ test.describe('course content (owner)', () => {
     await page.goto(COURSE);
     page.once('dialog', d => d.accept());
     await page.click('#resetProgress');
-    await expect(page.locator('#overallStats')).toContainText('0 of 85');
+    await expect(page.locator('#overallStats')).toContainText('0 of 108');
     await page.reload();
-    await expect(page.locator('#overallStats')).toContainText('0 of 85');
+    await expect(page.locator('#overallStats')).toContainText('0 of 108');
   });
 
   test.describe('mobile @ 380px', () => {
