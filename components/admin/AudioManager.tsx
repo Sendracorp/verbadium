@@ -2,6 +2,7 @@
 import { useMemo, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { deaccent } from '@/lib/check';
+import { toMp3 } from '@/lib/to-mp3';
 import { uploadAudioOverride, deleteAudioOverride } from '@/app/admin/actions';
 
 type Txt = { key: string; label: string; en: string; source: string };
@@ -44,12 +45,14 @@ export default function AudioManager({ courseSlug, texts, overrides }:
   async function save(file: Blob | null) {
     if (!text.trim()) { setMsg('Pick or type the Catalan text first.'); return; }
     if (!file || !file.size) { setMsg('Record or choose an audio file first.'); return; }
-    setBusy(true); setMsg(null);
+    setBusy(true); setMsg('Processing audio…');
     try {
+      const mp3 = await toMp3(file);                       // recordings → iOS-safe MP3
+      const ext = mp3.type === 'audio/mpeg' ? 'mp3' : (file instanceof File ? (file.name.split('.').pop() || 'wav') : 'webm');
       const fd = new FormData();
       fd.set('courseSlug', courseSlug);
       fd.set('text', text.trim());
-      fd.set('file', file instanceof File ? file : new File([file], 'recording.webm', { type: file.type || 'audio/webm' }));
+      fd.set('file', new File([mp3], `audio.${ext}`, { type: mp3.type }));
       await uploadAudioOverride(fd);
       setBlob(null); setText(''); setMsg('Saved.');
       router.refresh();
