@@ -26,7 +26,6 @@ export const metadata: Metadata = {
   ],
   applicationName: SITE.brand,
   category: 'education',
-  alternates: { canonical: '/' },
   openGraph: {
     type: 'website', siteName: SITE.brand, url: SITE_URL, locale: 'en',
     title: 'Verbadium — Learn Catalan online (A1 exam course)',

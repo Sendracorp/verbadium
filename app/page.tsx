@@ -1,10 +1,16 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
+import { hreflang } from '@/lib/i18n';
 
 // Auth/ownership state must be evaluated per request, even when the build
 // runs with unconfigured placeholder credentials.
 export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  alternates: { canonical: '/', languages: hreflang('home') },
+};
 
 import BuyButton from '@/components/BuyButton';
 import { COURSES } from '@/lib/courses';

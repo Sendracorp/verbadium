@@ -11,6 +11,7 @@ import BuyButton from '@/components/BuyButton';
 import JsonLd from '@/components/JsonLd';
 import { resolveCoursePrice } from '@/lib/pricing';
 import { SITE } from '@/lib/site';
+import { hreflang } from '@/lib/i18n';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://verbadium.com';
 
@@ -27,7 +28,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const url = `/courses/${slug}`;
   return {
     title, description,
-    alternates: { canonical: url },
+    // hreflang links the localized landing pages (only the Catalan A1 course has them)
+    alternates: { canonical: url, ...(slug === 'catalan-a1' ? { languages: hreflang('course') } : {}) },
     openGraph: { title, description, url, type: 'website', siteName: SITE.brand },
     twitter: { card: 'summary_large_image', title, description },
   };

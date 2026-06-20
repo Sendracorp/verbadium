@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { COURSES } from '@/lib/courses';
+import { PATHS, LOCALES } from '@/lib/i18n';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://verbadium.com';
 
@@ -24,6 +25,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: `${b}/exam`, changeFrequency: 'monthly', priority: 0.6 },
     );
     for (const u of c.freeUnits) entries.push({ url: `${b}/unit/${u}`, changeFrequency: 'monthly', priority: 0.7 });
+  }
+  // localized marketing landing pages (ca/es/fr)
+  for (const l of LOCALES) {
+    if (l === 'en') continue;
+    entries.push(
+      { url: `${SITE_URL}${PATHS.home[l]}`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+      { url: `${SITE_URL}${PATHS.course[l]}`, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },
+    );
   }
   return entries;
 }
