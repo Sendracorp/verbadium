@@ -25,6 +25,11 @@ function loadManifest(): Promise<Record<string, string[]>> {
 /** Warm the audio manifest chunk early (called on mount of audio-bearing UI). */
 export function preloadAudio(): void { if (typeof window !== 'undefined') void loadManifest(); }
 
+/* Admin/teacher-recorded overrides (text key → public URL), injected per course
+   by <AudioOverridesProvider/>. They win over the static manifest. */
+let OVERRIDES: Record<string, string> = {};
+export function setAudioOverrides(map: Record<string, string>): void { OVERRIDES = map || {}; }
+
 let caVoice: SpeechSynthesisVoice | null = null;
 let wired = false;
 
@@ -84,6 +89,9 @@ declare global { interface Window { __audioMode?: 'native' | 'tts' } }
 
 export function speak(text: string, onend?: () => void, rate = 0.95): void {
   if (typeof window === 'undefined') { onend?.(); return; }
+  // an admin-recorded override wins over everything (and needs no manifest load)
+  const override = OVERRIDES[nativeKey(text)];
+  if (override) { window.__audioMode = 'native'; stopSpeak(); playNative([override], onend); return; }
   void loadManifest().then(NATIVE => {
     const files = NATIVE[nativeKey(text)];
     if (files?.length) {

@@ -5,7 +5,9 @@ import CharStrip from '@/components/CharStrip';
 import IpaDrawer from '@/components/IpaDrawer';
 import GlossaryDrawer from '@/components/GlossaryDrawer';
 import ProgressProvider from '@/components/ProgressProvider';
+import AudioOverridesProvider from '@/components/AudioOverridesProvider';
 import SiteFooter from '@/components/SiteFooter';
+import { getAudioOverrides } from '@/lib/audio-overrides';
 import { getCourseContent } from '@/lib/content';
 import { getCourseMeta } from '@/lib/courses';
 import { getCourseAccess } from '@/lib/access';
@@ -31,9 +33,11 @@ export default async function CourseLayout({ children, params }: {
   }
   const initial = access.user ? await loadInitialProgress(access.user.id, slug) : {};
   const units = course.units.map(u => ({ num: u.num, title: u.title, exerciseIds: u.exerciseIds }));
+  const audioOverrides = await getAudioOverrides(slug);
 
   return (
     <ProgressProvider userId={access.user?.id ?? null} courseSlug={slug} initial={initial}>
+      <AudioOverridesProvider map={audioOverrides} />
       <CourseTopbar userEmail={access.user?.email ?? null} isAdmin={isAdmin} owns={access.owns} courseSlug={slug} />
       <div className="course-shell">
         <Sidebar
