@@ -7,7 +7,7 @@ import type {
 } from '@/lib/types';
 import { CheckResult, checkText, joinTokens, normSentence } from '@/lib/check';
 import { exState, setExState, subscribe } from '@/lib/progress';
-import { speak, stopSpeak } from '@/lib/speech';
+import { preloadAudio, speak, stopSpeak } from '@/lib/speech';
 
 const FILL = '<span class="fill">___</span>';
 
@@ -724,6 +724,7 @@ function ListenMatch({ ex }: { ex: Exercise }) {
 // --------------------------------------------------------------------- dispatcher
 
 export default function ExerciseCard({ ex }: { ex: Exercise }) {
+  useEffect(() => { preloadAudio(); }, []);   // warm the audio manifest chunk
   const body =
     ex.type === 'gap' || ex.type === 'write' || ex.type === 'paradigm' ? <GapLike ex={ex} /> :
     ex.type === 'tf' || ex.type === 'choice' ? <TFChoice ex={ex} /> :

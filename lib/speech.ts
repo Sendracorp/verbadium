@@ -5,16 +5,25 @@
    async voice list, and shows a one-time dismissible Forvo notice if no
    Catalan voice exists on the device. */
 import { sget, sset } from './progress';
-import nativeAudio from './native-audio.json';
-import ttsAudio from './tts-audio.json';
 import { cleanSpeak, nativeKey } from './native-audio-key';
 
 export { cleanSpeak };
 
-/* Native-speaker recordings (Lingua Libre) first; pre-generated Google TTS
-   (scripts/generate-tts.mjs) fills the gaps for sentences/dialogue. A real
-   recording always wins, so it spreads last. */
-const NATIVE: Record<string, string[]> = { ...ttsAudio.entries, ...nativeAudio.entries };
+/* The audio manifests (~37 KB JSON) are loaded as a separate chunk on demand
+   instead of being bundled into every course page. Native-speaker recordings
+   (Lingua Libre) win over the pre-generated Google TTS, so they spread last. */
+let MANIFEST: Record<string, string[]> | null = null;
+let manifestLoading: Promise<Record<string, string[]>> | null = null;
+function loadManifest(): Promise<Record<string, string[]>> {
+  if (MANIFEST) return Promise.resolve(MANIFEST);
+  if (!manifestLoading) {
+    manifestLoading = Promise.all([import('./native-audio.json'), import('./tts-audio.json')])
+      .then(([n, t]) => (MANIFEST = { ...t.default.entries, ...n.default.entries }));
+  }
+  return manifestLoading;
+}
+/** Warm the audio manifest chunk early (called on mount of audio-bearing UI). */
+export function preloadAudio(): void { if (typeof window !== 'undefined') void loadManifest(); }
 
 let caVoice: SpeechSynthesisVoice | null = null;
 let wired = false;
@@ -75,24 +84,26 @@ declare global { interface Window { __audioMode?: 'native' | 'tts' } }
 
 export function speak(text: string, onend?: () => void, rate = 0.95): void {
   if (typeof window === 'undefined') { onend?.(); return; }
-  const files = NATIVE[nativeKey(text)];
-  if (files?.length) {
-    window.__audioMode = 'native';
-    stopSpeak();
-    playNative(files, onend);
-    return;
-  }
-  window.__audioMode = 'tts';
-  if (!window.speechSynthesis) { onend?.(); return; }
-  ensureWired();
-  if (!caVoice) pickVoice();
-  if (!caVoice) ttsNotice();
-  const u = new SpeechSynthesisUtterance(cleanSpeak(text));
-  u.lang = 'ca-ES';
-  if (caVoice) u.voice = caVoice;
-  u.rate = rate;
-  if (onend) { u.onend = onend; u.onerror = onend; }
-  speechSynthesis.speak(u);
+  void loadManifest().then(NATIVE => {
+    const files = NATIVE[nativeKey(text)];
+    if (files?.length) {
+      window.__audioMode = 'native';
+      stopSpeak();
+      playNative(files, onend);
+      return;
+    }
+    window.__audioMode = 'tts';
+    if (!window.speechSynthesis) { onend?.(); return; }
+    ensureWired();
+    if (!caVoice) pickVoice();
+    if (!caVoice) ttsNotice();
+    const u = new SpeechSynthesisUtterance(cleanSpeak(text));
+    u.lang = 'ca-ES';
+    if (caVoice) u.voice = caVoice;
+    u.rate = rate;
+    if (onend) { u.onend = onend; u.onerror = onend; }
+    speechSynthesis.speak(u);
+  });
 }
 
 export function stopSpeak(): void {

@@ -1,8 +1,6 @@
-import nativeAudio from '@/lib/native-audio.json';
-
-/* CC BY-SA attribution for the native-speaker recordings. */
-export default function AudioCredits() {
-  const names = Object.keys(nativeAudio.credits);
+/* CC BY-SA attribution for the native-speaker recordings. Names are passed in
+   (computed server-side) so the 19 KB audio manifest stays out of the client. */
+export default function AudioCredits({ names }: { names: string[] }) {
   if (!names.length) return null;
   return (
     <p className="note audio-credits">

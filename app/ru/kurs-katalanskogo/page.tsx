@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import LocalizedCourse from '@/components/marketing/LocalizedCourse';
 import { getDict, hreflang, PATHS } from '@/lib/i18n';
-
-export const dynamic = 'force-dynamic';
 const d = getDict('ru');
 
 export const metadata: Metadata = {

@@ -1,16 +1,17 @@
 'use client';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { GlossaryRow } from '@/lib/types';
 import { deaccent } from '@/lib/check';
-import { speak, stopSpeak } from '@/lib/speech';
+import { preloadAudio, speak, stopSpeak } from '@/lib/speech';
 import AudioCredits from './AudioCredits';
 
 type SortCol = 0 | 1 | 2 | 3;
 
 const ARTICLES = /^(el |la |els |les |l'|un |una )/;
 
-export default function Glossary({ rows, compact = false }: { rows: GlossaryRow[]; compact?: boolean }) {
+export default function Glossary({ rows, compact = false, creditNames = [] }: { rows: GlossaryRow[]; compact?: boolean; creditNames?: string[] }) {
   const [query, setQuery] = useState('');
+  useEffect(() => { preloadAudio(); }, []);   // warm the audio manifest chunk
   const [sort, setSort] = useState<{ col: SortCol; dir: 1 | -1 } | null>(null);
   const [speaking, setSpeaking] = useState<number | null>(null);
 
@@ -81,7 +82,7 @@ export default function Glossary({ rows, compact = false }: { rows: GlossaryRow[
           ))}
         </tbody>
       </table>
-      {!compact && <AudioCredits />}
+      {!compact && <AudioCredits names={creditNames} />}
     </div>
   );
 }

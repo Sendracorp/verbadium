@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef } from 'react';
-import { cleanSpeak, speak, stopSpeak } from '@/lib/speech';
+import { cleanSpeak, preloadAudio, speak, stopSpeak } from '@/lib/speech';
 
 /**
  * Renders trusted course HTML and enhances it after mount:
@@ -18,6 +18,7 @@ export default function SpeechScope({ html, className }: { html: string; classNa
   useEffect(() => {
     const root = ref.current;
     if (!root) return;
+    preloadAudio();                                     // warm the audio manifest chunk
     if (root.querySelector('.say, .dialogue-controls')) return;
     if (!root.querySelector('td.ca, span.ca, p .ca, .dialogue')) return;   // nothing to enhance
 

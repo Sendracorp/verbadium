@@ -1,8 +1,6 @@
 import type { Metadata } from 'next';
 import LocalizedHome from '@/components/marketing/LocalizedHome';
 import { getDict, hreflang, PATHS } from '@/lib/i18n';
-
-export const dynamic = 'force-dynamic';
 const d = getDict('ca');
 
 export const metadata: Metadata = {

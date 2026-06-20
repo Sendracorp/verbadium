@@ -4,17 +4,17 @@ import SiteFooter from '../SiteFooter';
 import JsonLd from '../JsonLd';
 import { getDict, t, PATHS, type Locale } from '@/lib/i18n';
 import { getCourseMeta } from '@/lib/courses';
-import { resolveCoursePrice } from '@/lib/pricing';
 import { SITE } from '@/lib/site';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://verbadium.com';
 
-/* Localized course landing (sales page) for ca/es/fr. Funnels to the English
-   free preview + checkout; clearly states the course is taught in English. */
-export default async function LocalizedCourse({ lang }: { lang: Locale }) {
+/* Localized course landing (sales page) for ca/es/fr/ru. Funnels to the English
+   free preview + checkout; clearly states the course is taught in English.
+   Uses the fixed price label (not the live Paddle fetch) so the page is static. */
+export default function LocalizedCourse({ lang }: { lang: Locale }) {
   const d = getDict(lang);
   const meta = getCourseMeta('catalan-a1')!;
-  const { label: price } = await resolveCoursePrice('catalan-a1');
+  const price = meta.priceLabel;
   const preview = `/courses/catalan-a1/unit/${meta.freeUnits[0]}`;
   const vars = { units: meta.stats.units, exercises: meta.stats.exercises, glossary: meta.stats.glossary, price };
 
