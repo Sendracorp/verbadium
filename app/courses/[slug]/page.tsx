@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getCourseContent } from '@/lib/content';
@@ -7,7 +8,30 @@ import Dashboard from '@/components/Dashboard';
 import Checklist from '@/components/Checklist';
 import SpeechScope from '@/components/SpeechScope';
 import BuyButton from '@/components/BuyButton';
+import JsonLd from '@/components/JsonLd';
 import { resolveCoursePrice } from '@/lib/pricing';
+import { SITE } from '@/lib/site';
+
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://verbadium.com';
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const meta = getCourseMeta(slug);
+  if (!meta) return {};
+  const title = `${meta.language} Course Online (${meta.level}) — exam prep with audio & exercises`;
+  const description =
+    `Learn ${meta.language} online. ${meta.tagline} ${meta.stats.exercises} interactive exercises, ` +
+    `native-speaker audio, full IPA, listening drills and a mock exam. Prepares for the official ` +
+    `Catalan A1 exam (Certificat de nivell inicial de català), the official language of Andorra. ` +
+    `Free preview of Unit 1 — no account needed.`;
+  const url = `/courses/${slug}`;
+  return {
+    title, description,
+    alternates: { canonical: url },
+    openGraph: { title, description, url, type: 'website', siteName: SITE.brand },
+    twitter: { card: 'summary_large_image', title, description },
+  };
+}
 
 export default async function CourseHomePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -19,6 +43,31 @@ export default async function CourseHomePage({ params }: { params: Promise<{ slu
   const { label: price } = await resolveCoursePrice(slug);
   const units = course.units.map(u => ({ num: u.num, title: u.title, exerciseIds: u.exerciseIds }));
   const base = `/courses/${slug}`;
+
+  const courseLd = {
+    '@context': 'https://schema.org',
+    '@type': 'Course',
+    name: meta.title,
+    description: meta.tagline,
+    url: `${SITE_URL}${base}`,
+    inLanguage: 'ca',
+    educationalLevel: `${meta.level} (CEFR)`,
+    teaches: `${meta.language} ${meta.level}`,
+    about: [`${meta.language} language`, 'Central Catalan', 'Catalan A1 exam'],
+    coursePrerequisites: 'None — complete beginner',
+    isAccessibleForFree: true,                                   // Unit 1 is a free preview
+    provider: { '@type': 'EducationalOrganization', name: SITE.brand, url: SITE_URL },
+    offers: {
+      '@type': 'Offer', price: '70', priceCurrency: 'EUR',
+      category: 'Paid', availability: 'https://schema.org/InStock', url: `${SITE_URL}/pricing`,
+    },
+    hasCourseInstance: {
+      '@type': 'CourseInstance',
+      courseMode: 'online',
+      courseWorkload: 'PT20H',
+      instructor: { '@type': 'Organization', name: SITE.brand },
+    },
+  };
 
   const hero = (
     <div className="hero">
@@ -33,6 +82,7 @@ export default async function CourseHomePage({ params }: { params: Promise<{ slu
     const previewUnit = meta.freeUnits[0];
     return (
       <>
+        <JsonLd data={courseLd} />
         {hero}
         <div className="card sales" data-test="sales-page">
           <h2>Get the full course — {price}, yours forever</h2>
@@ -66,6 +116,7 @@ export default async function CourseHomePage({ params }: { params: Promise<{ slu
 
   return (
     <>
+      <JsonLd data={courseLd} />
       {hero}
       <Dashboard units={units} base={base} />
       <div className="card">

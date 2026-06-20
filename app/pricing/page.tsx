@@ -3,35 +3,56 @@ import Link from 'next/link';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import BuyButton from '@/components/BuyButton';
+import JsonLd from '@/components/JsonLd';
 import { COURSES } from '@/lib/courses';
 import { resolveAllPrices } from '@/lib/pricing';
 import { getSessionUser, userOwnsCourse, paywallBypassed } from '@/lib/access';
 
-export const metadata: Metadata = { title: 'Pricing' };
+export const metadata: Metadata = {
+  title: 'Pricing — one-time €70, lifetime access',
+  description:
+    'Verbadium pricing: buy the Catalan A1 course once for €70 and keep it forever — no subscription. Includes every unit, 100+ exercises, the mock exam, audio glossary and progress tracking. Free preview, no account needed.',
+  alternates: { canonical: '/pricing' },
+};
 export const dynamic = 'force-dynamic';
 
-const FAQ: { q: string; a: React.ReactNode }[] = [
+const FAQ: { q: string; a: React.ReactNode; text: string }[] = [
   {
     q: 'Is this a subscription?',
     a: 'No. Each course is a single one-time payment and yours for life, including future updates to that course. There is no recurring charge.',
+    text: 'No. Each course is a single one-time payment and yours for life, including future updates to that course. There is no recurring charge.',
   },
   {
     q: 'What’s included in the price?',
     a: 'Everything in the course: all units, every interactive exercise, the full mock exam, the complete glossary with native-speaker audio, and progress tracking synced across your devices.',
+    text: 'Everything in the course: all units, every interactive exercise, the full mock exam, the complete glossary with native-speaker audio, and progress tracking synced across your devices.',
   },
   {
     q: 'Can I try before I buy?',
     a: <>Yes — the first unit of every course, the IPA guide and the exam information are free, no account needed.</>,
+    text: 'Yes — the first unit of every course, the IPA guide and the exam information are free, no account needed.',
   },
   {
     q: 'Which taxes apply?',
     a: 'Prices are shown excluding tax. Any VAT or sales tax required for your country is calculated and added at checkout by Paddle, our merchant of record.',
+    text: 'Prices are shown excluding tax. Any VAT or sales tax required for your country is calculated and added at checkout by Paddle, our merchant of record.',
   },
   {
     q: 'Can I get a refund?',
     a: <>Courses are digital with immediate lifetime access, so all sales are final — please use the free preview before buying. If something’s broken or you’re charged twice, just contact us. See our <Link href="/refunds">refund policy</Link>.</>,
+    text: 'Courses are digital with immediate lifetime access, so all sales are final — please use the free preview before buying. If something is broken or you are charged twice, just contact us. See our refund policy.',
   },
 ];
+
+const FAQ_JSONLD = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: FAQ.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.text },
+  })),
+};
 
 export default async function PricingPage() {
   const priced = await resolveAllPrices(COURSES);
@@ -49,6 +70,7 @@ export default async function PricingPage() {
   return (
     <>
       <SiteHeader />
+      <JsonLd data={FAQ_JSONLD} />
       <main className="site-main">
         <div className="hero">
           <div className="badge">PRICING</div>
