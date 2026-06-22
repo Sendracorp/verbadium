@@ -222,15 +222,19 @@ Per **level**, separate:
   Catalan-span integrity; CI-guarded). **Spanish is live, opt-in** (`es` in
   `AVAILABLE_MEDIUMS`; English remains default). Course content (lessons,
   exercises, glossary, exam) renders Spanish, Catalan spine intact.
-  - **Remaining for a fully-Spanish experience (Phase 3.1, next):**
-    1. **App-chrome i18n** — component strings are still English (Sidebar nav,
-       exercise buttons "Check answers"/"Show correct answers", the free-preview/
-       paywall banner, "Get the full course", account menu). These are client
-       components → needs a course-locale provider + a small UI dictionary
-       (~30–50 strings). Separate from the content catalog.
-    2. **Native review** of the AI Spanish draft before heavy marketing.
-  - (c) then **fr/ru** = run the same translator fan-out on the catalog (+ the
-    chrome dict) and add to `AVAILABLE_MEDIUMS`.
+- **Phase 3.1 — app-chrome i18n — DONE.** `lib/ui.ts` (en+es chrome dictionary,
+  ~160 keys) + `components/CourseLocale.tsx` (`CourseLocaleProvider` + `useUI()`
+  hook). Client components localize via `useUI()`; server components (Paywall,
+  CourseTopbar) + pages via `tUI(locale, key)`. Localized: sidebar nav, exercise
+  buttons/feedback, Dashboard, full Mock exam UI, Paywall + free-preview banner,
+  account menu, drawers, checklist, buy button. English unchanged (en fallback).
+  **With Spanish selected, content AND chrome render in Spanish.**
+  - **Still pending:** native review of the AI Spanish (content + chrome) before
+    heavy marketing.
+- **Next — fr/ru:** run the same translator fan-out on `catalan-a1.en.json` (the
+  923-key content catalog) AND add `fr`/`ru` columns to `lib/ui.ts`, then add the
+  locales to `AVAILABLE_MEDIUMS`. (To add a chrome locale: add a `Strings` object
+  in `lib/ui.ts` and include it in the `UI` map.)
 - **Phase 1 (later) — A2 content:** author Catalan A2 (English master). Add
   `catalan-a2` to `lib/courses.ts` (+ content source in `lib/content.ts` +
   `PADDLE_PRICE_CATALAN_A2`). Audio auto-shares via the text-keyed library; run
