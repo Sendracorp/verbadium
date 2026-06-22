@@ -9,7 +9,7 @@ export const MEDIUM_COOKIE = 'vb-medium';
    keys fall back to English, so a half-done medium must NOT be listed (it would
    render a mostly-English "Spanish" course). English is always available. */
 export const AVAILABLE_MEDIUMS: Record<string, Locale[]> = {
-  'catalan-a1': ['en'],
+  'catalan-a1': ['en', 'es'],
 };
 
 export function availableMediums(slug: string): Locale[] {

@@ -1,3 +1,5 @@
+import fs from 'node:fs';
+import path from 'node:path';
 import { describe, it, expect } from 'vitest';
 import { getCourse } from '@/lib/course';
 import { extractCatalog, localizeCourse } from '@/lib/i18n-course';
@@ -35,5 +37,32 @@ describe('course i18n engine', () => {
     if (gap?.kind === 'exercise' && gapOut?.kind === 'exercise') {
       expect(JSON.stringify(gapOut.ex.items)).toContain((gap.ex.items[0] as { answers: string[] }).answers[0]);
     }
+  });
+});
+
+describe('Spanish (es) translation catalog', () => {
+  const course = getCourse();
+  const en = extractCatalog(course);
+  const es: Record<string, string> = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'i18n', 'catalan-a1.es.json'), 'utf8'),
+  );
+  const tags = (s: string) => (s.match(/<\s*[a-zA-Z0-9]+/g) ?? []).sort().join(',');
+  const caCount = (s: string) => (s.match(/class="ca"/g) ?? []).length;
+
+  it('has exactly the same keys as the English catalog', () => {
+    expect(Object.keys(es).sort()).toEqual(Object.keys(en).sort());
+  });
+
+  it('preserves HTML structure and Catalan (ca) spans in every value', () => {
+    const tagBad = Object.keys(en).filter(k => tags(en[k]) !== tags(es[k]));
+    const caBad = Object.keys(en).filter(k => caCount(en[k]) !== caCount(es[k]));
+    expect(tagBad).toEqual([]);
+    expect(caBad).toEqual([]);
+  });
+
+  it('renders a Spanish course (titles localized, Catalan spine intact)', () => {
+    const out = localizeCourse(course, es);
+    expect(out.units[1].title).not.toBe(course.units[1].title);          // localized
+    expect(out.glossary.map(r => r.ca)).toEqual(course.glossary.map(r => r.ca)); // spine
   });
 });
