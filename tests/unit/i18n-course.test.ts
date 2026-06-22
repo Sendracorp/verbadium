@@ -40,28 +40,28 @@ describe('course i18n engine', () => {
   });
 });
 
-describe('Spanish (es) translation catalog', () => {
+describe.each(['es', 'fr', 'ru'])('%s translation catalog', medium => {
   const course = getCourse();
   const en = extractCatalog(course);
-  const es: Record<string, string> = JSON.parse(
-    fs.readFileSync(path.join(process.cwd(), 'i18n', 'catalan-a1.es.json'), 'utf8'),
+  const dict: Record<string, string> = JSON.parse(
+    fs.readFileSync(path.join(process.cwd(), 'i18n', `catalan-a1.${medium}.json`), 'utf8'),
   );
   const tags = (s: string) => (s.match(/<\s*[a-zA-Z0-9]+/g) ?? []).sort().join(',');
   const caCount = (s: string) => (s.match(/class="ca"/g) ?? []).length;
 
   it('has exactly the same keys as the English catalog', () => {
-    expect(Object.keys(es).sort()).toEqual(Object.keys(en).sort());
+    expect(Object.keys(dict).sort()).toEqual(Object.keys(en).sort());
   });
 
   it('preserves HTML structure and Catalan (ca) spans in every value', () => {
-    const tagBad = Object.keys(en).filter(k => tags(en[k]) !== tags(es[k]));
-    const caBad = Object.keys(en).filter(k => caCount(en[k]) !== caCount(es[k]));
+    const tagBad = Object.keys(en).filter(k => tags(en[k]) !== tags(dict[k]));
+    const caBad = Object.keys(en).filter(k => caCount(en[k]) !== caCount(dict[k]));
     expect(tagBad).toEqual([]);
     expect(caBad).toEqual([]);
   });
 
-  it('renders a Spanish course (titles localized, Catalan spine intact)', () => {
-    const out = localizeCourse(course, es);
+  it('renders a localized course (titles localized, Catalan spine intact)', () => {
+    const out = localizeCourse(course, dict);
     expect(out.units[1].title).not.toBe(course.units[1].title);          // localized
     expect(out.glossary.map(r => r.ca)).toEqual(course.glossary.map(r => r.ca)); // spine
   });
