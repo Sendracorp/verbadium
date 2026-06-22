@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { exState, MockAttempt, resetAll, sget, subscribe } from '@/lib/progress';
+import { useUI } from './CourseLocale';
 
 export interface DashUnit { num: number; title: string; exerciseIds: string[] }
 
@@ -16,6 +17,7 @@ export default function Dashboard({ units, base }: { units: DashUnit[]; base: st
     setHydrated(true);
     return subscribe(() => setTick(t => t + 1));
   }, []);
+  const t = useUI();
 
   const progress = (u: DashUnit) => {
     if (!hydrated) return { passed: 0, attempted: 0, total: u.exerciseIds.length };
@@ -53,26 +55,26 @@ export default function Dashboard({ units, base }: { units: DashUnit[]; base: st
 
   return (
     <div className="card dash">
-      <h2>Your progress</h2>
+      <h2>{t('dash.progress')}</h2>
       <div className="dash-overall">
         <div className="progress-bar big">
           <div className="progress-fill" id="overallBar" style={{ width: `${totals.total ? Math.round(totals.passed / totals.total * 100) : 0}%` }} />
         </div>
         <div id="overallStats" className="dash-stats">
-          {totals.passed} of {totals.total} exercises passed
-          {totals.attempted ? ` · ${totals.attempted} in progress` : ''}
+          {t('dash.passed', { passed: totals.passed, total: totals.total })}
+          {totals.attempted ? ` · ${t('dash.inProgress', { n: totals.attempted })}` : ''}
         </div>
       </div>
       <div className="dash-next">
         <Link className="btn btn-primary" href={`${base}/unit/${continueUnit}`} data-test="continue-btn">
-          {latestTs ? `Continue · Unit ${continueUnit}` : 'Start the course · Unit 1'}
+          {latestTs ? t('dash.continue', { n: continueUnit }) : t('dash.start')}
         </Link>
         {hydrated && (
           <span className="dash-next-hint" data-test="whats-next">
             {allDone
-              ? <>All units complete — time for the <Link href={`${base}/mock`}>mock exam</Link>!</>
+              ? <>{t('dash.allDonePre')}<Link href={`${base}/mock`}>{t('dash.mockLink')}</Link>!</>
               : nextUnit && nextUnit.num !== continueUnit
-                ? <>Up next: Unit {nextUnit.num} has unfinished exercises.</>
+                ? <>{t('dash.upNext', { n: nextUnit.num })}</>
                 : null}
           </span>
         )}
@@ -82,13 +84,13 @@ export default function Dashboard({ units, base }: { units: DashUnit[]; base: st
           const p = progress(u);
           return (
             <Link className="unit-card" href={`${base}/unit/${u.num}`} key={u.num}>
-              <div className="unit-card-num">Unit {u.num}</div>
+              <div className="unit-card-num">{t('nav.unit', { n: u.num })}</div>
               <div className="unit-card-title" dangerouslySetInnerHTML={{ __html: u.title }} />
               <div className="progress-bar">
                 <div className="progress-fill" data-unitbar={u.num} style={{ width: `${Math.round(p.passed / p.total * 100)}%` }} />
               </div>
               <div className="unit-card-stats" data-unitstats={u.num}>
-                {p.passed}/{p.total} exercises{p.passed === p.total ? ' ✓' : ''}
+                {t('dash.exercises', { passed: p.passed, total: p.total })}{p.passed === p.total ? ' ✓' : ''}
               </div>
             </Link>
           );
@@ -97,24 +99,24 @@ export default function Dashboard({ units, base }: { units: DashUnit[]; base: st
       <div className="dash-extra">
         <span id="mockStats">
           {attempts.length
-            ? `Mock exam attempts: ${attempts.length} (last: ${attempts[attempts.length - 1].date})`
-            : 'Mock exam not attempted yet.'}
+            ? t('dash.mockAttempts', { n: attempts.length, date: attempts[attempts.length - 1].date })
+            : t('dash.mockNone')}
         </span>
         <button
           type="button" id="resetProgress" className="btn btn-danger"
           onClick={() => {
-            if (confirm('Reset ALL progress? This clears exercise results, the checklist and mock-exam history.')) {
+            if (confirm(t('dash.resetConfirm'))) {
               resetAll();
             }
           }}
-        >Reset all progress</button>
+        >{t('dash.resetAll')}</button>
       </div>
       {attempts.length > 0 && (
         <div className="mock-history" data-test="mock-history">
-          <h3>Mock exam history</h3>
+          <h3>{t('dash.mockHistory')}</h3>
           <table className="mock-history-table">
             <thead>
-              <tr><th>Date</th><th>Listening</th><th>Reading A</th><th>Reading B</th><th>Writing</th><th>Speaking</th></tr>
+              <tr><th>{t('th.date')}</th><th>{t('th.listening')}</th><th>{t('th.readingA')}</th><th>{t('th.readingB')}</th><th>{t('th.writing')}</th><th>{t('th.speaking')}</th></tr>
             </thead>
             <tbody>
               {attempts.slice().reverse().map((a, i) => (

@@ -6,8 +6,10 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import Glossary from './Glossary';
 import type { GlossaryRow } from '@/lib/types';
+import { useUI } from './CourseLocale';
 
 export default function GlossaryDrawer({ rows, base }: { rows: GlossaryRow[]; base: string }) {
+  const t = useUI();
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false); // build the 275-row list only once opened
 
@@ -23,18 +25,18 @@ export default function GlossaryDrawer({ rows, base }: { rows: GlossaryRow[]; ba
     <>
       <button
         type="button" id="glosTab" className={`glos-tab${open ? ' open' : ''}`}
-        aria-expanded={open} aria-controls="glosDrawer" title="Glossary"
+        aria-expanded={open} aria-controls="glosDrawer" title={t('nav.glossary')}
         onClick={() => setOpen(o => !o)}
       >
-        <span>Glossary</span>
+        <span>{t('nav.glossary')}</span>
       </button>
       <div className={`ipa-backdrop${open ? ' show' : ''}`} onClick={() => setOpen(false)} />
-      <aside id="glosDrawer" className={`glos-drawer${open ? ' open' : ''}`} aria-label="Glossary" aria-hidden={!open}>
+      <aside id="glosDrawer" className={`glos-drawer${open ? ' open' : ''}`} aria-label={t('nav.glossary')} aria-hidden={!open}>
         <div className="ipa-drawer-head">
-          <b>Glossary</b>
+          <b>{t('nav.glossary')}</b>
           <span>
-            <Link href={`${base}/glossary`} onClick={() => setOpen(false)}>Full page</Link>
-            <button type="button" className="ipa-close" aria-label="Close" onClick={() => setOpen(false)}>×</button>
+            <Link href={`${base}/glossary`} onClick={() => setOpen(false)}>{t('glos.full')}</Link>
+            <button type="button" className="ipa-close" aria-label={t('a11y.close')} onClick={() => setOpen(false)}>×</button>
           </span>
         </div>
         <div className="ipa-drawer-body glos-drawer-body">

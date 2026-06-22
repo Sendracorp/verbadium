@@ -1,9 +1,11 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { sget, sset, subscribe } from '@/lib/progress';
+import { useUI } from './CourseLocale';
 
 export default function Checklist({ items, footHtml, citeHtml }:
   { items: string[]; footHtml: string; citeHtml: string }) {
+  const t = useUI();
   const [checked, setChecked] = useState<boolean[]>(() => items.map(() => false));
   useEffect(() => {
     const read = () => setChecked(prev => items.map((_, i) => !!sget<boolean[]>('checklist', [])[i] || false) ?? prev);
@@ -19,8 +21,8 @@ export default function Checklist({ items, footHtml, citeHtml }:
 
   return (
     <div className="card" id="checklistCard">
-      <h2>A1 self-assessment checklist</h2>
-      <p>Tick what you can do confidently. All boxes ticked = you are ready to register for the exam.</p>
+      <h2>{t('chklist.title')}</h2>
+      <p>{t('chklist.intro')}</p>
       <ul className="checklist interactive">
         {items.map((html, i) => (
           <li key={i} className={checked[i] ? 'done' : ''}>

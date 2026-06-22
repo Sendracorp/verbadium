@@ -2,14 +2,18 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { initializePaddle } from '@paddle/paddle-js';
+import { tUI } from '@/lib/ui';
+import type { Locale } from '@/lib/i18n';
 
 /* Opens the Paddle overlay checkout. /api/checkout is the auth gate —
    401 sends the user to /login and back here afterwards. Access itself is
-   granted by the transaction.completed webhook, not the success redirect. */
-export default function BuyButton({ courseSlug, priceLabel, returnTo }: {
+   granted by the transaction.completed webhook, not the success redirect.
+   Takes a `locale` prop (not useUI) — also used outside the course provider. */
+export default function BuyButton({ courseSlug, priceLabel, returnTo, locale = 'en' }: {
   courseSlug: string;
   priceLabel: string;
   returnTo: string;
+  locale?: Locale;
 }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
@@ -30,12 +34,12 @@ export default function BuyButton({ courseSlug, priceLabel, returnTo }: {
       }
       const body = await res.json().catch(() => ({}));
       if (!res.ok) {
-        setError(body.error ?? 'Could not start checkout. Please try again.');
+        setError(body.error ?? tUI(locale, 'buy.errStart'));
         return;
       }
       const paddle = await initializePaddle({ environment: body.environment, token: body.clientToken });
       if (!paddle) {
-        setError('Could not load the checkout. Please try again.');
+        setError(tUI(locale, 'buy.errLoad'));
         return;
       }
       paddle.Checkout.open({
@@ -48,7 +52,7 @@ export default function BuyButton({ courseSlug, priceLabel, returnTo }: {
         },
       });
     } catch {
-      setError('Could not start checkout. Please check your connection and try again.');
+      setError(tUI(locale, 'buy.errConn'));
     } finally {
       setBusy(false);
     }
@@ -57,7 +61,7 @@ export default function BuyButton({ courseSlug, priceLabel, returnTo }: {
   return (
     <span className="buy-wrap">
       <button type="button" className="btn btn-primary buy-btn" onClick={buy} disabled={busy}>
-        {busy ? 'Opening checkout…' : `Buy the course · ${priceLabel}`}
+        {busy ? tUI(locale, 'buy.opening') : tUI(locale, 'buy.buy', { price: priceLabel })}
       </button>
       {error && <span className="buy-error">{error}</span>}
     </span>

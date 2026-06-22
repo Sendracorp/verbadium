@@ -1,11 +1,13 @@
 'use client';
 import { useEffect, useState } from 'react';
 import Logo from './Logo';
+import { useUI } from './CourseLocale';
 
 /* Course-units menu toggle for mobile: the Verbadium mark *is* the button
    (with a small lines hint so it reads as a menu). The drawer is owned by
    <Sidebar/>, so we toggle it via a window event and mirror open state. */
 export default function CourseMenuButton() {
+  const t = useUI();
   const [open, setOpen] = useState(false);
   useEffect(() => {
     const onState = (e: Event) => setOpen((e as CustomEvent<boolean>).detail);
@@ -17,7 +19,7 @@ export default function CourseMenuButton() {
     <button
       id="navToggle"
       className="course-menu-btn"
-      aria-label="Course menu"
+      aria-label={t('a11y.courseMenu')}
       aria-controls="sidebar"
       aria-expanded={open}
       onClick={() => window.dispatchEvent(new CustomEvent('vb-nav-toggle'))}

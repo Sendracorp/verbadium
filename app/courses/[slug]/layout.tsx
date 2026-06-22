@@ -6,6 +6,7 @@ import IpaDrawer from '@/components/IpaDrawer';
 import GlossaryDrawer from '@/components/GlossaryDrawer';
 import ProgressProvider from '@/components/ProgressProvider';
 import AudioOverridesProvider from '@/components/AudioOverridesProvider';
+import { CourseLocaleProvider } from '@/components/CourseLocale';
 import MediumSwitcher from '@/components/MediumSwitcher';
 import SiteFooter from '@/components/SiteFooter';
 import { getAudioOverrides } from '@/lib/audio-overrides';
@@ -39,9 +40,10 @@ export default async function CourseLayout({ children, params }: {
   const audioOverrides = await getAudioOverrides(slug);
 
   return (
+    <CourseLocaleProvider locale={medium}>
     <ProgressProvider userId={access.user?.id ?? null} courseSlug={slug} initial={initial}>
       <AudioOverridesProvider map={audioOverrides} />
-      <CourseTopbar userEmail={access.user?.email ?? null} isAdmin={isAdmin} owns={access.owns} courseSlug={slug} />
+      <CourseTopbar userEmail={access.user?.email ?? null} isAdmin={isAdmin} owns={access.owns} courseSlug={slug} locale={medium} />
       <div className="course-shell">
         <Sidebar
           units={units}
@@ -63,5 +65,6 @@ export default async function CourseLayout({ children, params }: {
       {access.owns && <GlossaryDrawer rows={course.glossary} base={`/courses/${slug}`} />}
       <CharStrip />
     </ProgressProvider>
+    </CourseLocaleProvider>
   );
 }

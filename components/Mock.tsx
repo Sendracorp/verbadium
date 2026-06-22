@@ -7,8 +7,10 @@ import type { MockData } from '@/lib/types';
 import { speak, stopSpeak } from '@/lib/speech';
 import { addMockAttempt, MockAttempt, sget, sset } from '@/lib/progress';
 import { MatchBoard } from './exercises';
+import { useUI } from './CourseLocale';
 
 function Timer({ paper, mins, onOvertime }: { paper: number; mins: number; onOvertime: () => void }) {
+  const t = useUI();
   const [left, setLeft] = useState<number | null>(null);
   const flagged = useRef(false);
   useEffect(() => {
@@ -31,7 +33,7 @@ function Timer({ paper, mins, onOvertime }: { paper: number; mins: number; onOve
         type="button" className="btn timer-start"
         onClick={() => { flagged.current = false; setLeft(running ? null : mins * 60); }}
       >
-        {running ? 'Reset timer' : `Start ${mins}-min timer`}
+        {running ? t('mock.timerReset') : t('mock.timerStart', { mins })}
       </button>
       {running && (
         <span className={`timer-display${left < 0 ? ' overtime' : ''}`}>
@@ -43,6 +45,7 @@ function Timer({ paper, mins, onOvertime }: { paper: number; mins: number; onOve
 }
 
 export default function Mock({ mock }: { mock: MockData }) {
+  const t = useUI();
   const overtime = useRef<Record<string, boolean>>({});
   const [conditions, setConditions] = useState(false);
   useEffect(() => { setConditions(sget('mock.conditions', false)); }, []);
@@ -114,17 +117,17 @@ export default function Mock({ mock }: { mock: MockData }) {
     };
     addMockAttempt(a);
     setAttempts(sget<MockAttempt[]>('mock.attempts', []));
-    alert('Attempt saved.');
+    alert(t('mock.saved'));
   }
 
   const playLabel =
-    playState === 'p1' ? 'Playing — first reading…' :
-    playState === 'pause' ? 'Pause… second reading starts in 5 s' :
-    playState === 'p2' ? 'Playing — second reading…' : '';
+    playState === 'p1' ? t('mock.playP1') :
+    playState === 'pause' ? t('mock.playPause') :
+    playState === 'p2' ? t('mock.playP2') : '';
 
   return (
     <>
-      <div className="unit-head"><div className="unit-num">Mock exam · A1</div><h2>Full Practice Exam</h2></div>
+      <div className="unit-head"><div className="unit-num">{t('mock.head')}</div><h2>{t('mock.title')}</h2></div>
       <div dangerouslySetInnerHTML={{ __html: mock.introNote }} />
 
       <div className="card exam-conditions">
@@ -133,20 +136,19 @@ export default function Mock({ mock }: { mock: MockData }) {
             type="checkbox" id="examConditions" checked={conditions}
             onChange={e => { setConditions(e.target.checked); sset('mock.conditions', e.target.checked); }}
           />
-          {' '}<b>Exam conditions</b> — show per-paper timers (15 / 30 / 30 / 10 min).
-          When time runs out the paper is marked &quot;over time&quot;, but you can finish.
+          {' '}<b>{t('mock.conditions')}</b>{t('mock.conditionsNote')}
         </label>
       </div>
 
       {/* ---------------- Paper 1 ---------------- */}
       <div className="card exam" id="paper1">
-        <h4>Paper 1 · Comprensió oral (listening) — 15 min</h4>
+        <h4>{t('mock.p1title')}</h4>
         <Timer paper={1} mins={15} onOvertime={() => { overtime.current['1'] = true; }} />
-        <p>The script is read aloud <b>twice</b> with a pause, using your browser&apos;s Catalan voice. Don&apos;t read it — just listen, then answer.</p>
+        <p dangerouslySetInnerHTML={{ __html: t('mock.p1note') }} />
         <p>
           {playState === 'idle'
-            ? <button type="button" className="btn btn-primary" id="playScript" onClick={playTwice}>▶ Play listening script (twice)</button>
-            : <button type="button" className="btn" id="stopScript" onClick={stopPlay}>■ Stop</button>}
+            ? <button type="button" className="btn btn-primary" id="playScript" onClick={playTwice}>{t('mock.play')}</button>
+            : <button type="button" className="btn" id="stopScript" onClick={stopPlay}>{t('mock.stop')}</button>}
           {' '}<span id="playState" className="note">{playLabel}</span>
         </p>
         <ol className="q">
@@ -185,12 +187,12 @@ export default function Mock({ mock }: { mock: MockData }) {
             <button
               type="button" className="btn"
               onClick={() => { setP1picked(mock.p1items.map(() => null)); setScriptShown(false); }}
-            >Retry</button>
+            >{t('btn.retry')}</button>
           )}
         </div>
         {p1done && (
           <div id="scriptReveal">
-            <button type="button" className="btn" id="showScript" onClick={() => setScriptShown(true)}>Show script</button>
+            <button type="button" className="btn" id="showScript" onClick={() => setScriptShown(true)}>{t('mock.showScript')}</button>
             {scriptShown && <p className="note script-text">«{mock.script}»</p>}
           </div>
         )}
@@ -198,9 +200,9 @@ export default function Mock({ mock }: { mock: MockData }) {
 
       {/* ---------------- Paper 2 ---------------- */}
       <div className="card exam" id="paper2">
-        <h4>Paper 2 · Comprensió lectora (reading) — 30 min</h4>
+        <h4>{t('mock.p2title')}</h4>
         <Timer paper={2} mins={30} onOvertime={() => { overtime.current['2'] = true; }} />
-        <p><b>Task A — Read this notice and answer.</b></p>
+        <p><b>{t('mock.taskA2')}</b></p>
         <p className="note">«{mock.p2notice}»</p>
         <ol className="q" id="p2a">
           {mock.p2aItems.map((q, i) => (
@@ -222,15 +224,15 @@ export default function Mock({ mock }: { mock: MockData }) {
         </ol>
         {p2aRevealed && (
           <div className="model-answer" id="p2aModel">
-            <div className="model-label">Answers</div>
+            <div className="model-label">{t('mock.answers')}</div>
             <div className="model-body" dangerouslySetInnerHTML={{ __html: mock.p2aKeyHtml }} />
           </div>
         )}
         <div className="ex-controls" id="p2aControls">
-          <button type="button" className="btn" onClick={() => setP2aRevealed(true)} disabled={p2aRevealed}>Show answers</button>
+          <button type="button" className="btn" onClick={() => setP2aRevealed(true)} disabled={p2aRevealed}>{t('mock.showAnswers')}</button>
           {p2aScore !== null && <span className={`ex-score ${p2aScore === 4 ? 'ok' : 'bad'}`}>{p2aScore} / 4{p2aScore === 4 ? ' — perfecte!' : ''}</span>}
         </div>
-        <p><b>Task B — Match each sign (1–5) to its meaning (a–e).</b></p>
+        <p><b>{t('mock.taskB2')}</b></p>
         <div id="p2b">
           <MatchBoard items={mock.p2bItems} pairs={mock.p2bPairs} onChecked={score => setP2bScore(score)} />
         </div>
@@ -238,9 +240,9 @@ export default function Mock({ mock }: { mock: MockData }) {
 
       {/* ---------------- Paper 3 ---------------- */}
       <div className="card exam" id="paper3">
-        <h4>Paper 3 · Expressió escrita (writing) — 30 min</h4>
+        <h4>{t('mock.p3title')}</h4>
         <Timer paper={3} mins={30} onOvertime={() => { overtime.current['3'] = true; }} />
-        <p><b>Task A — Fill in this library-card application about yourself.</b></p>
+        <p><b>{t('mock.taskA3')}</b></p>
         <ol className="q">
           {mock.p3form.map((li, i) => (
             <li key={i}>
@@ -256,20 +258,20 @@ export default function Mock({ mock }: { mock: MockData }) {
         <div dangerouslySetInnerHTML={{ __html: mock.p3bTask }} />
         <textarea
           className="free-text" id="p3text" rows={5} spellCheck={false}
-          placeholder="Write your postcard here (35–45 words)…"
+          placeholder={t('mock.p3ph')}
           value={p3text} onChange={e => setP3text(e.target.value)}
         />
-        <div className="note">Words: <span id="p3words">{p3words}</span></div>
-        <button type="button" className="btn" id="p3reveal" onClick={() => setP3revealed(true)} disabled={p3revealed}>Show model answer</button>
+        <div className="note">{t('mock.words')} <span id="p3words">{p3words}</span></div>
+        <button type="button" className="btn" id="p3reveal" onClick={() => setP3revealed(true)} disabled={p3revealed}>{t('btn.showModel')}</button>
         {p3revealed && (
           <>
             <div className="model-answer" id="p3model">
-              <div className="model-label">Model (38 words)</div>
+              <div className="model-label">{t('mock.model38')}</div>
               <div className="model-body" dangerouslySetInnerHTML={{ __html: mock.p3bModel }} />
             </div>
             <span className="self-mark" id="p3mark">
-              <button type="button" className={`sm-btn sm-yes${p3mark === true ? ' sel' : ''}`} onClick={() => setP3mark(true)}>✓ I got it</button>
-              <button type="button" className={`sm-btn sm-no${p3mark === false ? ' sel' : ''}`} onClick={() => setP3mark(false)}>✗ Not yet</button>
+              <button type="button" className={`sm-btn sm-yes${p3mark === true ? ' sel' : ''}`} onClick={() => setP3mark(true)}>{t('sm.gotIt')}</button>
+              <button type="button" className={`sm-btn sm-no${p3mark === false ? ' sel' : ''}`} onClick={() => setP3mark(false)}>{t('sm.notYet')}</button>
             </span>
           </>
         )}
@@ -277,9 +279,9 @@ export default function Mock({ mock }: { mock: MockData }) {
 
       {/* ---------------- Paper 4 ---------------- */}
       <div className="card exam" id="paper4">
-        <h4>Paper 4 · Expressió oral (speaking) — 10 min</h4>
+        <h4>{t('mock.p4title')}</h4>
         <Timer paper={4} mins={10} onOvertime={() => { overtime.current['4'] = true; }} />
-        <p><b>Part 1 — Answer these aloud in full sentences (the examiner&apos;s classic set):</b></p>
+        <p><b>{t('mock.part1p4')}</b></p>
         <ol className="q" id="p4qs">
           {mock.p4qs.map((q, i) => (
             <li key={i}>
@@ -289,25 +291,25 @@ export default function Mock({ mock }: { mock: MockData }) {
                   type="checkbox" className="aloud-check" checked={p4aloud[i]}
                   onChange={e => setP4aloud(a => a.map((x, xi) => xi === i ? e.target.checked : x))}
                 />
-                {' '}I said it aloud
+                {' '}{t('chk.aloud')}
               </label>
             </li>
           ))}
         </ol>
         <div dangerouslySetInnerHTML={{ __html: mock.p4role }} />
         <div dangerouslySetInnerHTML={{ __html: mock.p4mark }} />
-        <button type="button" className="btn" id="p4reveal" onClick={() => setP4revealed(true)} disabled={p4revealed}>Show model answers</button>
+        <button type="button" className="btn" id="p4reveal" onClick={() => setP4revealed(true)} disabled={p4revealed}>{t('btn.showModels')}</button>
         {p4revealed && (
           <>
             <div className="model-answer" id="p4model">
-              <div className="model-label">Model answers (Part 1)</div>
+              <div className="model-label">{t('mock.modelP1')}</div>
               <div className="model-body" dangerouslySetInnerHTML={{ __html: mock.p4model }} />
-              <div className="model-label">Role-play skeleton</div>
+              <div className="model-label">{t('mock.roleSkeleton')}</div>
               <div className="model-body" dangerouslySetInnerHTML={{ __html: mock.p4roleModel }} />
             </div>
             <span className="self-mark" id="p4mark2">
-              <button type="button" className={`sm-btn sm-yes${p4mark === true ? ' sel' : ''}`} onClick={() => setP4mark(true)}>✓ I got it</button>
-              <button type="button" className={`sm-btn sm-no${p4mark === false ? ' sel' : ''}`} onClick={() => setP4mark(false)}>✗ Not yet</button>
+              <button type="button" className={`sm-btn sm-yes${p4mark === true ? ' sel' : ''}`} onClick={() => setP4mark(true)}>{t('sm.gotIt')}</button>
+              <button type="button" className={`sm-btn sm-no${p4mark === false ? ' sel' : ''}`} onClick={() => setP4mark(false)}>{t('sm.notYet')}</button>
             </span>
           </>
         )}
@@ -315,25 +317,25 @@ export default function Mock({ mock }: { mock: MockData }) {
 
       {/* ---------------- attempts ---------------- */}
       <div className="card">
-        <h2>Save this attempt</h2>
-        <p className="note">Finishes the sitting and stores the per-paper results (with today&apos;s date) in your browser.</p>
-        <button type="button" className="btn btn-primary" id="saveAttempt" onClick={saveAttempt}>Finish &amp; save attempt</button>
-        <h3>Attempt history</h3>
+        <h2>{t('mock.saveTitle')}</h2>
+        <p className="note">{t('mock.saveNote')}</p>
+        <button type="button" className="btn btn-primary" id="saveAttempt" onClick={saveAttempt}>{t('mock.finishSave')}</button>
+        <h3>{t('mock.history')}</h3>
         <div id="attemptHistory" className="note">
-          {!attempts.length ? 'No attempts saved yet.' : (
+          {!attempts.length ? t('mock.noAttempts') : (
             <table className="attempt-table">
-              <thead><tr><th>Date</th><th>P1 listening</th><th>P2 reading</th><th>P3 writing</th><th>P4 speaking</th></tr></thead>
+              <thead><tr><th>{t('th.date')}</th><th>{t('mock.thP1')}</th><th>{t('mock.thP2')}</th><th>{t('mock.thP3')}</th><th>{t('mock.thP4')}</th></tr></thead>
               <tbody>
                 {[...attempts].reverse().map((a, i) => {
                   const ot = (p: number) => a.overtime?.[String(p)]
-                    ? <span className="over-tag"> over time</span> : null;
+                    ? <span className="over-tag">{t('mock.overTime')}</span> : null;
                   return (
                     <tr key={i}>
                       <td>{a.date}</td>
                       <td>{a.p1 === null ? '—' : `${a.p1}/6`}{ot(1)}</td>
                       <td>{a.p2a === null ? '—' : `${a.p2a}/4`} + {a.p2b === null ? '—' : `${a.p2b}/5`}{ot(2)}</td>
-                      <td>{a.p3 === null ? '—' : a.p3 ? 'self-passed' : 'not yet'} ({a.p3words} w.){ot(3)}</td>
-                      <td>{a.p4aloud}/8 aloud · {a.p4 === null ? '—' : a.p4 ? 'self-passed' : 'not yet'}{ot(4)}</td>
+                      <td>{a.p3 === null ? '—' : a.p3 ? t('mock.selfPassed') : t('mock.notYet')} ({a.p3words} {t('mock.wordsAbbr')}){ot(3)}</td>
+                      <td>{a.p4aloud}/8 {t('mock.aloud')} · {a.p4 === null ? '—' : a.p4 ? t('mock.selfPassed') : t('mock.notYet')}{ot(4)}</td>
                     </tr>
                   );
                 })}

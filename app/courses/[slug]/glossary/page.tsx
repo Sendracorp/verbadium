@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCourseContent } from '@/lib/content';
 import { getMedium } from '@/lib/medium';
+import { tUI } from '@/lib/ui';
 import { getCourseMeta } from '@/lib/courses';
 import { getCourseAccess } from '@/lib/access';
 import Glossary from '@/components/Glossary';
@@ -14,12 +15,13 @@ const CREDIT_NAMES = Object.keys(nativeAudio.credits);   // server-side; not shi
 export default async function GlossaryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const meta = getCourseMeta(slug);
-  const course = getCourseContent(slug, await getMedium(slug));
+  const medium = await getMedium(slug);
+  const course = getCourseContent(slug, medium);
   if (!meta || !course) notFound();
 
   const access = await getCourseAccess(slug);
   if (!access.owns) {
-    return <Paywall meta={meta} what="The glossary" loggedIn={!!access.user} returnTo={`/courses/${slug}/glossary`} />;
+    return <Paywall meta={meta} what={tUI(medium, 'what.glossary')} locale={medium} loggedIn={!!access.user} returnTo={`/courses/${slug}/glossary`} />;
   }
   return <Glossary rows={course.glossary} creditNames={CREDIT_NAMES} />;
 }

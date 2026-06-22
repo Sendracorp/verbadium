@@ -39,7 +39,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CourseHomePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const meta = getCourseMeta(slug);
-  const course = getCourseContent(slug, await getMedium(slug));
+  const medium = await getMedium(slug);
+  const course = getCourseContent(slug, medium);
   if (!meta || !course) notFound();
 
   const access = await getCourseAccess(slug);
@@ -97,7 +98,7 @@ export default async function CourseHomePage({ params }: { params: Promise<{ slu
             <li>One payment, no subscription</li>
           </ul>
           <div className="paywall-actions">
-            <BuyButton courseSlug={slug} priceLabel={price} returnTo={base} />
+            <BuyButton courseSlug={slug} priceLabel={price} returnTo={base} locale={medium} />
             {!access.user && (
               <Link className="btn" href={`/login?next=${encodeURIComponent(base)}`}>
                 Already bought it? Log in

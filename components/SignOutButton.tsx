@@ -1,8 +1,10 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { getBrowserSupabase } from '@/lib/supabase/client';
+import { useUI } from './CourseLocale';
 
 export default function SignOutButton({ className = 'btn' }: { className?: string }) {
+  const t = useUI();
   const router = useRouter();
   return (
     <button
@@ -12,6 +14,6 @@ export default function SignOutButton({ className = 'btn' }: { className?: strin
         router.push('/');
         router.refresh();
       }}
-    >Sign out</button>
+    >{t('auth.signout')}</button>
   );
 }

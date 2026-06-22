@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { exState, subscribe } from '@/lib/progress';
 import Logo from './Logo';
 import SignOutButton from './SignOutButton';
+import { useUI } from './CourseLocale';
 
 export interface UnitMeta { num: number; title: string; exerciseIds: string[] }
 
@@ -38,6 +39,7 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
   const [open, setOpen] = useState(false);          // mobile drawer
   const [collapsed, setCollapsed] = useState(false); // desktop rail
   const progress = useUnitProgress(units);
+  const t = useUI();
 
   // restore the desktop collapsed preference
   useEffect(() => {
@@ -72,16 +74,16 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
   return (
     <>
       {/* mobile drawer toggle lives in the topbar — see <CourseMenuButton/> */}
-      <nav className="course-nav" id="sidebar" aria-label="Course navigation">
+      <nav className="course-nav" id="sidebar" aria-label={t('a11y.courseNav')}>
         <div className="course-nav-head">
           <div className="course-nav-toprow">
             {/* the product (secondary) — back to all courses */}
-            <Link href="/" className="course-nav-home" aria-label="Verbadium — all courses"><Logo size={22} /></Link>
+            <Link href="/" className="course-nav-home" aria-label={t('a11y.allCourses')}><Logo size={22} /></Link>
             {/* collapsed rail: just the mark */}
-            <Link href={base} className="course-nav-mark" aria-label="Course home"><Logo variant="mark" size={30} /></Link>
+            <Link href={base} className="course-nav-mark" aria-label={t('a11y.courseHome')}><Logo variant="mark" size={30} /></Link>
             <button
               className="course-nav-collapse"
-              aria-label={collapsed ? 'Expand course menu' : 'Collapse course menu'}
+              aria-label={collapsed ? t('a11y.expand') : t('a11y.collapse')}
               aria-pressed={collapsed}
               onClick={() => collapse(!collapsed)}
             >{collapsed ? '»' : '«'}</button>
@@ -95,8 +97,8 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
 
         <div className="course-nav-scroll">
           <div className="nav-group">
-            <Link href={base} className={cls(base)}>Home &amp; progress</Link>
-            <Link href={`${base}/ipa`} className={cls(`${base}/ipa`)}>IPA guide</Link>
+            <Link href={base} className={cls(base)}>{t('nav.home')}</Link>
+            <Link href={`${base}/ipa`} className={cls(`${base}/ipa`)}>{t('nav.ipa')}</Link>
           </div>
           <div className="nav-group nav-units">
             {units.map(u => {
@@ -105,11 +107,11 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
               return (
                 <Link key={u.num} href={`${base}/unit/${u.num}`} className={cls(`${base}/unit/${u.num}`, 'nav-unit')}>
                   <span className="nav-unit-text">
-                    <span className="nav-unit-num">Unit {u.num}</span>
+                    <span className="nav-unit-num">{t('nav.unit', { n: u.num })}</span>
                     <span className="nav-unit-title" dangerouslySetInnerHTML={{ __html: u.title }} />
                   </span>
                   {locked ? (
-                    <span className="nav-badge nav-lock" data-unit={u.num} aria-label="Locked">🔒</span>
+                    <span className="nav-badge nav-lock" data-unit={u.num} aria-label={t('a11y.locked')}>🔒</span>
                   ) : (
                     <span className={`nav-badge${p.passed === p.total ? ' done' : ''}`} data-unit={u.num}>
                       {p.passed}/{p.total}
@@ -120,12 +122,12 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
             })}
           </div>
           <div className="nav-group">
-            <Link href={`${base}/exam`} className={cls(`${base}/exam`)}>The official exam</Link>
+            <Link href={`${base}/exam`} className={cls(`${base}/exam`)}>{t('nav.exam')}</Link>
             <Link href={`${base}/mock`} className={cls(`${base}/mock`)}>
-              Mock exam{!owns && <span className="nav-badge nav-lock" aria-label="Locked">🔒</span>}
+              {t('nav.mock')}{!owns && <span className="nav-badge nav-lock" aria-label={t('a11y.locked')}>🔒</span>}
             </Link>
             <Link href={`${base}/glossary`} className={cls(`${base}/glossary`)}>
-              Glossary{!owns && <span className="nav-badge nav-lock" aria-label="Locked">🔒</span>}
+              {t('nav.glossary')}{!owns && <span className="nav-badge nav-lock" aria-label={t('a11y.locked')}>🔒</span>}
             </Link>
           </div>
         </div>
@@ -133,18 +135,18 @@ export default function Sidebar({ units, courseSlug, courseLanguage, courseLevel
         {/* pinned base: conversion (non-owners) + account / session */}
         <div className="course-nav-foot">
           {!owns && (
-            <Link href="/pricing" className="nav-foot-cta">Get the full course</Link>
+            <Link href="/pricing" className="nav-foot-cta">{t('nav.getFull')}</Link>
           )}
-          <Link href="/" className="nav-foot-link nav-foot-courses">All courses</Link>
+          <Link href="/" className="nav-foot-link nav-foot-courses">{t('nav.allCourses')}</Link>
           {userEmail ? (
             <div className="nav-foot-account">
               <span className="nav-foot-email" title={userEmail}>{userEmail}</span>
-              <Link href="/account" className="nav-foot-link">Account &amp; purchases</Link>
-              {isAdmin && <Link href="/admin" className="nav-foot-link">Admin dashboard</Link>}
+              <Link href="/account" className="nav-foot-link">{t('nav.account')}</Link>
+              {isAdmin && <Link href="/admin" className="nav-foot-link">{t('nav.admin')}</Link>}
               <SignOutButton className="nav-foot-link nav-foot-signout" />
             </div>
           ) : (
-            <Link href={`/login?next=${encodeURIComponent(pathname)}`} className="nav-foot-link nav-foot-auth" data-test="nav-login">Log in</Link>
+            <Link href={`/login?next=${encodeURIComponent(pathname)}`} className="nav-foot-link nav-foot-auth" data-test="nav-login">{t('auth.login')}</Link>
           )}
         </div>
       </nav>

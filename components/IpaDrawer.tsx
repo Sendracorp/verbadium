@@ -5,8 +5,10 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import SpeechScope from './SpeechScope';
+import { useUI } from './CourseLocale';
 
 export default function IpaDrawer({ html }: { html: string }) {
+  const t = useUI();
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -24,24 +26,24 @@ export default function IpaDrawer({ html }: { html: string }) {
         className={`ipa-tab${open ? ' open' : ''}`}
         aria-expanded={open}
         aria-controls="ipaDrawer"
-        title="IPA pronunciation reference"
+        title={t('ipa.tab')}
         onClick={() => setOpen(o => !o)}
       >
-        <span>IPA /ə/</span>
+        <span>{t('ipa.tabShort')}</span>
       </button>
       {/* always rendered (class-toggled) so the sibling list keeps a stable shape */}
       <div className={`ipa-backdrop${open ? ' show' : ''}`} id="ipaBackdrop" onClick={() => setOpen(false)} />
       <aside
         id="ipaDrawer"
         className={`ipa-drawer${open ? ' open' : ''}`}
-        aria-label="IPA pronunciation reference"
+        aria-label={t('ipa.tab')}
         aria-hidden={!open}
       >
         <div className="ipa-drawer-head">
-          <b>IPA quick reference</b>
+          <b>{t('ipa.quick')}</b>
           <span>
-            <Link href="/ipa" onClick={() => setOpen(false)}>Full guide</Link>
-            <button type="button" className="ipa-close" aria-label="Close" onClick={() => setOpen(false)}>×</button>
+            <Link href="/ipa" onClick={() => setOpen(false)}>{t('ipa.full')}</Link>
+            <button type="button" className="ipa-close" aria-label={t('a11y.close')} onClick={() => setOpen(false)}>×</button>
           </span>
         </div>
         <div className="ipa-drawer-body">

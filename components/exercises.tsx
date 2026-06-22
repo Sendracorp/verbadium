@@ -8,6 +8,7 @@ import type {
 import { CheckResult, checkText, joinTokens, normSentence } from '@/lib/check';
 import { exState, setExState, subscribe } from '@/lib/progress';
 import { preloadAudio, speak, stopSpeak } from '@/lib/speech';
+import { useUI } from './CourseLocale';
 
 const FILL = '<span class="fill">___</span>';
 
@@ -16,6 +17,7 @@ function Html({ html, as: Tag = 'span', className }: { html: string; as?: 'span'
 }
 
 function StateChip({ id }: { id: string }) {
+  const t = useUI();
   const [state, setState] = useState<'untouched' | 'attempted' | 'passed'>('untouched');
   useEffect(() => {
     const read = () => setState(exState(id).state);
@@ -24,33 +26,38 @@ function StateChip({ id }: { id: string }) {
   }, [id]);
   return (
     <span className={`ex-state${state !== 'untouched' ? ' ' + state : ''}`} data-exstate={id}>
-      {state === 'passed' ? '✓ done' : state === 'attempted' ? 'tried' : ''}
+      {state === 'passed' ? t('ex.done') : state === 'attempted' ? t('ex.tried') : ''}
     </span>
   );
 }
 
 function Feedback({ res, wrongHint }: { res: CheckResult | null; wrongHint?: string }) {
+  const t = useUI();
   if (!res) return <span className="item-fb" />;
-  const text = res === 'ok' ? '✓' : res === 'almost' ? '✓ (check the accents!)' : `✗${wrongHint ? ' ' + wrongHint : ''}`;
+  const text = res === 'ok' ? '✓' : res === 'almost' ? t('fb.accents') : `✗${wrongHint ? ' ' + wrongHint : ''}`;
   return <span className={`item-fb ${res}`}>{text}</span>;
 }
 
 function Score({ score, total }: { score: number | null; total: number }) {
+  const t = useUI();
   if (score === null) return <span className="ex-score" />;
   return (
     <span className={`ex-score ${score === total ? 'ok' : 'bad'}`}>
-      {score} / {total}{score === total ? ' — perfecte!' : ''}
+      {score} / {total}{score === total ? ` — ${t('score.perfect')}` : ''}
     </span>
   );
 }
 
-function SelfMark({ value, onMark, yesLabel = '✓ I got it', noLabel = '✗ Not yet' }:
+function SelfMark({ value, onMark, yesLabel, noLabel }:
   { value: boolean | null; onMark: (ok: boolean) => void; yesLabel?: string; noLabel?: string | null }) {
+  const t = useUI();
+  const yes = yesLabel ?? t('sm.gotIt');
+  const no = noLabel === null ? null : (noLabel ?? t('sm.notYet'));
   return (
     <span className="self-mark">
-      <button type="button" className={`sm-btn sm-yes${value === true ? ' sel' : ''}`} onClick={() => onMark(true)}>{yesLabel}</button>
-      {noLabel !== null && (
-        <button type="button" className={`sm-btn sm-no${value === false ? ' sel' : ''}`} onClick={() => onMark(false)}>{noLabel}</button>
+      <button type="button" className={`sm-btn sm-yes${value === true ? ' sel' : ''}`} onClick={() => onMark(true)}>{yes}</button>
+      {no !== null && (
+        <button type="button" className={`sm-btn sm-no${value === false ? ' sel' : ''}`} onClick={() => onMark(false)}>{no}</button>
       )}
     </span>
   );
@@ -84,6 +91,7 @@ function GapSentence({ html, values, results, revealed, onChange }:
 // ------------------------------------------------------------ gap / write / paradigm
 
 function GapLike({ ex }: { ex: Exercise }) {
+  const t = useUI();
   const isGap = ex.type === 'gap';
   const items = ex.items as (GapItem | WriteItem)[];
   const gapCounts = items.map(it => (isGap ? (it as GapItem).gaps : 1));
@@ -156,12 +164,12 @@ function GapLike({ ex }: { ex: Exercise }) {
         ))}
       </ol>
       <div className="ex-controls">
-        <button type="button" className="btn btn-primary" onClick={check}>Check answers</button>
+        <button type="button" className="btn btn-primary" onClick={check}>{t('btn.check')}</button>
         <Score score={score} total={total} />
         {score !== null && score < total && !revealed && (
-          <button type="button" className="btn btn-reveal" onClick={reveal}>Show correct answers</button>
+          <button type="button" className="btn btn-reveal" onClick={reveal}>{t('btn.showCorrect')}</button>
         )}
-        {score !== null && <button type="button" className="btn" onClick={retry}>Retry</button>}
+        {score !== null && <button type="button" className="btn" onClick={retry}>{t('btn.retry')}</button>}
       </div>
     </>
   );
@@ -170,10 +178,11 @@ function GapLike({ ex }: { ex: Exercise }) {
 // ------------------------------------------------------------------- tf / choice
 
 function TFChoice({ ex }: { ex: Exercise }) {
+  const t = useUI();
   const isTF = ex.type === 'tf';
   const items = ex.items as (TFItem | ChoiceItem)[];
   const options: { val: string; label: string }[] = isTF
-    ? [{ val: 'true', label: 'True' }, { val: 'false', label: 'False' }]
+    ? [{ val: 'true', label: t('tf.true') }, { val: 'false', label: t('tf.false') }]
     : (ex.options || []).map(o => ({ val: o, label: o }));
   const [picked, setPicked] = useState<(string | null)[]>(items.map(() => null));
   const [done, setDone] = useState(false);
@@ -228,7 +237,7 @@ function TFChoice({ ex }: { ex: Exercise }) {
       </ol>
       <div className="ex-controls">
         <Score score={done ? score : null} total={items.length} />
-        {done && <button type="button" className="btn" onClick={retry}>Retry</button>}
+        {done && <button type="button" className="btn" onClick={retry}>{t('btn.retry')}</button>}
       </div>
     </>
   );
@@ -238,6 +247,7 @@ function TFChoice({ ex }: { ex: Exercise }) {
 
 export function MatchBoard({ items, pairs, onChecked }:
   { items: MatchItem[]; pairs: Record<string, string>; onChecked?: (score: number, total: number) => void }) {
+  const t = useUI();
   const [chosen, setChosen] = useState<Record<number, string>>({});
   const [selLeft, setSelLeft] = useState<number | null>(null);
   const [checked, setChecked] = useState(false);
@@ -303,9 +313,9 @@ export function MatchBoard({ items, pairs, onChecked }:
         </div>
       </div>
       <div className="ex-controls">
-        <button type="button" className="btn btn-primary" onClick={check} disabled={checked}>Check answers</button>
+        <button type="button" className="btn btn-primary" onClick={check} disabled={checked}>{t('btn.check')}</button>
         <Score score={checked ? score : null} total={items.length} />
-        {checked && <button type="button" className="btn" onClick={retry}>Retry</button>}
+        {checked && <button type="button" className="btn" onClick={retry}>{t('btn.retry')}</button>}
       </div>
     </>
   );
@@ -323,6 +333,7 @@ function Match({ ex }: { ex: Exercise }) {
 // ----------------------------------------------------------------------- reorder
 
 function Reorder({ ex }: { ex: Exercise }) {
+  const t = useUI();
   const items = ex.items as ReorderItem[];
   const [seqs, setSeqs] = useState<number[][]>(items.map(() => []));
   const [checked, setChecked] = useState(false);
@@ -367,9 +378,9 @@ function Reorder({ ex }: { ex: Exercise }) {
         </div>
       ))}
       <div className="ex-controls">
-        <button type="button" className="btn btn-primary" onClick={check} disabled={checked}>Check answers</button>
+        <button type="button" className="btn btn-primary" onClick={check} disabled={checked}>{t('btn.check')}</button>
         <Score score={checked ? score : null} total={items.length} />
-        {checked && <button type="button" className="btn" onClick={retry}>Retry</button>}
+        {checked && <button type="button" className="btn" onClick={retry}>{t('btn.retry')}</button>}
       </div>
     </>
   );
@@ -378,6 +389,7 @@ function Reorder({ ex }: { ex: Exercise }) {
 // ------------------------------------------------------------------------ model
 
 function Model({ ex }: { ex: Exercise }) {
+  const t = useUI();
   const items = ex.items as PlainItem[];
   const hasItems = items.length > 0 && items[0].html !== '';
   const [revealed, setRevealed] = useState(false);
@@ -418,7 +430,7 @@ function Model({ ex }: { ex: Exercise }) {
                 value={inputs[i]}
                 onChange={e => setInputs(v => v.map((x, vi) => vi === i ? e.target.value : x))}
               />
-              {revealed && <SelfMark value={marks[i]} onMark={ok => mark(i, ok)} yesLabel="✓ I got it" noLabel="✗ Not yet" />}
+              {revealed && <SelfMark value={marks[i]} onMark={ok => mark(i, ok)} yesLabel={t('sm.gotIt')} noLabel={t('sm.notYet')} />}
             </li>
           ))}
         </ol>
@@ -440,9 +452,9 @@ function Model({ ex }: { ex: Exercise }) {
         </div>
       )}
       <div className="ex-controls">
-        <button type="button" className="btn" onClick={reveal} disabled={revealed}>Show model answer</button>
+        <button type="button" className="btn" onClick={reveal} disabled={revealed}>{t('btn.showModel')}</button>
         <Score score={allMarked ? score : null} total={markCount} />
-        {allMarked && <button type="button" className="btn" onClick={retry}>Retry</button>}
+        {allMarked && <button type="button" className="btn" onClick={retry}>{t('btn.retry')}</button>}
       </div>
     </>
   );
@@ -451,6 +463,7 @@ function Model({ ex }: { ex: Exercise }) {
 // ------------------------------------------------------------------------- free
 
 function Free({ ex }: { ex: Exercise }) {
+  const t = useUI();
   const items = ex.items as PlainItem[];
   const [text, setText] = useState('');
   const [aloud, setAloud] = useState(false);
@@ -477,13 +490,13 @@ function Free({ ex }: { ex: Exercise }) {
       )}
       {ex.noteHtml && <Html html={ex.noteHtml} as="div" />}
       <textarea
-        className="free-text" rows={4} spellCheck={false} placeholder="Write here…"
+        className="free-text" rows={4} spellCheck={false} placeholder={t('ph.writeHere')}
         value={text} onChange={e => onText(e.target.value)}
       />
       {ex.oral && (
         <label className="said-aloud">
           <input type="checkbox" className="aloud-check" checked={aloud} onChange={e => setAloud(e.target.checked)} />
-          {' '}I said it aloud
+          {' '}{t('chk.aloud')}
         </label>
       )}
       {(revealed || !hasModel) && <SelfMark value={mark} onMark={doMark} />}
@@ -499,10 +512,10 @@ function Free({ ex }: { ex: Exercise }) {
             type="button" className="btn"
             onClick={() => { setRevealed(true); if (exState(ex.id).state === 'untouched') setExState(ex.id, 'attempted', 0, 1); }}
             disabled={revealed}
-          >Show model answer</button>
+          >{t('btn.showModel')}</button>
         )}
         <Score score={mark !== null ? (mark ? 1 : 0) : null} total={1} />
-        {mark !== null && <button type="button" className="btn" onClick={retry}>Retry</button>}
+        {mark !== null && <button type="button" className="btn" onClick={retry}>{t('btn.retry')}</button>}
       </div>
     </>
   );
@@ -511,6 +524,7 @@ function Free({ ex }: { ex: Exercise }) {
 // ---------------------------------------------------------------------- personal
 
 function Personal({ ex }: { ex: Exercise }) {
+  const t = useUI();
   const items = ex.items as PlainItem[];
   const [done, setDone] = useState(false);
 
@@ -542,7 +556,7 @@ function Personal({ ex }: { ex: Exercise }) {
       <SelfMark
         value={done ? true : null}
         onMark={() => { setDone(true); setExState(ex.id, 'passed', 1, 1); }}
-        yesLabel="✓ Done" noLabel={null}
+        yesLabel={t('sm.done')} noLabel={null}
       />
       {ex.keyHtml && done && (
         <div className="model-answer">
@@ -560,6 +574,7 @@ function Personal({ ex }: { ex: Exercise }) {
 /* Listen → write the English. Audio comes from speak() (native recording or
    the pre-generated Google clip); the Catalan stays hidden until revealed. */
 function Listen({ ex }: { ex: Exercise }) {
+  const t = useUI();
   const items = ex.items as ListenItem[];
   const dict = ex.type === 'dictation';   // write the Catalan you hear (vs the English meaning)
   const [values, setValues] = useState<string[]>(items.map(() => ''));
@@ -602,12 +617,12 @@ function Listen({ ex }: { ex: Exercise }) {
           <li key={i}>
             <button
               type="button" className={`say listen-play${playing === i ? ' speaking' : ''}`}
-              title="Play audio" aria-label={`Play audio ${i + 1}`} onClick={() => play(i)}
+              title="Play audio" aria-label={t('a11y.playAudio', { n: i + 1 })} onClick={() => play(i)}
             >🔊</button>{' '}
             <input
               type="text"
               className={`gap-input listen-input${revealed ? ' revealed' : (results[i] ? ' ' + results[i] : '')}`}
-              readOnly={revealed} placeholder={dict ? '…in Catalan' : '…in English'}
+              readOnly={revealed} placeholder={dict ? t('ph.inCatalan') : t('ph.inMeaning')}
               autoCapitalize="off" autoComplete="off" spellCheck={false}
               value={values[i] ?? ''}
               onChange={e => setValues(v => v.map((x, vi) => vi === i ? e.target.value : x))}
@@ -618,13 +633,13 @@ function Listen({ ex }: { ex: Exercise }) {
         ))}
       </ol>
       <div className="ex-controls">
-        <button type="button" className="btn btn-primary" onClick={check}>Check answers</button>
+        <button type="button" className="btn btn-primary" onClick={check}>{t('btn.check')}</button>
         <Score score={score} total={total} />
-        {!dict && score !== null && !showCa && <button type="button" className="btn" onClick={() => setShowCa(true)}>Show the Catalan</button>}
+        {!dict && score !== null && !showCa && <button type="button" className="btn" onClick={() => setShowCa(true)}>{t('btn.showCatalan')}</button>}
         {score !== null && score < total && !revealed && (
-          <button type="button" className="btn btn-reveal" onClick={reveal}>Show correct answers</button>
+          <button type="button" className="btn btn-reveal" onClick={reveal}>{t('btn.showCorrect')}</button>
         )}
-        {score !== null && <button type="button" className="btn" onClick={retry}>Retry</button>}
+        {score !== null && <button type="button" className="btn" onClick={retry}>{t('btn.retry')}</button>}
       </div>
     </>
   );
@@ -642,6 +657,7 @@ function hashStr(s: string): number {
    (audio i ↔ text i); the written column is shuffled deterministically so it
    is stable across SSR/hydration. */
 function ListenMatch({ ex }: { ex: Exercise }) {
+  const t = useUI();
   const items = ex.items as ListenItem[];
   // rotate the written column by a per-exercise offset so no row lines up with
   // its clip — positional guessing fails, you must actually listen. Deterministic
@@ -713,9 +729,9 @@ function ListenMatch({ ex }: { ex: Exercise }) {
         </div>
       </div>
       <div className="ex-controls">
-        <button type="button" className="btn btn-primary" onClick={check} disabled={checked}>Check answers</button>
+        <button type="button" className="btn btn-primary" onClick={check} disabled={checked}>{t('btn.check')}</button>
         <Score score={checked ? score : null} total={items.length} />
-        {checked && <button type="button" className="btn" onClick={retry}>Retry</button>}
+        {checked && <button type="button" className="btn" onClick={retry}>{t('btn.retry')}</button>}
       </div>
     </>
   );
