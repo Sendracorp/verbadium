@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import SiteHeader from '../SiteHeader';
 import SiteFooter from '../SiteFooter';
+import SetMedium from '../SetMedium';
 import { getDict, PATHS, type Locale } from '@/lib/i18n';
 import { getCourseMeta } from '@/lib/courses';
 
@@ -11,6 +12,7 @@ export default function LocalizedHome({ lang }: { lang: Locale }) {
   const meta = getCourseMeta('catalan-a1')!;
   return (
     <div lang={lang}>
+      <SetMedium lang={lang} />
       <SiteHeader lang={lang} page="home" />
       <main className="site-main">
         <div className="hero">

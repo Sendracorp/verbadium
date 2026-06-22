@@ -1011,3 +1011,7 @@ body:has(> .site-header) .site-footer { margin-top: auto; }
 .audio-badge.audio-native { background: rgba(17,179,155,.12); color: #0c7a69; }
 .audio-badge.audio-tts { background: rgba(31,42,48,.08); color: var(--vb-ink-soft); }
 .audio-badge.audio-none { background: var(--bad-bg); color: var(--bad); }
+
+/* ---- course teaching-medium switcher ---- */
+.medium-switcher { display: inline-flex; align-items: center; gap: 8px; float: right; margin: 0 0 8px 12px; font-size: .82rem; color: var(--vb-ink-soft); }
+.medium-switcher select { font: inherit; padding: 4px 8px; border: 1.5px solid var(--vb-line); border-radius: 8px; background: var(--vb-surface); }

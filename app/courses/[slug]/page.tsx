@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getCourseContent } from '@/lib/content';
+import { getMedium } from '@/lib/medium';
 import { getCourseMeta } from '@/lib/courses';
 import { getCourseAccess } from '@/lib/access';
 import Dashboard from '@/components/Dashboard';
@@ -38,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function CourseHomePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const meta = getCourseMeta(slug);
-  const course = getCourseContent(slug);
+  const course = getCourseContent(slug, await getMedium(slug));
   if (!meta || !course) notFound();
 
   const access = await getCourseAccess(slug);

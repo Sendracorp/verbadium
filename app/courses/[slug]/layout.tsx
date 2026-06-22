@@ -6,9 +6,11 @@ import IpaDrawer from '@/components/IpaDrawer';
 import GlossaryDrawer from '@/components/GlossaryDrawer';
 import ProgressProvider from '@/components/ProgressProvider';
 import AudioOverridesProvider from '@/components/AudioOverridesProvider';
+import MediumSwitcher from '@/components/MediumSwitcher';
 import SiteFooter from '@/components/SiteFooter';
 import { getAudioOverrides } from '@/lib/audio-overrides';
 import { getCourseContent } from '@/lib/content';
+import { getMedium, availableMediums } from '@/lib/medium';
 import { getCourseMeta } from '@/lib/courses';
 import { getCourseAccess } from '@/lib/access';
 import { getServerSupabase } from '@/lib/supabase/server';
@@ -20,7 +22,8 @@ export default async function CourseLayout({ children, params }: {
 }) {
   const { slug } = await params;
   const meta = getCourseMeta(slug);
-  const course = getCourseContent(slug);
+  const medium = await getMedium(slug);
+  const course = getCourseContent(slug, medium);
   if (!meta || !course) notFound();
 
   const access = await getCourseAccess(slug);
@@ -50,7 +53,10 @@ export default async function CourseLayout({ children, params }: {
           userEmail={access.user?.email ?? null}
           isAdmin={isAdmin}
         />
-        <main className="content">{children}</main>
+        <main className="content">
+          <MediumSwitcher current={medium} options={availableMediums(slug)} />
+          {children}
+        </main>
       </div>
       <SiteFooter />
       <IpaDrawer html={course.ipaCheatHtml} />

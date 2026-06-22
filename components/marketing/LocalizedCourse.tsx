@@ -2,6 +2,7 @@ import Link from 'next/link';
 import SiteHeader from '../SiteHeader';
 import SiteFooter from '../SiteFooter';
 import JsonLd from '../JsonLd';
+import SetMedium from '../SetMedium';
 import { getDict, t, PATHS, type Locale } from '@/lib/i18n';
 import { getCourseMeta } from '@/lib/courses';
 import { SITE } from '@/lib/site';
@@ -36,6 +37,7 @@ export default function LocalizedCourse({ lang }: { lang: Locale }) {
 
   return (
     <div lang={lang}>
+      <SetMedium lang={lang} />
       <JsonLd data={courseLd} />
       <SiteHeader lang={lang} page="course" />
       <main className="site-main">
