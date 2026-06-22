@@ -231,10 +231,20 @@ Per **level**, separate:
   **With Spanish selected, content AND chrome render in Spanish.**
   - **Still pending:** native review of the AI Spanish (content + chrome) before
     heavy marketing.
-- **Next — fr/ru:** run the same translator fan-out on `catalan-a1.en.json` (the
-  923-key content catalog) AND add `fr`/`ru` columns to `lib/ui.ts`, then add the
-  locales to `AVAILABLE_MEDIUMS`. (To add a chrome locale: add a `Strings` object
-  in `lib/ui.ts` and include it in the `UI` map.)
+- **fr + ru — DONE.** Full content catalogs (`i18n/catalan-a1.fr.json`, `.ru.json`,
+  923 keys each) + chrome dictionaries in `lib/ui.ts` (131 keys each), both added
+  to `AVAILABLE_MEDIUMS`. Validated (key parity + HTML + Catalan-span) and live,
+  opt-in. **All four mediums (en/es/fr/ru) now render content AND chrome.** AI
+  drafts pending native review.
+
+### Adding another teaching language later (the recipe)
+1. `python` split `i18n/catalan-a1.en.json` into chunks → fan out Claude
+   translators (rules: translate teaching text only; keep keys, HTML, and all
+   Catalan/IPA verbatim; `gloss.*` = the word's meaning in the target language).
+2. Merge + validate: same keys, same HTML tag-set per value, same `class="ca"`
+   count (see `tests/unit/i18n-course.test.ts`). Write `i18n/catalan-a1.<loc>.json`.
+3. Add a `<loc>` chrome `Strings` object to `lib/ui.ts` and include it in `UI`.
+4. Add `<loc>` to `AVAILABLE_MEDIUMS` and to the test's `describe.each` list.
 - **Phase 1 (later) — A2 content:** author Catalan A2 (English master). Add
   `catalan-a2` to `lib/courses.ts` (+ content source in `lib/content.ts` +
   `PADDLE_PRICE_CATALAN_A2`). Audio auto-shares via the text-keyed library; run
