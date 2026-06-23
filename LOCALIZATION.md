@@ -234,8 +234,14 @@ Per **level**, separate:
 - **fr + ru + de — DONE.** Full content catalogs (`i18n/catalan-a1.{fr,ru,de}.json`,
   923 keys each) + chrome dictionaries in `lib/ui.ts` (131 keys each), all added
   to `AVAILABLE_MEDIUMS`. Validated (key parity + HTML + Catalan-span) and live,
-  opt-in. **Five mediums (en/es/fr/ru/de) now render content AND chrome.** AI
-  drafts pending native review.
+  opt-in. **Five mediums (en/es/fr/ru/de) now render content AND chrome.**
+- **Review pass — DONE.** Independent reviewer agents re-checked all content +
+  chrome in es/fr/ru/de vs the English source: 82 content + 13 chrome fixes,
+  re-validated. Caught real bugs: listen→meaning answers left in English (ru
+  units 2–3, de units 6–10) + wrong "in English" titles; German false friends
+  (Hörspiel, Zeitwörter); gender/elision/punctuation/terminology. A **human
+  native proofread** is still advisable before heavy paid marketing (it's an
+  AI review, not a human native one), but the text is solid for launch.
 - **German SEO — DONE.** `/de` + `/de/katalanisch-kurs` localized marketing pages
   (static, de_DE OG, canonical, hreflang) like ca/es/fr/ru; German marketing
   `Dict` + PATHS routes in `lib/i18n.ts`. Marketing locales with no medium
