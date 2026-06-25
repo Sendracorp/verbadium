@@ -543,6 +543,8 @@ body.exam-mode .paper-timer { display: inline-flex; }
 .course-card-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .course-card-meta { font-size: .85rem; color: #666; font-family: Arial, sans-serif; }
 .course-card-stats { font-size: .8rem; color: #777; font-family: Arial, sans-serif; }
+.course-card-price { font-size: 1.05rem; font-weight: 800; color: var(--red); margin: .5em 0 .1em; font-family: Arial, sans-serif; }
+.course-card-price .course-card-price-note { font-size: .82rem; font-weight: 600; color: #888; }
 .course-card-actions { margin-top: auto; padding-top: 14px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
 .owned-tag { color: var(--ok); background: var(--ok-bg); font-weight: 700; font-size: .78rem; padding: 3px 10px; border-radius: 4px; font-family: Arial, sans-serif; }
 .course-card.coming-soon { opacity: .65; background: #f7f4ee; }
@@ -850,7 +852,7 @@ body:has(> .site-header) .site-footer { margin-top: auto; }
 .course-card:nth-child(3) .badge { background: var(--vb-peach); }
 .course-card.coming-soon { opacity: 1; background: repeating-linear-gradient(135deg, #fff, #fff 14px, var(--vb-paper) 14px, var(--vb-paper) 28px); }
 .owned-tag { background: var(--vb-mint); color: #2c5e45; border-radius: 999px; }
-.course-card-meta, .pricing-amount-note, .course-card-stats { color: var(--vb-ink-soft); }
+.course-card-meta, .pricing-amount-note, .course-card-stats, .course-card-price .course-card-price-note { color: var(--vb-ink-soft); }
 .catalog-pricing-link a { color: var(--vb-grape); font-weight: 600; }
 
 /* ---- pricing ---- */

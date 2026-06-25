@@ -70,12 +70,17 @@ export default function CourseFamilyCard({ card, preferredMedium }:
           </div>
         </>
       ) : (
-        <div className="course-card-actions">
-          <BuyButton courseSlug={v.slug} priceLabel={v.priceLabel} returnTo={base} labels={v.buyLabels} />
-          <Link className="btn" href={`${base}/unit/${card.freeUnit}`} data-test="free-preview">
-            {d.card.preview}
-          </Link>
-        </div>
+        <>
+          <p className="course-card-price" data-test="course-price">
+            {v.priceLabel} <span className="course-card-price-note">· {d.card.lifetime}</span>
+          </p>
+          <div className="course-card-actions">
+            <BuyButton courseSlug={v.slug} priceLabel={v.priceLabel} returnTo={base} labels={v.buyLabels} />
+            <Link className="btn" href={`${base}/unit/${card.freeUnit}`} data-test="free-preview">
+              {d.card.preview}
+            </Link>
+          </div>
+        </>
       )}
     </div>
   );
