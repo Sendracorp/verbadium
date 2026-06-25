@@ -1,13 +1,12 @@
-'use client';
-import { useState } from 'react';
 import Link from 'next/link';
-import { getDict, LOCALE_LABEL, t, type Locale } from '@/lib/i18n';
+import { getDict, t, type Locale } from '@/lib/i18n';
 import type { BuyLabels } from '@/lib/ui-runtime';
 import BuyButton from './BuyButton';
 
-/* One catalog card per course FAMILY. The learner picks the language it's
-   taught in; the selection drives the localized copy, price, buy target,
-   preview link and (if owned) progress — each language being its own course. */
+/* One catalog card per course family, rendered entirely in the PAGE's language
+   (so a page never mixes languages). Each language is its own course; to view
+   the course in another language, switch the whole page via the language
+   switcher — which lands on that language's home. */
 export interface VariantView {
   medium: Locale;
   slug: string;
@@ -26,15 +25,9 @@ export interface FamilyCardData {
   variants: VariantView[];
 }
 
-export default function CourseFamilyCard({ card, preferredMedium }:
-  { card: FamilyCardData; preferredMedium?: Locale | null }) {
-  // Default to a language the learner owns, else their remembered preference (if
-  // this course offers it), else the first variant.
-  const owned = card.variants.find(v => v.owns);
-  const preferred = card.variants.find(v => v.medium === preferredMedium);
-  const [sel, setSel] = useState<Locale>((owned ?? preferred ?? card.variants[0]).medium);
-  const v = card.variants.find(x => x.medium === sel) ?? card.variants[0];
-  const d = getDict(sel);
+export default function CourseFamilyCard({ card, locale = 'en' }: { card: FamilyCardData; locale?: Locale }) {
+  const v = card.variants.find(x => x.medium === locale) ?? card.variants[0];
+  const d = getDict(locale);
   const base = `/courses/${v.slug}`;
   const pct = Math.round((v.passed / card.totalExercises) * 100);
 
@@ -47,15 +40,6 @@ export default function CourseFamilyCard({ card, preferredMedium }:
       <h2>{d.course.name}</h2>
       <p>{d.course.tagline}</p>
       <p className="course-card-meta">{d.course.taughtInEnglish}</p>
-
-      {card.variants.length > 1 && (
-        <label className="medium-switcher course-card-lang">
-          <span>{d.langLabel}</span>
-          <select value={sel} onChange={e => setSel(e.target.value as Locale)} aria-label={d.langLabel}>
-            {card.variants.map(o => <option key={o.medium} value={o.medium}>{LOCALE_LABEL[o.medium]}</option>)}
-          </select>
-        </label>
-      )}
 
       {v.owns ? (
         <>

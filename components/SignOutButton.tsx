@@ -1,10 +1,9 @@
 'use client';
 import { useRouter } from 'next/navigation';
 import { getBrowserSupabase } from '@/lib/supabase/client';
-import { useUI } from './CourseLocale';
+import { getDict, type Locale } from '@/lib/i18n';
 
-export default function SignOutButton({ className = 'btn' }: { className?: string }) {
-  const t = useUI();
+export default function SignOutButton({ className = 'btn', lang = 'en' }: { className?: string; lang?: Locale }) {
   const router = useRouter();
   return (
     <button
@@ -14,6 +13,6 @@ export default function SignOutButton({ className = 'btn' }: { className?: strin
         router.push('/');
         router.refresh();
       }}
-    >{t('auth.signout')}</button>
+    >{getDict(lang).acct.logout}</button>
   );
 }

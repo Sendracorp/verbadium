@@ -18,10 +18,11 @@ import { courseFamilies } from '@/lib/courses';
 import { getSessionUser, paywallBypassed, userOwnsCourse } from '@/lib/access';
 import { countPassedExercises } from '@/lib/progress-server';
 import { resolveCoursePrice } from '@/lib/pricing';
-import { preferredMedium } from '@/lib/medium';
 
 export default async function CatalogPage() {
-  const [user, preferred] = await Promise.all([getSessionUser(), preferredMedium()]);
+  // The root catalog is the English page; localized visitors use /es, /fr, … —
+  // so this card renders in English and never mixes languages with the page.
+  const user = await getSessionUser();
   const bypass = paywallBypassed();
 
   // One card per family; each language variant carries its own ownership,
@@ -59,7 +60,7 @@ export default async function CatalogPage() {
           </p>
         </div>
         <div className="catalog-grid" data-test="catalog">
-          {cards.map(card => <CourseFamilyCard key={card.family} card={card} preferredMedium={preferred} />)}
+          {cards.map(card => <CourseFamilyCard key={card.family} card={card} />)}
           <div className="card course-card coming-soon">
             <div className="course-card-head"><span className="badge">COMING NEXT</span></div>
             <h2>Catalan A2</h2>

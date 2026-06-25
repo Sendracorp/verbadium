@@ -30,7 +30,7 @@ export default function AccountSlot({ lang = 'en' }: { lang?: Locale }) {
     return () => { active = false; };
   }, []);
 
-  if (acct) return <AccountMenu userEmail={acct.email} isAdmin={acct.isAdmin} />;
+  if (acct) return <AccountMenu userEmail={acct.email} isAdmin={acct.isAdmin} lang={lang} />;
   return (
     <div className="site-actions">
       <Link href="/login" data-test="header-login">{d.nav.login}</Link>

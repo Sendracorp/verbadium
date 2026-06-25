@@ -17,7 +17,7 @@ export default function CourseTopbar({ userEmail, isAdmin = false, owns, courseS
       <div className="course-topbar-right">
         {!owns && <Link href={(PATHS.pricing as Record<string, string>)[locale]} className="course-topbar-cta">{tUI(locale, 'nav.getCourse')}</Link>}
         {userEmail ? (
-          <AccountMenu userEmail={userEmail} isAdmin={isAdmin} />
+          <AccountMenu userEmail={userEmail} isAdmin={isAdmin} lang={locale} />
         ) : (
           <Link href={`/login?next=${encodeURIComponent(`/courses/${courseSlug}`)}`} className="course-topbar-login">{tUI(locale, 'auth.login')}</Link>
         )}
