@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/terms`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/refunds`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
+    { url: `${SITE_URL}/cookies`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/contact`, changeFrequency: 'yearly', priority: 0.3 },
   ];
   // Primary (English) variant per family — localized SEO lives on the marketing

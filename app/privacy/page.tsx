@@ -18,7 +18,7 @@ export default function PrivacyPage() {
       <ul>
         <li><strong>Account data</strong> — your email address and, optionally, a display name.</li>
         <li><strong>Learning progress</strong> — which exercises you’ve completed, mock-exam attempts and your self-assessment checklist, so you can pick up where you left off across devices.</li>
-        <li><strong>Essential cookies</strong> — a session cookie that keeps you logged in. We do not use advertising or third-party tracking cookies.</li>
+        <li><strong>Cookies &amp; analytics</strong> — an essential session cookie keeps you logged in, and we use privacy-friendly, <strong>cookieless</strong> analytics to measure page visits and performance. No advertising or third-party tracking cookies. See our <Link href="/cookies">Cookie Policy</Link>.</li>
       </ul>
       <p>
         We do <strong>not</strong> collect or store your payment-card details. Payments are handled by
@@ -61,7 +61,8 @@ export default function PrivacyPage() {
       <h2>Contact</h2>
       <p>
         Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>. See also our{' '}
-        <Link href="/terms">Terms</Link> and <Link href="/refunds">Refund Policy</Link>.
+        <Link href="/terms">Terms</Link>, <Link href="/refunds">Refund Policy</Link> and{' '}
+        <Link href="/cookies">Cookie Policy</Link>.
       </p>
     </LegalPage>
   );

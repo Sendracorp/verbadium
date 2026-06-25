@@ -1,7 +1,10 @@
 import type { Metadata } from 'next';
 import { Bricolage_Grotesque, Hanken_Grotesk } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import JsonLd from '@/components/JsonLd';
+import CookieNotice from '@/components/CookieNotice';
 import { SITE } from '@/lib/site';
 
 // Display: Bricolage Grotesque (characterful, modern). Body: Hanken Grotesk
@@ -68,6 +71,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <JsonLd data={ORG_JSONLD} />
         {children}
+        <CookieNotice />
+        {/* Cookieless, no-PII — GDPR-friendly without a consent banner. */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

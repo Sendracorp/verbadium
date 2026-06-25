@@ -29,6 +29,7 @@ export default function SiteFooter({ lang = 'en', page = 'home' }: { lang?: Loca
             <Link href="/terms">{d.footer.terms}</Link>
             <Link href="/refunds">{d.footer.refunds}</Link>
             <Link href="/privacy">{d.footer.privacy}</Link>
+            <Link href="/cookies">{d.footer.cookies}</Link>
           </div>
           <div className="footer-col">
             <h4>{d.footer.help}</h4>

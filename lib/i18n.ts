@@ -47,7 +47,7 @@ export interface Dict {
     alreadyBought: string;
   };
   footer: { tagline: string; learn: string; legal: string; help: string;
-    terms: string; refunds: string; privacy: string; contact: string; mor: string };
+    terms: string; refunds: string; privacy: string; cookies: string; contact: string; mor: string };
 }
 
 const en: Dict = {
@@ -76,7 +76,7 @@ const en: Dict = {
     alreadyBought: 'Already bought it? Log in',
   },
   footer: { tagline: 'Learn Catalan, properly — interactive courses with full IPA, native-speaker audio, auto-marked exercises and real mock exams.',
-    learn: 'Learn', legal: 'Legal', help: 'Help', terms: 'Terms', refunds: 'Refunds', privacy: 'Privacy', contact: 'Contact',
+    learn: 'Learn', legal: 'Legal', help: 'Help', terms: 'Terms', refunds: 'Refunds', privacy: 'Privacy', cookies: 'Cookies', contact: 'Contact',
     mor: 'Payments & VAT handled by Paddle.com, our merchant of record.' },
 };
 
@@ -106,7 +106,7 @@ const ca: Dict = {
     alreadyBought: 'Ja l’has comprat? Inicia sessió',
   },
   footer: { tagline: 'Aprèn català, com cal — cursos interactius amb AFI complet, àudio de parlants nadius, exercicis autocorregits i exàmens de mostra reals.',
-    learn: 'Aprèn', legal: 'Legal', help: 'Ajuda', terms: 'Condicions', refunds: 'Devolucions', privacy: 'Privadesa', contact: 'Contacte',
+    learn: 'Aprèn', legal: 'Legal', help: 'Ajuda', terms: 'Condicions', refunds: 'Devolucions', privacy: 'Privadesa', cookies: 'Galetes', contact: 'Contacte',
     mor: 'Pagaments i IVA gestionats per Paddle.com, el nostre venedor oficial.' },
 };
 
@@ -136,7 +136,7 @@ const es: Dict = {
     alreadyBought: '¿Ya lo compraste? Inicia sesión',
   },
   footer: { tagline: 'Aprende catalán, de verdad — cursos interactivos con AFI completo, audio de hablantes nativos, ejercicios autocorregidos y exámenes de prueba reales.',
-    learn: 'Aprende', legal: 'Legal', help: 'Ayuda', terms: 'Términos', refunds: 'Reembolsos', privacy: 'Privacidad', contact: 'Contacto',
+    learn: 'Aprende', legal: 'Legal', help: 'Ayuda', terms: 'Términos', refunds: 'Reembolsos', privacy: 'Privacidad', cookies: 'Cookies', contact: 'Contacto',
     mor: 'Pagos e IVA gestionados por Paddle.com, nuestro vendedor oficial.' },
 };
 
@@ -166,7 +166,7 @@ const fr: Dict = {
     alreadyBought: 'Déjà acheté ? Connectez-vous',
   },
   footer: { tagline: 'Apprenez le catalan, vraiment — des cours interactifs avec API complet, audio de locuteurs natifs, exercices autocorrigés et examens blancs réels.',
-    learn: 'Apprendre', legal: 'Légal', help: 'Aide', terms: 'Conditions', refunds: 'Remboursements', privacy: 'Confidentialité', contact: 'Contact',
+    learn: 'Apprendre', legal: 'Légal', help: 'Aide', terms: 'Conditions', refunds: 'Remboursements', privacy: 'Confidentialité', cookies: 'Cookies', contact: 'Contact',
     mor: 'Paiements et TVA gérés par Paddle.com, notre revendeur officiel.' },
 };
 
@@ -196,7 +196,7 @@ const ru: Dict = {
     alreadyBought: 'Уже купили? Войдите',
   },
   footer: { tagline: 'Учите каталанский как следует — интерактивные курсы с полной МФА-транскрипцией, аудио носителей языка, упражнениями с автопроверкой и настоящими пробными экзаменами.',
-    learn: 'Учить', legal: 'Правовая информация', help: 'Помощь', terms: 'Условия', refunds: 'Возвраты', privacy: 'Конфиденциальность', contact: 'Контакты',
+    learn: 'Учить', legal: 'Правовая информация', help: 'Помощь', terms: 'Условия', refunds: 'Возвраты', privacy: 'Конфиденциальность', cookies: 'Файлы cookie', contact: 'Контакты',
     mor: 'Платежи и НДС обрабатывает Paddle.com, наш официальный продавец.' },
 };
 
@@ -227,7 +227,7 @@ const de: Dict = {
     alreadyBought: 'Schon gekauft? Anmelden',
   },
   footer: { tagline: 'Katalanisch lernen, richtig — interaktive Kurse mit vollständiger IPA, Muttersprachler-Audio, automatisch korrigierten Übungen und echten Musterprüfungen.',
-    learn: 'Lernen', legal: 'Rechtliches', help: 'Hilfe', terms: 'AGB', refunds: 'Rückerstattungen', privacy: 'Datenschutz', contact: 'Kontakt',
+    learn: 'Lernen', legal: 'Rechtliches', help: 'Hilfe', terms: 'AGB', refunds: 'Rückerstattungen', privacy: 'Datenschutz', cookies: 'Cookies', contact: 'Kontakt',
     mor: 'Zahlungen und MwSt. werden von Paddle.com abgewickelt, unserem Verkäufer (Merchant of Record).' },
 };
 
