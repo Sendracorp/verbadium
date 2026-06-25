@@ -57,6 +57,15 @@ export interface Dict {
   footer: { tagline: string; learn: string; legal: string; help: string;
     terms: string; refunds: string; privacy: string; cookies: string; contact: string; mor: string };
   pricing: { title: string; sub: string; faqHeading: string; faq: { q: string; a: string }[] };
+  auth: {
+    titles: { login: string; signup: string; forgot: string; reset: string };
+    subtitles: { login: string; signup: string; forgot: string; reset: string };
+    actions: { login: string; signup: string; forgot: string; reset: string };
+    busy: string; email: string; password: string; newPassword: string;
+    google: string; orEmail: string;
+    noAccount: string; forgotLink: string; haveAccount: string; backToLogin: string;
+    checkInbox: string; resetSent: string; passwordUpdated: string; unconfigured: string;
+  };
 }
 
 const en: Dict = {
@@ -87,6 +96,24 @@ const en: Dict = {
   footer: { tagline: 'Learn Catalan, properly — interactive courses with full IPA, native-speaker audio, auto-marked exercises and real mock exams.',
     learn: 'Learn', legal: 'Legal', help: 'Help', terms: 'Terms', refunds: 'Refunds', privacy: 'Privacy', cookies: 'Cookies', contact: 'Contact',
     mor: 'Payments & VAT handled by Paddle.com, our merchant of record.' },
+  auth: {
+    titles: { login: 'Welcome back', signup: 'Create your account', forgot: 'Reset your password', reset: 'Choose a new password' },
+    subtitles: {
+      login: 'Log in to pick up your course where you left off.',
+      signup: 'Save your progress and sync it across devices.',
+      forgot: 'Enter your email and we’ll send a reset link.',
+      reset: 'Choose a new password for your account.',
+    },
+    actions: { login: 'Log in', signup: 'Create account', forgot: 'Send reset link', reset: 'Update password' },
+    busy: 'One moment…', email: 'Email', password: 'Password', newPassword: 'New password',
+    google: 'Continue with Google', orEmail: 'or with email',
+    noAccount: 'No account yet? Sign up', forgotLink: 'Forgot your password?',
+    haveAccount: 'Already registered? Log in', backToLogin: 'Back to log in',
+    checkInbox: 'Almost there — check your inbox and click the confirmation link to activate your account.',
+    resetSent: 'If an account exists for that address, a password-reset link is on its way.',
+    passwordUpdated: 'Password updated — you are logged in.',
+    unconfigured: 'Accounts aren’t enabled on this deployment yet — Supabase credentials are not configured.',
+  },
   pricing: {
     title: 'Simple, one-time pricing', sub: 'Buy a course once, keep it forever. No subscription.',
     faqHeading: 'Frequently asked questions',
@@ -128,6 +155,24 @@ const ca: Dict = {
   footer: { tagline: 'Aprèn català, com cal — cursos interactius amb AFI complet, àudio de parlants nadius, exercicis autocorregits i exàmens de mostra reals.',
     learn: 'Aprèn', legal: 'Legal', help: 'Ajuda', terms: 'Condicions', refunds: 'Devolucions', privacy: 'Privadesa', cookies: 'Galetes', contact: 'Contacte',
     mor: 'Pagaments i IVA gestionats per Paddle.com, el nostre venedor oficial.' },
+  auth: {
+    titles: { login: 'Hola de nou', signup: 'Crea el teu compte', forgot: 'Restableix la contrasenya', reset: 'Tria una contrasenya nova' },
+    subtitles: {
+      login: 'Inicia sessió per continuar el curs on el vas deixar.',
+      signup: 'Desa el teu progrés i sincronitza’l entre dispositius.',
+      forgot: 'Introdueix el teu correu i t’enviarem un enllaç per restablir-la.',
+      reset: 'Tria una contrasenya nova per al teu compte.',
+    },
+    actions: { login: 'Inicia sessió', signup: 'Crea el compte', forgot: 'Envia l’enllaç', reset: 'Actualitza la contrasenya' },
+    busy: 'Un moment…', email: 'Correu electrònic', password: 'Contrasenya', newPassword: 'Contrasenya nova',
+    google: 'Continua amb Google', orEmail: 'o amb el correu',
+    noAccount: 'Encara no tens compte? Crea’n un', forgotLink: 'Has oblidat la contrasenya?',
+    haveAccount: 'Ja estàs registrat? Inicia sessió', backToLogin: 'Torna a l’inici de sessió',
+    checkInbox: 'Gairebé hi som: revisa la safata d’entrada i fes clic a l’enllaç de confirmació per activar el compte.',
+    resetSent: 'Si existeix un compte amb aquesta adreça, t’enviarem un enllaç per restablir la contrasenya.',
+    passwordUpdated: 'Contrasenya actualitzada: ja tens la sessió iniciada.',
+    unconfigured: 'Els comptes encara no estan activats en aquest desplegament: les credencials de Supabase no estan configurades.',
+  },
   pricing: {
     title: 'Preu únic i senzill', sub: 'Compra un curs una vegada i tingue’l per sempre. Sense subscripció.',
     faqHeading: 'Preguntes freqüents',
@@ -169,6 +214,24 @@ const es: Dict = {
   footer: { tagline: 'Aprende catalán, de verdad — cursos interactivos con AFI completo, audio de hablantes nativos, ejercicios autocorregidos y exámenes de prueba reales.',
     learn: 'Aprende', legal: 'Legal', help: 'Ayuda', terms: 'Términos', refunds: 'Reembolsos', privacy: 'Privacidad', cookies: 'Cookies', contact: 'Contacto',
     mor: 'Pagos e IVA gestionados por Paddle.com, nuestro vendedor oficial.' },
+  auth: {
+    titles: { login: 'Hola de nuevo', signup: 'Crea tu cuenta', forgot: 'Restablece tu contraseña', reset: 'Elige una contraseña nueva' },
+    subtitles: {
+      login: 'Inicia sesión para retomar tu curso donde lo dejaste.',
+      signup: 'Guarda tu progreso y sincronízalo entre dispositivos.',
+      forgot: 'Introduce tu correo y te enviaremos un enlace para restablecerla.',
+      reset: 'Elige una contraseña nueva para tu cuenta.',
+    },
+    actions: { login: 'Iniciar sesión', signup: 'Crear cuenta', forgot: 'Enviar enlace', reset: 'Actualizar contraseña' },
+    busy: 'Un momento…', email: 'Correo electrónico', password: 'Contraseña', newPassword: 'Contraseña nueva',
+    google: 'Continuar con Google', orEmail: 'o con tu correo',
+    noAccount: '¿Aún no tienes cuenta? Crea una', forgotLink: '¿Olvidaste tu contraseña?',
+    haveAccount: '¿Ya tienes cuenta? Inicia sesión', backToLogin: 'Volver al inicio de sesión',
+    checkInbox: 'Ya casi: revisa tu bandeja de entrada y haz clic en el enlace de confirmación para activar tu cuenta.',
+    resetSent: 'Si existe una cuenta con esa dirección, te enviaremos un enlace para restablecer la contraseña.',
+    passwordUpdated: 'Contraseña actualizada: ya has iniciado sesión.',
+    unconfigured: 'Las cuentas aún no están habilitadas en este despliegue: las credenciales de Supabase no están configuradas.',
+  },
   pricing: {
     title: 'Precio único y sencillo', sub: 'Compra un curso una vez y consérvalo para siempre. Sin suscripción.',
     faqHeading: 'Preguntas frecuentes',
@@ -210,6 +273,24 @@ const fr: Dict = {
   footer: { tagline: 'Apprenez le catalan, vraiment — des cours interactifs avec API complet, audio de locuteurs natifs, exercices autocorrigés et examens blancs réels.',
     learn: 'Apprendre', legal: 'Légal', help: 'Aide', terms: 'Conditions', refunds: 'Remboursements', privacy: 'Confidentialité', cookies: 'Cookies', contact: 'Contact',
     mor: 'Paiements et TVA gérés par Paddle.com, notre revendeur officiel.' },
+  auth: {
+    titles: { login: 'Bon retour', signup: 'Créez votre compte', forgot: 'Réinitialisez votre mot de passe', reset: 'Choisissez un nouveau mot de passe' },
+    subtitles: {
+      login: 'Connectez-vous pour reprendre votre cours là où vous l’avez laissé.',
+      signup: 'Enregistrez votre progression et synchronisez-la sur tous vos appareils.',
+      forgot: 'Saisissez votre e-mail et nous vous enverrons un lien de réinitialisation.',
+      reset: 'Choisissez un nouveau mot de passe pour votre compte.',
+    },
+    actions: { login: 'Se connecter', signup: 'Créer le compte', forgot: 'Envoyer le lien', reset: 'Mettre à jour le mot de passe' },
+    busy: 'Un instant…', email: 'E-mail', password: 'Mot de passe', newPassword: 'Nouveau mot de passe',
+    google: 'Continuer avec Google', orEmail: 'ou par e-mail',
+    noAccount: 'Pas encore de compte ? Inscrivez-vous', forgotLink: 'Mot de passe oublié ?',
+    haveAccount: 'Déjà inscrit ? Connectez-vous', backToLogin: 'Retour à la connexion',
+    checkInbox: 'Presque terminé — consultez votre boîte de réception et cliquez sur le lien de confirmation pour activer votre compte.',
+    resetSent: 'Si un compte existe pour cette adresse, un lien de réinitialisation est en route.',
+    passwordUpdated: 'Mot de passe mis à jour — vous êtes connecté.',
+    unconfigured: 'Les comptes ne sont pas encore activés sur ce déploiement — les identifiants Supabase ne sont pas configurés.',
+  },
   pricing: {
     title: 'Un tarif simple et unique', sub: 'Achetez un cours une fois, gardez-le pour toujours. Sans abonnement.',
     faqHeading: 'Questions fréquentes',
@@ -251,6 +332,24 @@ const ru: Dict = {
   footer: { tagline: 'Учите каталанский как следует — интерактивные курсы с полной МФА-транскрипцией, аудио носителей языка, упражнениями с автопроверкой и настоящими пробными экзаменами.',
     learn: 'Учить', legal: 'Правовая информация', help: 'Помощь', terms: 'Условия', refunds: 'Возвраты', privacy: 'Конфиденциальность', cookies: 'Файлы cookie', contact: 'Контакты',
     mor: 'Платежи и НДС обрабатывает Paddle.com, наш официальный продавец.' },
+  auth: {
+    titles: { login: 'С возвращением', signup: 'Создайте аккаунт', forgot: 'Сброс пароля', reset: 'Выберите новый пароль' },
+    subtitles: {
+      login: 'Войдите, чтобы продолжить курс с того места, где остановились.',
+      signup: 'Сохраняйте прогресс и синхронизируйте его между устройствами.',
+      forgot: 'Введите адрес почты, и мы пришлём ссылку для сброса пароля.',
+      reset: 'Выберите новый пароль для вашего аккаунта.',
+    },
+    actions: { login: 'Войти', signup: 'Создать аккаунт', forgot: 'Отправить ссылку', reset: 'Обновить пароль' },
+    busy: 'Секунду…', email: 'Эл. почта', password: 'Пароль', newPassword: 'Новый пароль',
+    google: 'Продолжить с Google', orEmail: 'или по эл. почте',
+    noAccount: 'Нет аккаунта? Зарегистрируйтесь', forgotLink: 'Забыли пароль?',
+    haveAccount: 'Уже зарегистрированы? Войдите', backToLogin: 'Назад ко входу',
+    checkInbox: 'Почти готово — проверьте почту и перейдите по ссылке подтверждения, чтобы активировать аккаунт.',
+    resetSent: 'Если аккаунт с таким адресом существует, ссылка для сброса пароля уже в пути.',
+    passwordUpdated: 'Пароль обновлён — вы вошли в систему.',
+    unconfigured: 'Аккаунты пока не включены в этом развёртывании — учётные данные Supabase не настроены.',
+  },
   pricing: {
     title: 'Простая разовая оплата', sub: 'Купите курс один раз и пользуйтесь им всегда. Без подписки.',
     faqHeading: 'Частые вопросы',
@@ -293,6 +392,24 @@ const de: Dict = {
   footer: { tagline: 'Katalanisch lernen, richtig — interaktive Kurse mit vollständiger IPA, Muttersprachler-Audio, automatisch korrigierten Übungen und echten Musterprüfungen.',
     learn: 'Lernen', legal: 'Rechtliches', help: 'Hilfe', terms: 'AGB', refunds: 'Rückerstattungen', privacy: 'Datenschutz', cookies: 'Cookies', contact: 'Kontakt',
     mor: 'Zahlungen und MwSt. werden von Paddle.com abgewickelt, unserem Verkäufer (Merchant of Record).' },
+  auth: {
+    titles: { login: 'Willkommen zurück', signup: 'Konto erstellen', forgot: 'Passwort zurücksetzen', reset: 'Neues Passwort wählen' },
+    subtitles: {
+      login: 'Melde dich an, um deinen Kurs dort fortzusetzen, wo du aufgehört hast.',
+      signup: 'Speichere deinen Fortschritt und synchronisiere ihn über alle Geräte.',
+      forgot: 'Gib deine E-Mail ein und wir senden dir einen Link zum Zurücksetzen.',
+      reset: 'Wähle ein neues Passwort für dein Konto.',
+    },
+    actions: { login: 'Anmelden', signup: 'Konto erstellen', forgot: 'Link senden', reset: 'Passwort aktualisieren' },
+    busy: 'Einen Moment…', email: 'E-Mail', password: 'Passwort', newPassword: 'Neues Passwort',
+    google: 'Mit Google fortfahren', orEmail: 'oder per E-Mail',
+    noAccount: 'Noch kein Konto? Registrieren', forgotLink: 'Passwort vergessen?',
+    haveAccount: 'Schon registriert? Anmelden', backToLogin: 'Zurück zur Anmeldung',
+    checkInbox: 'Fast geschafft — sieh in deinem Postfach nach und klicke auf den Bestätigungslink, um dein Konto zu aktivieren.',
+    resetSent: 'Falls ein Konto für diese Adresse existiert, ist ein Link zum Zurücksetzen unterwegs.',
+    passwordUpdated: 'Passwort aktualisiert — du bist angemeldet.',
+    unconfigured: 'Konten sind in diesem Deployment noch nicht aktiviert — die Supabase-Zugangsdaten sind nicht konfiguriert.',
+  },
   pricing: {
     title: 'Einfacher Einmalpreis', sub: 'Kauf einen Kurs einmal, behalte ihn für immer. Kein Abo.',
     faqHeading: 'Häufige Fragen',

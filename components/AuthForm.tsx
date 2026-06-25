@@ -3,31 +3,10 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { getBrowserSupabase } from '@/lib/supabase/client';
+import { getDict, type Locale } from '@/lib/i18n';
 import Logo from './Logo';
 
 type Mode = 'login' | 'signup' | 'forgot' | 'reset';
-
-const TITLES: Record<Mode, string> = {
-  login: 'Welcome back',
-  signup: 'Create your account',
-  forgot: 'Reset your password',
-  reset: 'Choose a new password',
-};
-
-/* the form's submit/action label (distinct from the card heading above) */
-const ACTIONS: Record<Mode, string> = {
-  login: 'Log in',
-  signup: 'Create account',
-  forgot: 'Send reset link',
-  reset: 'Update password',
-};
-
-const SUBTITLES: Record<Mode, string> = {
-  login: 'Log in to pick up your course where you left off.',
-  signup: 'Save your progress and sync it across devices.',
-  forgot: 'Enter your email and we’ll send a reset link.',
-  reset: 'Choose a new password for your account.',
-};
 
 /* Official multi-colour Google “G”, per Google’s Sign-in branding guidelines. */
 function GoogleIcon() {
@@ -41,8 +20,9 @@ function GoogleIcon() {
   );
 }
 
-export default function AuthForm({ mode, next = '/' }: { mode: Mode; next?: string }) {
+export default function AuthForm({ mode, next = '/', lang = 'en' }: { mode: Mode; next?: string; lang?: Locale }) {
   const router = useRouter();
+  const a = getDict(lang).auth;
   const supabase = getBrowserSupabase();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -70,17 +50,17 @@ export default function AuthForm({ mode, next = '/' }: { mode: Mode; next?: stri
         });
         if (error) { setError(error.message); return; }
         if (data.session) { router.push(next); router.refresh(); }
-        else setInfo('Almost there — check your inbox and click the confirmation link to activate your account.');
+        else setInfo(a.checkInbox);
       } else if (mode === 'forgot') {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${origin}/auth/callback?next=${encodeURIComponent('/reset-password')}`,
         });
         if (error) { setError(error.message); return; }
-        setInfo('If an account exists for that address, a password-reset link is on its way.');
+        setInfo(a.resetSent);
       } else {
         const { error } = await supabase.auth.updateUser({ password });
         if (error) { setError(error.message); return; }
-        setInfo('Password updated — you are logged in.');
+        setInfo(a.passwordUpdated);
         setTimeout(() => { router.push('/'); router.refresh(); }, 1200);
       }
     } finally { setBusy(false); }
@@ -103,26 +83,26 @@ export default function AuthForm({ mode, next = '/' }: { mode: Mode; next?: stri
     <div className="card auth-card" data-test={`auth-${mode}`}>
       <div className="auth-head">
         <Logo variant="mark" size={44} />
-        <h2>{TITLES[mode]}</h2>
-        <p className="auth-sub">{SUBTITLES[mode]}</p>
+        <h2>{a.titles[mode]}</h2>
+        <p className="auth-sub">{a.subtitles[mode]}</p>
       </div>
       {!configured && (
         <p className="auth-notice" data-test="auth-unconfigured">
-          Accounts aren’t enabled on this deployment yet — Supabase credentials are not configured.
+          {a.unconfigured}
         </p>
       )}
       {(mode === 'login' || mode === 'signup') && (
         <>
           <button type="button" className="auth-google" onClick={google} disabled={!configured || busy}>
             <GoogleIcon />
-            <span>Continue with Google</span>
+            <span>{a.google}</span>
           </button>
-          <div className="auth-divider"><span>or with email</span></div>
+          <div className="auth-divider"><span>{a.orEmail}</span></div>
         </>
       )}
       <form onSubmit={submit} className="auth-form">
         {needsEmail && (
-          <label>Email
+          <label>{a.email}
             <input
               type="email" required autoComplete="email" value={email}
               onChange={e => setEmail(e.target.value)} disabled={!configured || busy}
@@ -130,7 +110,7 @@ export default function AuthForm({ mode, next = '/' }: { mode: Mode; next?: stri
           </label>
         )}
         {needsPassword && (
-          <label>{mode === 'reset' ? 'New password' : 'Password'}
+          <label>{mode === 'reset' ? a.newPassword : a.password}
             <input
               type="password" required minLength={6}
               autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
@@ -141,18 +121,18 @@ export default function AuthForm({ mode, next = '/' }: { mode: Mode; next?: stri
         {error && <p className="auth-error" data-test="auth-error">{error}</p>}
         {info && <p className="auth-info" data-test="auth-info">{info}</p>}
         <button type="submit" className="btn btn-primary" disabled={!configured || busy}>
-          {busy ? 'One moment…' : ACTIONS[mode]}
+          {busy ? a.busy : a.actions[mode]}
         </button>
       </form>
       <div className="auth-links">
         {mode === 'login' && (
           <>
-            <Link href={`/signup?next=${encodeURIComponent(next)}`}>No account yet? Sign up</Link>
-            <Link href="/forgot-password">Forgot your password?</Link>
+            <Link href={`/signup?next=${encodeURIComponent(next)}`}>{a.noAccount}</Link>
+            <Link href="/forgot-password">{a.forgotLink}</Link>
           </>
         )}
-        {mode === 'signup' && <Link href={`/login?next=${encodeURIComponent(next)}`}>Already registered? Log in</Link>}
-        {mode === 'forgot' && <Link href="/login">Back to log in</Link>}
+        {mode === 'signup' && <Link href={`/login?next=${encodeURIComponent(next)}`}>{a.haveAccount}</Link>}
+        {mode === 'forgot' && <Link href="/login">{a.backToLogin}</Link>}
       </div>
     </div>
   );
