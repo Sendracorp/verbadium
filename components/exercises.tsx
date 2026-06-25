@@ -447,7 +447,7 @@ function Model({ ex }: { ex: Exercise }) {
       )}
       {revealed && (
         <div className="model-answer">
-          <div className="model-label">Model answer</div>
+          <div className="model-label">{t('ex.modelAnswer')}</div>
           <Html html={ex.keyHtml} as="div" className="model-body" />
         </div>
       )}
@@ -502,7 +502,7 @@ function Free({ ex }: { ex: Exercise }) {
       {(revealed || !hasModel) && <SelfMark value={mark} onMark={doMark} />}
       {revealed && (
         <div className="model-answer">
-          <div className="model-label">Model answer</div>
+          <div className="model-label">{t('ex.modelAnswer')}</div>
           <Html html={ex.keyHtml} as="div" className="model-body" />
         </div>
       )}
@@ -552,7 +552,7 @@ function Personal({ ex }: { ex: Exercise }) {
   return (
     <>
       <ol className="q">{items.map((it, i) => <li key={i}><PersonalLine html={it.html} /></li>)}</ol>
-      <p className="note">Personal answers — fill it in as exam practice.</p>
+      <p className="note">{t('ex.personalNote')}</p>
       <SelfMark
         value={done ? true : null}
         onMark={() => { setDone(true); setExState(ex.id, 'passed', 1, 1); }}
@@ -560,7 +560,7 @@ function Personal({ ex }: { ex: Exercise }) {
       />
       {ex.keyHtml && done && (
         <div className="model-answer">
-          <div className="model-label">Note</div>
+          <div className="model-label">{t('ex.note')}</div>
           <Html html={ex.keyHtml} as="div" className="model-body" />
         </div>
       )}

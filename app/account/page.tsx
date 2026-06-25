@@ -5,6 +5,8 @@ import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
 import { getCourseMeta } from '@/lib/courses';
+import { getDict } from '@/lib/i18n';
+import { preferredMedium } from '@/lib/medium';
 
 export const metadata: Metadata = { title: 'Your account' };
 export const dynamic = 'force-dynamic';
@@ -12,8 +14,12 @@ export const dynamic = 'force-dynamic';
 type AccessRow = { slug: string; status: 'Active' | 'Granted' | 'Refunded'; date: string; open: boolean };
 
 export default async function AccountPage() {
-  const user = await getSessionUser();
+  const [user, lang] = await Promise.all([getSessionUser(), preferredMedium()]);
   if (!user) redirect('/login?next=/account');
+  const l = lang ?? 'en';
+  const dict = getDict(l);
+  const d = dict.account;
+  const fmtDate = (s: string) => new Date(s).toLocaleDateString(l === 'en' ? 'en-GB' : l);
 
   const supabase = await getServerSupabase();
   const [{ data: purchases }, { data: grants }, { data: profile }] = await Promise.all([
@@ -45,46 +51,48 @@ export default async function AccountPage() {
     }
   }
   const rows = [...byCourse.values()].sort((a, b) => b.date.localeCompare(a.date));
+  const statusLabel = (s: AccessRow['status']) =>
+    s === 'Active' ? d.statusActive : s === 'Granted' ? d.statusGranted : d.statusRefunded;
 
   return (
     <>
-      <SiteHeader />
+      <SiteHeader lang={l} />
       <main className="site-main">
         <div className="card">
-          <h2>Your account</h2>
-          <p><b>Email:</b> {user.email}</p>
+          <h2>{d.title}</h2>
+          <p><b>{d.email}:</b> {user.email}</p>
           {profile?.created_at && (
-            <p><b>Member since:</b> {new Date(profile.created_at).toLocaleDateString('en-GB')}</p>
+            <p><b>{d.memberSince}:</b> {fmtDate(profile.created_at)}</p>
           )}
           <div className="paywall-actions">
-            <Link className="btn" href="/forgot-password">Change password</Link>
+            <Link className="btn" href="/forgot-password">{d.changePassword}</Link>
           </div>
         </div>
         <div className="card">
-          <h2>Your courses</h2>
+          <h2>{d.yourCourses}</h2>
           {rows.length ? (
             <table className="account-table">
-              <thead><tr><th>Course</th><th>Since</th><th>Access</th><th></th></tr></thead>
+              <thead><tr><th>{d.colCourse}</th><th>{d.colSince}</th><th>{d.colAccess}</th><th></th></tr></thead>
               <tbody>
                 {rows.map(r => {
                   const meta = getCourseMeta(r.slug);
                   return (
                     <tr key={r.slug}>
-                      <td>{meta?.title ?? r.slug}</td>
-                      <td>{new Date(r.date).toLocaleDateString('en-GB')}</td>
-                      <td>{r.status === 'Granted' ? 'Granted (free access)' : r.status}</td>
-                      <td>{r.open && meta && <Link href={`/courses/${meta.slug}`}>Open →</Link>}</td>
+                      <td>{meta ? dict.course.name : r.slug}</td>
+                      <td>{fmtDate(r.date)}</td>
+                      <td>{statusLabel(r.status)}</td>
+                      <td>{r.open && meta && <Link href={`/courses/${meta.slug}`}>{d.open} →</Link>}</td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
           ) : (
-            <p>No courses yet — <Link href="/">browse the courses</Link>.</p>
+            <p>{d.noCoursesPre}<Link href="/">{d.browse}</Link>.</p>
           )}
         </div>
       </main>
-      <SiteFooter />
+      <SiteFooter lang={l} />
     </>
   );
 }

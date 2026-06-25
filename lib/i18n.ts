@@ -66,6 +66,12 @@ export interface Dict {
     noAccount: string; forgotLink: string; haveAccount: string; backToLogin: string;
     checkInbox: string; resetSent: string; passwordUpdated: string; unconfigured: string;
   };
+  account: {
+    title: string; email: string; memberSince: string; changePassword: string; yourCourses: string;
+    colCourse: string; colSince: string; colAccess: string; open: string;
+    noCoursesPre: string; browse: string;
+    statusActive: string; statusGranted: string; statusRefunded: string;
+  };
 }
 
 const en: Dict = {
@@ -113,6 +119,13 @@ const en: Dict = {
     resetSent: 'If an account exists for that address, a password-reset link is on its way.',
     passwordUpdated: 'Password updated — you are logged in.',
     unconfigured: 'Accounts aren’t enabled on this deployment yet — Supabase credentials are not configured.',
+  },
+  account: {
+    title: 'Your account', email: 'Email', memberSince: 'Member since',
+    changePassword: 'Change password', yourCourses: 'Your courses',
+    colCourse: 'Course', colSince: 'Since', colAccess: 'Access', open: 'Open',
+    noCoursesPre: 'No courses yet — ', browse: 'browse the courses',
+    statusActive: 'Active', statusGranted: 'Granted (free access)', statusRefunded: 'Refunded',
   },
   pricing: {
     title: 'Simple, one-time pricing', sub: 'Buy a course once, keep it forever. No subscription.',
@@ -173,6 +186,13 @@ const ca: Dict = {
     passwordUpdated: 'Contrasenya actualitzada: ja tens la sessió iniciada.',
     unconfigured: 'Els comptes encara no estan activats en aquest desplegament: les credencials de Supabase no estan configurades.',
   },
+  account: {
+    title: 'El teu compte', email: 'Correu electrònic', memberSince: 'Membre des de',
+    changePassword: 'Canvia la contrasenya', yourCourses: 'Els teus cursos',
+    colCourse: 'Curs', colSince: 'Des de', colAccess: 'Accés', open: 'Obre',
+    noCoursesPre: 'Encara no tens cursos: ', browse: 'explora els cursos',
+    statusActive: 'Actiu', statusGranted: 'Concedit (accés gratuït)', statusRefunded: 'Reemborsat',
+  },
   pricing: {
     title: 'Preu únic i senzill', sub: 'Compra un curs una vegada i queda-te’l per sempre. Sense subscripció.',
     faqHeading: 'Preguntes freqüents',
@@ -231,6 +251,13 @@ const es: Dict = {
     resetSent: 'Si existe una cuenta con esa dirección, te enviaremos un enlace para restablecer la contraseña.',
     passwordUpdated: 'Contraseña actualizada: ya has iniciado sesión.',
     unconfigured: 'Las cuentas aún no están habilitadas en este despliegue: las credenciales de Supabase no están configuradas.',
+  },
+  account: {
+    title: 'Tu cuenta', email: 'Correo electrónico', memberSince: 'Miembro desde',
+    changePassword: 'Cambiar contraseña', yourCourses: 'Tus cursos',
+    colCourse: 'Curso', colSince: 'Desde', colAccess: 'Acceso', open: 'Abrir',
+    noCoursesPre: 'Aún no tienes cursos: ', browse: 'explora los cursos',
+    statusActive: 'Activo', statusGranted: 'Concedido (acceso gratuito)', statusRefunded: 'Reembolsado',
   },
   pricing: {
     title: 'Precio único y sencillo', sub: 'Compra un curso una vez y consérvalo para siempre. Sin suscripción.',
@@ -291,6 +318,13 @@ const fr: Dict = {
     passwordUpdated: 'Mot de passe mis à jour — vous êtes connecté.',
     unconfigured: 'Les comptes ne sont pas encore activés sur ce déploiement — les identifiants Supabase ne sont pas configurés.',
   },
+  account: {
+    title: 'Votre compte', email: 'E-mail', memberSince: 'Membre depuis',
+    changePassword: 'Changer le mot de passe', yourCourses: 'Vos cours',
+    colCourse: 'Cours', colSince: 'Depuis', colAccess: 'Accès', open: 'Ouvrir',
+    noCoursesPre: 'Aucun cours pour l’instant — ', browse: 'parcourez les cours',
+    statusActive: 'Actif', statusGranted: 'Accordé (accès gratuit)', statusRefunded: 'Remboursé',
+  },
   pricing: {
     title: 'Un tarif simple et unique', sub: 'Achetez un cours une fois, gardez-le pour toujours. Sans abonnement.',
     faqHeading: 'Questions fréquentes',
@@ -349,6 +383,13 @@ const ru: Dict = {
     resetSent: 'Если аккаунт с таким адресом существует, ссылка для сброса пароля уже в пути.',
     passwordUpdated: 'Пароль обновлён — вы вошли в систему.',
     unconfigured: 'Аккаунты пока не включены в этом развёртывании — учётные данные Supabase не настроены.',
+  },
+  account: {
+    title: 'Ваш аккаунт', email: 'Эл. почта', memberSince: 'С нами с',
+    changePassword: 'Изменить пароль', yourCourses: 'Ваши курсы',
+    colCourse: 'Курс', colSince: 'С', colAccess: 'Доступ', open: 'Открыть',
+    noCoursesPre: 'Пока нет курсов — ', browse: 'посмотрите курсы',
+    statusActive: 'Активен', statusGranted: 'Предоставлен (бесплатный доступ)', statusRefunded: 'Возвращён',
   },
   pricing: {
     title: 'Простая разовая оплата', sub: 'Купите курс один раз и пользуйтесь им всегда. Без подписки.',
@@ -409,6 +450,13 @@ const de: Dict = {
     resetSent: 'Falls ein Konto für diese Adresse existiert, ist ein Link zum Zurücksetzen unterwegs.',
     passwordUpdated: 'Passwort aktualisiert — du bist angemeldet.',
     unconfigured: 'Konten sind in diesem Deployment noch nicht aktiviert — die Supabase-Zugangsdaten sind nicht konfiguriert.',
+  },
+  account: {
+    title: 'Dein Konto', email: 'E-Mail', memberSince: 'Mitglied seit',
+    changePassword: 'Passwort ändern', yourCourses: 'Deine Kurse',
+    colCourse: 'Kurs', colSince: 'Seit', colAccess: 'Zugang', open: 'Öffnen',
+    noCoursesPre: 'Noch keine Kurse — ', browse: 'Kurse durchsuchen',
+    statusActive: 'Aktiv', statusGranted: 'Gewährt (kostenloser Zugang)', statusRefunded: 'Erstattet',
   },
   pricing: {
     title: 'Einfacher Einmalpreis', sub: 'Kauf einen Kurs einmal, behalte ihn für immer. Kein Abo.',

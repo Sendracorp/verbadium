@@ -3,6 +3,8 @@ import { useEffect, useMemo, useState } from 'react';
 import type { GlossaryRow } from '@/lib/types';
 import { deaccent } from '@/lib/check';
 import { preloadAudio, speak, stopSpeak } from '@/lib/speech';
+import { useUI, useLocale } from './CourseLocale';
+import { LOCALE_LABEL } from '@/lib/i18n';
 import AudioCredits from './AudioCredits';
 
 type SortCol = 0 | 1 | 2 | 3;
@@ -10,6 +12,8 @@ type SortCol = 0 | 1 | 2 | 3;
 const ARTICLES = /^(el |la |els |les |l'|un |una )/;
 
 export default function Glossary({ rows, compact = false, creditNames = [] }: { rows: GlossaryRow[]; compact?: boolean; creditNames?: string[] }) {
+  const t = useUI();
+  const meaningLang = LOCALE_LABEL[useLocale()];   // glossary meaning column = the learner's language
   const [query, setQuery] = useState('');
   useEffect(() => { preloadAudio(); }, []);   // warm the audio manifest chunk
   const [sort, setSort] = useState<{ col: SortCol; dir: 1 | -1 } | null>(null);
@@ -39,29 +43,26 @@ export default function Glossary({ rows, compact = false, creditNames = [] }: { 
   return (
     <div className={compact ? 'glos-compact' : 'card'}>
       {!compact && <>
-        <h2>Glossary — every word in this course</h2>
-        <p className="note">
-          Alphabetical (articles ignored). U = the unit where the word is first taught.
-          Pronunciations are Central Catalan, IPA. Click a column header to sort; click 🔊 to hear the word.
-        </p>
+        <h2>{t('glos.heading')}</h2>
+        <p className="note">{t('glos.intro')}</p>
       </>}
       <div className="glos-tools">
         <input
           type="search" id={compact ? undefined : 'glosSearch'}
-          placeholder={`Search Catalan, IPA or English… (${rows.length} entries)`}
+          placeholder={t('glos.searchPh')}
           value={query} onChange={e => setQuery(e.target.value)}
         />
         <span id={compact ? undefined : 'glosCount'}>
-          {visible.length === rows.length ? `${rows.length} entries` : `${visible.length} of ${rows.length} entries`}
+          {`${visible.length === rows.length ? rows.length : `${visible.length} / ${rows.length}`} ${t('glos.entries')}`}
         </span>
       </div>
       <table className="glos" id={compact ? undefined : 'glosTable'}>
         <thead>
           <tr>
-            <th className={sortCls(0)} data-sort={0} onClick={() => clickSort(0)}>Catalan</th>
-            <th className={sortCls(1)} data-sort={1} onClick={() => clickSort(1)}>IPA</th>
-            <th className={sortCls(2)} data-sort={2} onClick={() => clickSort(2)}>English</th>
-            <th className={sortCls(3)} data-sort={3} onClick={() => clickSort(3)}>U.</th>
+            <th className={sortCls(0)} data-sort={0} onClick={() => clickSort(0)}>{t('glos.subject')}</th>
+            <th className={sortCls(1)} data-sort={1} onClick={() => clickSort(1)}>{t('glos.ipa')}</th>
+            <th className={sortCls(2)} data-sort={2} onClick={() => clickSort(2)}>{meaningLang}</th>
+            <th className={sortCls(3)} data-sort={3} onClick={() => clickSort(3)}>{t('glos.unitCol')}</th>
           </tr>
         </thead>
         <tbody>
@@ -71,7 +72,7 @@ export default function Glossary({ rows, compact = false, creditNames = [] }: { 
                 {r.ca}{' '}
                 <button
                   type="button" className={`say${speaking === i ? ' speaking' : ''}`}
-                  title="Listen" aria-label={`Listen: ${r.ca}`}
+                  title={t('glos.listen')} aria-label={`${t('glos.listen')}: ${r.ca}`}
                   onClick={() => { stopSpeak(); setSpeaking(i); speak(r.ca, () => setSpeaking(null)); }}
                 >🔊</button>
               </td>
