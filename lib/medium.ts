@@ -5,22 +5,12 @@ import { LOCALES, type Locale } from './i18n';
 
 export const MEDIUM_COOKIE = 'vb-medium';
 
-/* Teaching mediums actually translated enough to OFFER per course. A locale is
-   added here only once its i18n/<slug>.<locale>.json is complete — untranslated
-   keys fall back to English, so a half-done medium must NOT be listed (it would
-   render a mostly-English "Spanish" course). English is always available. */
-export const AVAILABLE_MEDIUMS: Record<string, Locale[]> = {
-  'catalan-a1': ['en', 'es', 'fr', 'ru', 'de'],
-};
-
-export function availableMediums(slug: string): Locale[] {
-  return AVAILABLE_MEDIUMS[slug] ?? ['en'];
-}
-
-/** The learner's chosen teaching medium for a course (cookie), gated to the
-    mediums that are actually available; defaults to English. */
-export const getMedium = cache(async (slug: string): Promise<Locale> => {
+/* A returning visitor's last-seen language, remembered on the localized
+   marketing pages (see SetMedium). This is a SOFT preference only — it seeds
+   which language the catalog's course chooser starts on. It never decides which
+   course renders: each language is its own course, so the variant slug does.
+   Returns null when absent or not a known locale. */
+export const preferredMedium = cache(async (): Promise<Locale | null> => {
   const v = (await cookies()).get(MEDIUM_COOKIE)?.value;
-  const avail = availableMediums(slug);
-  return v && (LOCALES as readonly string[]).includes(v) && avail.includes(v as Locale) ? (v as Locale) : 'en';
+  return v && (LOCALES as readonly string[]).includes(v) ? (v as Locale) : null;
 });

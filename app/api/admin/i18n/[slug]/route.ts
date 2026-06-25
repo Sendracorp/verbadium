@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
 import { getCourseContent } from '@/lib/content';
+import { familyOf } from '@/lib/courses';
 import { extractCatalog } from '@/lib/i18n-course';
 
 /* Admin-only: dump the English translation catalog for a course (the source for
@@ -15,7 +16,10 @@ export async function GET(_req: Request, { params }: { params: Promise<{ slug: s
   if (!data?.is_admin) return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
 
   const { slug } = await params;
-  const course = getCourseContent(slug, 'en');
+  // Always the English source catalog — the family's base content (its English
+  // variant's slug equals the family name).
+  const family = familyOf(slug);
+  const course = family ? getCourseContent(family) : null;
   if (!course) return NextResponse.json({ error: 'Unknown course' }, { status: 404 });
   return NextResponse.json(extractCatalog(course));
 }

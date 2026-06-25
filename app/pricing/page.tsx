@@ -5,7 +5,7 @@ import SiteFooter from '@/components/SiteFooter';
 import BuyButton from '@/components/BuyButton';
 import JsonLd from '@/components/JsonLd';
 import { buyLabels } from '@/lib/ui';
-import { COURSES } from '@/lib/courses';
+import { courseFamilies } from '@/lib/courses';
 import { resolveAllPrices } from '@/lib/pricing';
 import { getSessionUser, userOwnsCourse, paywallBypassed } from '@/lib/access';
 
@@ -56,7 +56,9 @@ const FAQ_JSONLD = {
 };
 
 export default async function PricingPage() {
-  const priced = await resolveAllPrices(COURSES);
+  // One row per course family (its primary/English variant). Other languages
+  // are reachable from the catalog's language chooser.
+  const priced = await resolveAllPrices(courseFamilies().map(f => f.variants[0]));
 
   // which of these courses the current user already owns (don't show "buy")
   const user = await getSessionUser();

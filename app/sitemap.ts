@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { COURSES } from '@/lib/courses';
+import { courseFamilies } from '@/lib/courses';
 import { PATHS, LOCALES } from '@/lib/i18n';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://verbadium.com';
@@ -17,7 +17,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/privacy`, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/contact`, changeFrequency: 'yearly', priority: 0.3 },
   ];
-  for (const c of COURSES.filter(c => c.available)) {
+  // Primary (English) variant per family — localized SEO lives on the marketing
+  // landing pages below, so we don't list every language's /courses URL.
+  for (const c of courseFamilies().map(f => f.variants[0])) {
     const b = `${SITE_URL}/courses/${c.slug}`;
     entries.push(
       { url: b, lastModified: now, changeFrequency: 'weekly', priority: 0.9 },

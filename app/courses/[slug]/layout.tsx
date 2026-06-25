@@ -11,9 +11,8 @@ import MediumSwitcher from '@/components/MediumSwitcher';
 import SiteFooter from '@/components/SiteFooter';
 import { getAudioOverrides } from '@/lib/audio-overrides';
 import { getCourseContent } from '@/lib/content';
-import { getMedium, availableMediums } from '@/lib/medium';
 import { uiDict } from '@/lib/ui';
-import { getCourseMeta } from '@/lib/courses';
+import { getCourseMeta, mediumForSlug, courseFamilies } from '@/lib/courses';
 import { getCourseAccess, isUserAdmin } from '@/lib/access';
 import { loadInitialProgress } from '@/lib/progress-server';
 
@@ -23,10 +22,14 @@ export default async function CourseLayout({ children, params }: {
 }) {
   const { slug } = await params;
   const meta = getCourseMeta(slug);
-  // medium (cookie) and access (auth + ownership) are independent — run together.
-  const [medium, access] = await Promise.all([getMedium(slug), getCourseAccess(slug)]);
-  const course = getCourseContent(slug, medium);
+  const medium = mediumForSlug(slug);            // the variant's teaching language
+  const access = await getCourseAccess(slug);
+  const course = getCourseContent(slug);
   if (!meta || !course) notFound();
+
+  // Sibling language variants of this course, for the in-course switcher.
+  const siblings = (courseFamilies().find(f => f.family === meta.family)?.variants ?? [])
+    .map(v => ({ medium: v.medium, slug: v.slug }));
 
   // Admin check, saved progress and audio overrides don't depend on one another
   // — fan them out instead of awaiting in series.
@@ -55,7 +58,7 @@ export default async function CourseLayout({ children, params }: {
           isAdmin={isAdmin}
         />
         <main className="content">
-          <MediumSwitcher current={medium} options={availableMediums(slug)} />
+          <MediumSwitcher current={medium} variants={siblings} />
           {children}
         </main>
       </div>

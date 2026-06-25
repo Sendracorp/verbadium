@@ -25,6 +25,7 @@ export default function LocalizedHome({ lang }: { lang: Locale }) {
             <div className="course-card-head"><span className="badge">{meta.language} · {meta.level}</span></div>
             <h2>{d.course.name}</h2>
             <p>{d.course.tagline}</p>
+            <p className="course-card-meta">{meta.priceLabel} · {d.card.lifetime}</p>
             <div className="course-card-actions">
               <span className="btn btn-primary">{d.home.seeCourse}</span>
             </div>

@@ -6,6 +6,7 @@ import SiteFooter from '@/components/SiteFooter';
 import ConfirmSubmit from '@/components/admin/ConfirmSubmit';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
 import { getCourseMeta, COURSES } from '@/lib/courses';
+import { LOCALE_LABEL } from '@/lib/i18n';
 import { getUserDetail } from '@/lib/admin';
 import { grantAccess, revokeGrant, setPurchaseStatus, toggleAdmin, resetUserProgress } from '@/app/admin/actions';
 
@@ -66,7 +67,7 @@ export default async function AdminUserPage({ params }: { params: Promise<{ id: 
                 <input type="hidden" name="userId" value={p.id} />
                 <select name="courseSlug" required defaultValue="">
                   <option value="" disabled>Choose a course…</option>
-                  {grantable.map(c => <option key={c.slug} value={c.slug}>{c.title}</option>)}
+                  {grantable.map(c => <option key={c.slug} value={c.slug}>{c.title} — {LOCALE_LABEL[c.medium]}</option>)}
                 </select>
                 <input type="text" name="note" placeholder="note (optional)" />
                 <button type="submit" className="btn btn-primary">Grant access</button>

@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getCourseContent } from '@/lib/content';
-import { getMedium } from '@/lib/medium';
 import { tUI } from '@/lib/ui';
-import { getCourseMeta } from '@/lib/courses';
+import { getCourseMeta, mediumForSlug } from '@/lib/courses';
 import { canAccessUnit, getCourseAccess } from '@/lib/access';
 import SpeechScope from '@/components/SpeechScope';
 import ExerciseCard from '@/components/exercises';
@@ -14,16 +13,16 @@ type Params = Promise<{ slug: string; num: string }>;
 
 export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { slug, num } = await params;
-  const unit = getCourseContent(slug, await getMedium(slug))?.units.find(u => u.num === +num);
+  const unit = getCourseContent(slug)?.units.find(u => u.num === +num);
   return { title: unit ? `Unit ${unit.num} · ${unit.title.replace(/<[^>]+>/g, '')}` : 'Unit' };
 }
 
 export default async function UnitPage({ params }: { params: Params }) {
   const { slug, num } = await params;
   const meta = getCourseMeta(slug);
-  // medium (cookie) and access (auth + ownership) are independent — run together.
-  const [medium, access] = await Promise.all([getMedium(slug), getCourseAccess(slug)]);
-  const course = getCourseContent(slug, medium);
+  const medium = mediumForSlug(slug);            // the variant's teaching language
+  const access = await getCourseAccess(slug);
+  const course = getCourseContent(slug);
   if (!meta || !course) notFound();
   const unit = course.units.find(u => u.num === +num);
   if (!unit) notFound();

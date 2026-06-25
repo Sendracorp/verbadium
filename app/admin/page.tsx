@@ -8,6 +8,7 @@ import AdminUserSearch from '@/components/admin/AdminUserSearch';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
 import { getAdminSupabase } from '@/lib/supabase/admin';
 import { COURSES } from '@/lib/courses';
+import { LOCALE_LABEL } from '@/lib/i18n';
 import { priceIdFor } from '@/lib/paddle';
 import { resolveCoursePrice } from '@/lib/pricing';
 import { listUsers, getOverviewStats } from '@/lib/admin';
@@ -106,7 +107,7 @@ export default async function AdminPage({ searchParams }: {
             <tbody>
               {pricing.map(({ meta, priceId, price }) => (
                 <tr key={meta.slug}>
-                  <td>{meta.title}</td>
+                  <td>{meta.title} — {LOCALE_LABEL[meta.medium]}</td>
                   <td>{price.label || '—'}{price.currency ? ` (${price.currency})` : ''}</td>
                   <td>{price.source === 'paddle'
                     ? <span className="owned-tag">live from Paddle ✓</span>

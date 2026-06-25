@@ -3,20 +3,26 @@ import SiteHeader from '../SiteHeader';
 import SiteFooter from '../SiteFooter';
 import JsonLd from '../JsonLd';
 import SetMedium from '../SetMedium';
+import BuyButton from '../BuyButton';
 import { getDict, t, PATHS, type Locale } from '@/lib/i18n';
-import { getCourseMeta } from '@/lib/courses';
+import { getCourseMeta, variantForMedium } from '@/lib/courses';
+import { buyLabels } from '@/lib/ui';
 import { SITE } from '@/lib/site';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://verbadium.com';
 
-/* Localized course landing (sales page) for ca/es/fr/ru. Funnels to the English
-   free preview + checkout; clearly states the course is taught in English.
-   Uses the fixed price label (not the live Paddle fetch) so the page is static. */
+/* Localized course landing (sales page). Sells the variant taught in this
+   language (es/fr/ru/de); locales with no teaching variant (ca) funnel to the
+   English course. Uses the fixed price label (not the live Paddle fetch) so the
+   page stays static — the live price is charged at checkout. */
 export default function LocalizedCourse({ lang }: { lang: Locale }) {
   const d = getDict(lang);
   const meta = getCourseMeta('catalan-a1')!;
+  // The course variant this page sells (its own language, else English).
+  const variant = variantForMedium('catalan-a1', lang) ?? meta;
+  const base = `/courses/${variant.slug}`;
   const price = meta.priceLabel;
-  const preview = `/courses/catalan-a1/unit/${meta.freeUnits[0]}`;
+  const preview = `${base}/unit/${meta.freeUnits[0]}`;
   const vars = { units: meta.stats.units, exercises: meta.stats.exercises, glossary: meta.stats.glossary, price };
 
   const courseLd = {
@@ -53,7 +59,7 @@ export default function LocalizedCourse({ lang }: { lang: Locale }) {
             {d.course.bullets.map((b, i) => <li key={i}>{t(b, vars)}</li>)}
           </ul>
           <div className="paywall-actions">
-            <Link className="btn btn-primary" href="/pricing">{d.card.buy}</Link>
+            <BuyButton courseSlug={variant.slug} priceLabel={price} returnTo={base} labels={buyLabels(lang)} />
             <Link className="btn" href={preview}>{d.card.preview}</Link>
           </div>
           <p className="paywall-preview">

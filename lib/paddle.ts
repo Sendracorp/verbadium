@@ -1,4 +1,5 @@
 import 'server-only';
+import { familyOf } from './courses';
 
 /* Paddle Billing (merchant of record — supports Andorra-based sellers, unlike
    Stripe/Lemon Squeezy). Checkout happens client-side via the Paddle.js
@@ -49,10 +50,17 @@ export function paddleClientToken(): string | null {
   return t && !t.startsWith('YOUR-') ? t : null;
 }
 
-/** Price ID for a course, from PADDLE_PRICE_<SLUG> (dashes → underscores). */
+/** Price ID for a course, from PADDLE_PRICE_<SLUG> (dashes → underscores).
+    Language variants of a family share one price: if a variant has no env of
+    its own, it falls back to the family's (e.g. catalan-a1-fr → PADDLE_PRICE_
+    CATALAN_A1). The variant bought is recorded via course_slug in custom_data. */
 export function priceIdFor(courseSlug: string): string | null {
-  const v = process.env[`PADDLE_PRICE_${courseSlug.toUpperCase().replace(/-/g, '_')}`] ?? '';
-  return v && !v.startsWith('YOUR-') ? v : null;
+  const read = (slug: string) => {
+    const v = process.env[`PADDLE_PRICE_${slug.toUpperCase().replace(/-/g, '_')}`] ?? '';
+    return v && !v.startsWith('YOUR-') ? v : null;
+  };
+  const fam = familyOf(courseSlug);
+  return read(courseSlug) ?? (fam && fam !== courseSlug ? read(fam) : null);
 }
 
 export function isPaddleConfigured(): boolean {

@@ -12,24 +12,38 @@ export const metadata: Metadata = {
   alternates: { canonical: '/', languages: hreflang('home') },
 };
 
-import BuyButton from '@/components/BuyButton';
+import CourseFamilyCard, { type FamilyCardData } from '@/components/CourseFamilyCard';
 import { buyLabels } from '@/lib/ui';
-import { COURSES } from '@/lib/courses';
+import { courseFamilies } from '@/lib/courses';
 import { getSessionUser, paywallBypassed, userOwnsCourse } from '@/lib/access';
 import { countPassedExercises } from '@/lib/progress-server';
 import { resolveCoursePrice } from '@/lib/pricing';
+import { preferredMedium } from '@/lib/medium';
 
 export default async function CatalogPage() {
-  const user = await getSessionUser();
-  const cards = await Promise.all(COURSES.map(async meta => {
-    // Ownership and price are independent — resolve them together; only the
-    // passed-count depends on ownership, so it stays sequential.
-    const ownsPromise = meta.available && !paywallBypassed() && user
-      ? userOwnsCourse(user.id, meta.slug)
-      : Promise.resolve(meta.available && paywallBypassed());
-    const [owns, price] = await Promise.all([ownsPromise, resolveCoursePrice(meta.slug)]);
-    const passed = owns && user ? await countPassedExercises(user.id, meta.slug) : 0;
-    return { meta, owns, passed, price };
+  const [user, preferred] = await Promise.all([getSessionUser(), preferredMedium()]);
+  const bypass = paywallBypassed();
+
+  // One card per family; each language variant carries its own ownership,
+  // progress, price and (localized) buy labels.
+  const cards: FamilyCardData[] = await Promise.all(courseFamilies().map(async ({ family, variants }) => {
+    const views = await Promise.all(variants.map(async v => {
+      const owns = bypass || (user ? await userOwnsCourse(user.id, v.slug) : false);
+      const [passed, price] = await Promise.all([
+        owns && user ? countPassedExercises(user.id, v.slug) : Promise.resolve(0),
+        resolveCoursePrice(v.slug),
+      ]);
+      return {
+        medium: v.medium, slug: v.slug, audienceLanguage: v.audienceLanguage,
+        owns, passed, priceLabel: price.label, buyLabels: buyLabels(v.medium),
+      };
+    }));
+    const primary = variants[0];
+    return {
+      family, language: primary.language, level: primary.level,
+      freeUnit: primary.freeUnits[0], totalExercises: primary.stats.exercises,
+      variants: views,
+    };
   }));
 
   return (
@@ -45,41 +59,7 @@ export default async function CatalogPage() {
           </p>
         </div>
         <div className="catalog-grid" data-test="catalog">
-          {cards.map(({ meta, owns, passed, price }) => {
-            const base = `/courses/${meta.slug}`;
-            const pct = Math.round(passed / meta.stats.exercises * 100);
-            return (
-              <div className="card course-card" key={meta.slug} data-test={`course-${meta.slug}`}>
-                <div className="course-card-head">
-                  <span className="badge">{meta.language} · {meta.level}</span>
-                  {owns && <span className="owned-tag" data-test="owned-tag">Purchased ✓</span>}
-                </div>
-                <h2>{meta.title}</h2>
-                <p>{meta.tagline}</p>
-                <p className="course-card-meta">{meta.description}</p>
-                {owns ? (
-                  <>
-                    <div className="progress-bar">
-                      <div className="progress-fill" style={{ width: `${pct}%` }} />
-                    </div>
-                    <div className="course-card-stats">{passed} of {meta.stats.exercises} exercises passed</div>
-                    <div className="course-card-actions">
-                      <Link className="btn btn-primary" href={base} data-test="continue-course">
-                        {passed > 0 ? 'Continue learning' : 'Start the course'}
-                      </Link>
-                    </div>
-                  </>
-                ) : (
-                  <div className="course-card-actions">
-                    <BuyButton courseSlug={meta.slug} priceLabel={price.label} returnTo={base} labels={buyLabels('en')} />
-                    <Link className="btn" href={`${base}/unit/${meta.freeUnits[0]}`} data-test="free-preview">
-                      Free preview · Unit {meta.freeUnits[0]}
-                    </Link>
-                  </div>
-                )}
-              </div>
-            );
-          })}
+          {cards.map(card => <CourseFamilyCard key={card.family} card={card} preferredMedium={preferred} />)}
           <div className="card course-card coming-soon">
             <div className="course-card-head"><span className="badge">COMING NEXT</span></div>
             <h2>Catalan A2</h2>
