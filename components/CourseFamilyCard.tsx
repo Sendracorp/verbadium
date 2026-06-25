@@ -34,7 +34,7 @@ export default function CourseFamilyCard({ card, locale = 'en' }: { card: Family
   return (
     <div className="card course-card" data-test={`course-${card.family}`}>
       <div className="course-card-head">
-        <span className="badge">{card.language} · {card.level}</span>
+        <span className="badge">{d.course.subject} · {card.level}</span>
         {v.owns && <span className="owned-tag" data-test="owned-tag">{d.card.purchased}</span>}
       </div>
       <h2>{d.course.name}</h2>

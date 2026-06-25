@@ -43,7 +43,7 @@ export default function LocalizedPricing({ lang }: { lang: Locale }) {
 
         <div className="pricing-grid" data-test="pricing">
           <div className="card pricing-card">
-            <div className="badge">{meta.language} · {meta.level}</div>
+            <div className="badge">{d.course.subject} · {meta.level}</div>
             <h2>{d.course.name}</h2>
             <p className="pricing-amount" data-test="pricing-amount">{price}</p>
             <p className="pricing-amount-note">{d.card.lifetime}</p>

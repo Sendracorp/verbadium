@@ -22,7 +22,7 @@ export default function LocalizedHome({ lang }: { lang: Locale }) {
         </div>
         <div className="catalog-grid">
           <Link className="card course-card" href={(PATHS.course as Record<string, string>)[lang]} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div className="course-card-head"><span className="badge">{meta.language} · {meta.level}</span></div>
+            <div className="course-card-head"><span className="badge">{d.course.subject} · {meta.level}</span></div>
             <h2>{d.course.name}</h2>
             <p>{d.course.tagline}</p>
             <p className="course-card-price">{meta.priceLabel} <span className="course-card-price-note">· {d.card.lifetime}</span></p>

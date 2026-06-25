@@ -12,6 +12,7 @@ import SiteFooter from '@/components/SiteFooter';
 import { getAudioOverrides } from '@/lib/audio-overrides';
 import { getCourseContent } from '@/lib/content';
 import { uiDict } from '@/lib/ui';
+import { getDict } from '@/lib/i18n';
 import { getCourseMeta, mediumForSlug, courseFamilies } from '@/lib/courses';
 import { getCourseAccess, isUserAdmin } from '@/lib/access';
 import { loadInitialProgress } from '@/lib/progress-server';
@@ -50,7 +51,7 @@ export default async function CourseLayout({ children, params }: {
         <Sidebar
           units={units}
           courseSlug={slug}
-          courseLanguage={meta.language}
+          courseLanguage={getDict(medium).course.subject}
           courseLevel={meta.level}
           owns={access.owns}
           freeUnits={meta.freeUnits}

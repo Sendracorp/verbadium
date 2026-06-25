@@ -47,6 +47,7 @@ export interface Dict {
   card: { level: string; buy: string; preview: string; lifetime: string;
     purchased: string; cont: string; start: string; progress: string };  // progress uses {passed} {total}
   course: {
+    subject: string;                 // the subject language's name, in this locale (badge)
     name: string; tagline: string; metaTitle: string; metaDesc: string;
     salesHeading: string;            // uses {price}
     bullets: string[];               // uses {units} {exercises} {glossary}
@@ -86,6 +87,7 @@ const en: Dict = {
   card: { level: 'Beginner · A1', buy: 'Get the course', preview: 'Free preview', lifetime: 'One payment · lifetime access',
     purchased: 'Purchased ✓', cont: 'Continue learning', start: 'Start the course', progress: '{passed} of {total} exercises passed' },
   course: {
+    subject: 'Catalan',
     name: 'Catalan from Scratch (A1)',
     tagline: 'A complete beginner’s course in Central Catalan, built to pass the official A1 exam.',
     metaTitle: 'Catalan Course Online (A1) — exam prep with audio & exercises',
@@ -153,6 +155,7 @@ const ca: Dict = {
   card: { level: 'Principiant · A1', buy: 'Aconsegueix el curs', preview: 'Prova gratuïta', lifetime: 'Un sol pagament · accés de per vida',
     purchased: 'Comprat ✓', cont: 'Continua aprenent', start: 'Comença el curs', progress: '{passed} de {total} exercicis superats' },
   course: {
+    subject: 'Català',
     name: 'Català des de zero (A1)',
     tagline: 'Un curs complet per a principiants de català central, fet per aprovar l’examen oficial d’A1.',
     metaTitle: 'Curs de català en línia (A1) — preparació de l’examen oficial',
@@ -220,6 +223,7 @@ const es: Dict = {
   card: { level: 'Principiante · A1', buy: 'Consigue el curso', preview: 'Prueba gratis', lifetime: 'Un solo pago · acceso de por vida',
     purchased: 'Comprado ✓', cont: 'Continuar aprendiendo', start: 'Empezar el curso', progress: '{passed} de {total} ejercicios superados' },
   course: {
+    subject: 'Catalán',
     name: 'Catalán desde cero (A1)',
     tagline: 'Un curso completo para principiantes de catalán central, diseñado para aprobar el examen oficial de A1.',
     metaTitle: 'Curso de catalán online (A1) — preparación del examen oficial',
@@ -287,6 +291,7 @@ const fr: Dict = {
   card: { level: 'Débutant · A1', buy: 'Obtenir le cours', preview: 'Aperçu gratuit', lifetime: 'Un seul paiement · accès à vie',
     purchased: 'Acheté ✓', cont: 'Continuer l’apprentissage', start: 'Commencer le cours', progress: '{passed} sur {total} exercices réussis' },
   course: {
+    subject: 'Catalan',
     name: 'Le catalan à partir de zéro (A1)',
     tagline: 'Un cours complet pour débutants en catalan central, conçu pour réussir l’examen officiel A1.',
     metaTitle: 'Cours de catalan en ligne (A1) — préparation à l’examen officiel',
@@ -354,6 +359,7 @@ const ru: Dict = {
   card: { level: 'Начальный · A1', buy: 'Получить курс', preview: 'Бесплатный доступ', lifetime: 'Разовая оплата · доступ навсегда',
     purchased: 'Куплено ✓', cont: 'Продолжить обучение', start: 'Начать курс', progress: '{passed} из {total} упражнений пройдено' },
   course: {
+    subject: 'Каталанский',
     name: 'Каталанский с нуля (A1)',
     tagline: 'Полный курс центральнокаталанского для начинающих, созданный для сдачи официального экзамена A1.',
     metaTitle: 'Курс каталанского онлайн (A1) — подготовка к официальному экзамену',
@@ -422,6 +428,7 @@ const de: Dict = {
   card: { level: 'Anfänger · A1', buy: 'Kurs holen', preview: 'Kostenlose Vorschau', lifetime: 'Einmalige Zahlung · lebenslanger Zugang',
     purchased: 'Gekauft ✓', cont: 'Weiterlernen', start: 'Kurs starten', progress: '{passed} von {total} Übungen bestanden' },
   course: {
+    subject: 'Katalanisch',
     name: 'Katalanisch von Grund auf (A1)',
     tagline: 'Ein kompletter Anfängerkurs in Zentralkatalanisch, konzipiert zum Bestehen der offiziellen A1-Prüfung.',
     metaTitle: 'Katalanisch-Kurs online (A1) — Vorbereitung auf die offizielle Prüfung',
