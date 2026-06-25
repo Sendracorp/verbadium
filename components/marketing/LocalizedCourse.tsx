@@ -53,7 +53,7 @@ export default function LocalizedCourse({ lang }: { lang: Locale }) {
           <p className="hero-sub">{d.course.tagline}</p>
           <p className="hero-meta">{d.course.taughtInEnglish}</p>
         </div>
-        <div className="card sales" id="pricing">
+        <div className="card sales">
           <h2>{t(d.course.salesHeading, vars)}</h2>
           <ul className="sales-list">
             {d.course.bullets.map((b, i) => <li key={i}>{t(b, vars)}</li>)}

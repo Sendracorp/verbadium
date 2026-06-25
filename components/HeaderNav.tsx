@@ -32,7 +32,7 @@ export default function HeaderNav({ lang = 'en', page = 'home' }: { lang?: Local
       ) : (
         <>
           <Link href={(PATHS.course as Record<string, string>)[lang]} className={active((PATHS.course as Record<string, string>)[lang])}>{d.nav.course}</Link>
-          <Link href={`${(PATHS.course as Record<string, string>)[lang]}#pricing`}>{d.nav.pricing}</Link>
+          <Link href="/pricing" className={active('/pricing')}>{d.nav.pricing}</Link>
         </>
       )}
     </nav>
