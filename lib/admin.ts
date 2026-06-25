@@ -1,5 +1,8 @@
 import 'server-only';
 import { getAdminSupabase } from './supabase/admin';
+import { getCourseContent } from './content';
+import { courseFamilies } from './courses';
+import type { MockAttempt } from './progress';
 
 /* Admin data layer — service-role reads across all users. The /admin pages
    already gate on profiles.is_admin before calling any of this. */
@@ -91,5 +94,102 @@ export async function getUserDetail(id: string): Promise<UserDetail | null> {
     progress: [...byCourse.values()],
     mockAttempts: (mockAttempts.data ?? []) as UserDetail['mockAttempts'],
     resets: (resets.data ?? []) as UserDetail['resets'],
+  };
+}
+
+/* ── Learning analytics ──────────────────────────────────────────────────────
+   First-party, aggregated from our own progress tables (no third-party, no
+   cookies). Aggregation is in JS — fine at current scale; move to a SQL view/RPC
+   if the tables grow large. Aggregated ACROSS a family's language variants,
+   since the exercises are the same content in every teaching language. */
+
+export interface ExerciseStat { id: string; unit: number | null; attempted: number; passed: number }
+export interface UnitStat { unit: number; total: number; passed: number; attempted: number }
+export interface MockStat {
+  attempts: number; learners: number;
+  avg: { p1: number | null; p2a: number | null; p2b: number | null };
+  writingPass: number; speakingPass: number;
+}
+export interface CourseAnalytics {
+  family: string;
+  learners: number;            // distinct users with any saved progress
+  exercisesTouched: number;
+  totalPassed: number;
+  totalAttempted: number;
+  hardest: ExerciseStat[];     // where learners get stuck (attempted, not passed)
+  units: UnitStat[];           // per-unit completion (reveals drop-off)
+  mock: MockStat;
+}
+
+export async function getCourseAnalytics(family: string): Promise<CourseAnalytics | null> {
+  const a = getAdminSupabase();
+  if (!a) return null;
+  const fam = courseFamilies().find(f => f.family === family);
+  const slugs = fam ? fam.variants.map(v => v.slug) : [family];
+  const content = getCourseContent(family);
+
+  // exercise_id → unit number, from the authored course structure
+  const unitOf = new Map<string, number>();
+  for (const u of content?.units ?? []) for (const id of u.exerciseIds) unitOf.set(id, u.num);
+
+  const [exRes, mockRes] = await Promise.all([
+    a.from('exercise_progress').select('exercise_id, state, user_id').in('course_slug', slugs),
+    a.from('mock_attempts').select('attempt, user_id').in('course_slug', slugs),
+  ]);
+
+  const perEx = new Map<string, { attempted: number; passed: number }>();
+  const learners = new Set<string>();
+  let totalPassed = 0, totalAttempted = 0;
+  for (const r of (exRes.data ?? []) as { exercise_id: string; state: string; user_id: string }[]) {
+    learners.add(r.user_id);
+    const e = perEx.get(r.exercise_id) ?? { attempted: 0, passed: 0 };
+    if (r.state === 'passed') { e.passed++; totalPassed++; }
+    else if (r.state === 'attempted') { e.attempted++; totalAttempted++; }
+    perEx.set(r.exercise_id, e);
+  }
+
+  const exStats: ExerciseStat[] = [...perEx.entries()].map(([id, e]) => ({
+    id, unit: unitOf.get(id) ?? null, attempted: e.attempted, passed: e.passed,
+  }));
+  // "Hardest" = most learners stuck (attempted but not passed), then fewest passes.
+  const hardest = exStats.filter(e => e.attempted > 0)
+    .sort((x, y) => y.attempted - x.attempted || x.passed - y.passed).slice(0, 12);
+
+  const perUnit = new Map<number, UnitStat>();
+  for (const u of content?.units ?? []) perUnit.set(u.num, { unit: u.num, total: u.exerciseIds.length, passed: 0, attempted: 0 });
+  for (const e of exStats) {
+    if (e.unit == null) continue;
+    const us = perUnit.get(e.unit);
+    if (us) { us.passed += e.passed; us.attempted += e.attempted; }
+  }
+  const units = [...perUnit.values()].sort((x, y) => x.unit - y.unit);
+
+  const mockLearners = new Set<string>();
+  let p1s = 0, p1n = 0, p2as = 0, p2an = 0, p2bs = 0, p2bn = 0, writingPass = 0, speakingPass = 0;
+  const mrows = (mockRes.data ?? []) as { attempt: MockAttempt; user_id: string }[];
+  for (const m of mrows) {
+    mockLearners.add(m.user_id);
+    const at = m.attempt;
+    if (typeof at?.p1 === 'number') { p1s += at.p1; p1n++; }
+    if (typeof at?.p2a === 'number') { p2as += at.p2a; p2an++; }
+    if (typeof at?.p2b === 'number') { p2bs += at.p2b; p2bn++; }
+    if (at?.p3 === true) writingPass++;
+    if (at?.p4 === true) speakingPass++;
+  }
+  const avg = (s: number, n: number) => (n ? Math.round((s / n) * 10) / 10 : null);
+
+  return {
+    family,
+    learners: learners.size,
+    exercisesTouched: perEx.size,
+    totalPassed,
+    totalAttempted,
+    hardest,
+    units,
+    mock: {
+      attempts: mrows.length, learners: mockLearners.size,
+      avg: { p1: avg(p1s, p1n), p2a: avg(p2as, p2an), p2b: avg(p2bs, p2bn) },
+      writingPass, speakingPass,
+    },
   };
 }
