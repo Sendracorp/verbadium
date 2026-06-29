@@ -65,7 +65,7 @@ export interface Dict {
     busy: string; email: string; password: string; newPassword: string;
     google: string; orEmail: string;
     noAccount: string; forgotLink: string; haveAccount: string; backToLogin: string;
-    checkInbox: string; resetSent: string; passwordUpdated: string; unconfigured: string;
+    checkInbox: string; resetSent: string; passwordUpdated: string; unconfigured: string; checkSpam: string;
   };
   account: {
     title: string; email: string; memberSince: string; changePassword: string; yourCourses: string;
@@ -126,6 +126,7 @@ const en: Dict = {
     checkInbox: 'Almost there — check your inbox and click the confirmation link to activate your account.',
     resetSent: 'If an account exists for that address, a password-reset link is on its way.',
     passwordUpdated: 'Password updated — you are logged in.',
+    checkSpam: 'Don’t see it? Check your spam folder.',
     unconfigured: 'Accounts aren’t enabled on this deployment yet — Supabase credentials are not configured.',
   },
   account: {
@@ -195,6 +196,7 @@ const ca: Dict = {
     checkInbox: 'Gairebé hi som: revisa la safata d’entrada i fes clic a l’enllaç de confirmació per activar el compte.',
     resetSent: 'Si existeix un compte amb aquesta adreça, t’enviarem un enllaç per restablir la contrasenya.',
     passwordUpdated: 'Contrasenya actualitzada: ja tens la sessió iniciada.',
+    checkSpam: 'No el veus? Mira la carpeta de correu brossa.',
     unconfigured: 'Els comptes encara no estan activats en aquest desplegament: les credencials de Supabase no estan configurades.',
   },
   account: {
@@ -264,6 +266,7 @@ const es: Dict = {
     checkInbox: 'Ya casi: revisa tu bandeja de entrada y haz clic en el enlace de confirmación para activar tu cuenta.',
     resetSent: 'Si existe una cuenta con esa dirección, te enviaremos un enlace para restablecer la contraseña.',
     passwordUpdated: 'Contraseña actualizada: ya has iniciado sesión.',
+    checkSpam: '¿No lo ves? Revisa tu carpeta de spam.',
     unconfigured: 'Las cuentas aún no están habilitadas en este despliegue: las credenciales de Supabase no están configuradas.',
   },
   account: {
@@ -333,6 +336,7 @@ const fr: Dict = {
     checkInbox: 'Presque terminé — consultez votre boîte de réception et cliquez sur le lien de confirmation pour activer votre compte.',
     resetSent: 'Si un compte existe pour cette adresse, un lien de réinitialisation est en route.',
     passwordUpdated: 'Mot de passe mis à jour — vous êtes connecté.',
+    checkSpam: 'Vous ne le voyez pas ? Vérifiez vos spams.',
     unconfigured: 'Les comptes ne sont pas encore activés sur ce déploiement — les identifiants Supabase ne sont pas configurés.',
   },
   account: {
@@ -402,6 +406,7 @@ const ru: Dict = {
     checkInbox: 'Почти готово — проверьте почту и перейдите по ссылке подтверждения, чтобы активировать аккаунт.',
     resetSent: 'Если аккаунт с таким адресом существует, ссылка для сброса пароля уже в пути.',
     passwordUpdated: 'Пароль обновлён — вы вошли в систему.',
+    checkSpam: 'Не видите письмо? Проверьте папку «Спам».',
     unconfigured: 'Аккаунты пока не включены в этом развёртывании — учётные данные Supabase не настроены.',
   },
   account: {
@@ -472,6 +477,7 @@ const de: Dict = {
     checkInbox: 'Fast geschafft — sieh in deinem Postfach nach und klicke auf den Bestätigungslink, um dein Konto zu aktivieren.',
     resetSent: 'Falls ein Konto für diese Adresse existiert, ist ein Link zum Zurücksetzen unterwegs.',
     passwordUpdated: 'Passwort aktualisiert — du bist angemeldet.',
+    checkSpam: 'Nicht zu sehen? Sieh im Spam-Ordner nach.',
     unconfigured: 'Konten sind in diesem Deployment noch nicht aktiviert — die Supabase-Zugangsdaten sind nicht konfiguriert.',
   },
   account: {

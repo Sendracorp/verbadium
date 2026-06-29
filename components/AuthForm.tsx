@@ -29,6 +29,7 @@ export default function AuthForm({ mode, next = '/', lang = 'en' }: { mode: Mode
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [info, setInfo] = useState<string | null>(null);
+  const [done, setDone] = useState(false);   // email sent (signup confirm / reset link) — hide the form
 
   const configured = !!supabase;
   const origin = typeof window !== 'undefined' ? window.location.origin : '';
@@ -50,13 +51,13 @@ export default function AuthForm({ mode, next = '/', lang = 'en' }: { mode: Mode
         });
         if (error) { setError(error.message); return; }
         if (data.session) { router.push(next); router.refresh(); }
-        else setInfo(a.checkInbox);
+        else { setInfo(a.checkInbox); setDone(true); }
       } else if (mode === 'forgot') {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${origin}/auth/callback?next=${encodeURIComponent('/reset-password')}`,
         });
         if (error) { setError(error.message); return; }
-        setInfo(a.resetSent);
+        setInfo(a.resetSent); setDone(true);
       } else {
         const { error } = await supabase.auth.updateUser({ password });
         if (error) { setError(error.message); return; }
@@ -78,6 +79,24 @@ export default function AuthForm({ mode, next = '/', lang = 'en' }: { mode: Mode
 
   const needsEmail = mode !== 'reset';
   const needsPassword = mode === 'login' || mode === 'signup' || mode === 'reset';
+
+  // After the confirmation/reset email is sent there's nothing more to submit —
+  // replace the form (and its action button) with a clear "check your email" panel.
+  if (done) {
+    return (
+      <div className="card auth-card" data-test={`auth-${mode}`}>
+        <div className="auth-head">
+          <Logo variant="mark" size={44} />
+          <h2>{a.titles[mode]}</h2>
+        </div>
+        <p className="auth-info" data-test="auth-info">{info}</p>
+        <p className="auth-sub">{a.checkSpam}</p>
+        <div className="auth-links">
+          <Link href={`/login?next=${encodeURIComponent(next)}`}>{a.backToLogin}</Link>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="card auth-card" data-test={`auth-${mode}`}>
