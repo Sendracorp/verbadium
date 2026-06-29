@@ -8,6 +8,7 @@ import Dashboard from '@/components/Dashboard';
 import Checklist from '@/components/Checklist';
 import SpeechScope from '@/components/SpeechScope';
 import BuyButton from '@/components/BuyButton';
+import PurchaseFinalizing from '@/components/PurchaseFinalizing';
 import JsonLd from '@/components/JsonLd';
 import { buyLabels } from '@/lib/ui';
 import { resolveCoursePrice } from '@/lib/pricing';
@@ -33,8 +34,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function CourseHomePage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CourseHomePage({ params, searchParams }: {
+  params: Promise<{ slug: string }>;
+  searchParams: Promise<{ purchased?: string }>;
+}) {
   const { slug } = await params;
+  const { purchased } = await searchParams;
   const meta = getCourseMeta(slug);
   const medium = mediumForSlug(slug);            // the variant's teaching language
   // access and price are independent — resolve in parallel.
@@ -83,6 +88,19 @@ export default async function CourseHomePage({ params }: { params: Promise<{ slu
   );
 
   if (!access.owns) {
+    // Just back from Paddle but the webhook hasn't granted access yet — show an
+    // "unlocking…" state that refreshes until ownership lands, never the sales page.
+    if (purchased === '1') {
+      return (
+        <>
+          {hero}
+          <PurchaseFinalizing
+            received={d.purchase.received} unlocking={d.purchase.unlocking}
+            slow={d.purchase.slow} refresh={d.purchase.refresh}
+          />
+        </>
+      );
+    }
     const previewUnit = meta.freeUnits[0];
     return (
       <>

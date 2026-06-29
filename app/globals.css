@@ -553,6 +553,9 @@ body.exam-mode .paper-timer { display: inline-flex; }
   border: 1px solid var(--vb-line); border-radius: 14px;
   padding: 12px 16px; box-shadow: 0 8px 30px rgba(0,0,0,.16);
 }
+.purchase-finalizing { text-align: center; }
+.vb-spinner { display: inline-block; width: 26px; height: 26px; margin-top: 6px; border: 3px solid var(--vb-line); border-top-color: var(--vb-grape); border-radius: 50%; animation: vb-spin .8s linear infinite; }
+@keyframes vb-spin { to { transform: rotate(360deg); } }
 .cookie-notice-text { margin: 0; font-size: .85rem; line-height: 1.45; flex: 1 1 320px; }
 .cookie-notice-btn { flex: 0 0 auto; }
 @media (max-width: 520px) { .cookie-notice { bottom: 0; width: 100%; border-radius: 14px 14px 0 0; } }

@@ -75,11 +75,14 @@ export interface Dict {
   };
   // Header account menu (shared by the marketing header and the course shell).
   acct: { myCourses: string; account: string; admin: string; accountMenu: string; logout: string };
+  // Post-checkout "unlocking" state (covers the webhook-grant delay after Paddle redirects back).
+  purchase: { received: string; unlocking: string; slow: string; refresh: string };
 }
 
 const en: Dict = {
   nav: { course: 'Course', pricing: 'Pricing', login: 'Log in', signup: 'Sign up' },
   acct: { myCourses: 'My courses & progress', account: 'Account & purchases', admin: 'Admin dashboard', accountMenu: 'Account menu', logout: 'Sign out' },
+  purchase: { received: 'Payment received ✓', unlocking: 'Unlocking your course… this only takes a moment.', slow: 'This is taking longer than expected. Refresh the page, or contact us if it persists.', refresh: 'Refresh' },
   langLabel: 'Language',
   home: { badge: 'INTERACTIVE LANGUAGE COURSES', h1: 'Learn Catalan, properly',
     sub: 'Exam-focused Catalan courses with full IPA pronunciation, native-speaker audio, auto-marked exercises and real mock exams.',
@@ -148,6 +151,7 @@ const en: Dict = {
 const ca: Dict = {
   nav: { course: 'Curs', pricing: 'Preus', login: 'Inicia sessió', signup: 'Crea un compte' },
   acct: { myCourses: 'Els meus cursos i progrés', account: 'Compte i compres', admin: 'Tauler d’administració', accountMenu: 'Menú del compte', logout: 'Tanca la sessió' },
+  purchase: { received: 'Pagament rebut ✓', unlocking: 'Desbloquejant el teu curs… només trigarà un moment.', slow: 'Està trigant més del previst. Actualitza la pàgina o contacta amb nosaltres si continua.', refresh: 'Actualitza' },
   langLabel: 'Idioma',
   home: { badge: 'CURSOS D’IDIOMES INTERACTIUS', h1: 'Aprèn català, com cal',
     sub: 'Curs de català enfocat a l’examen, amb pronunciació AFI completa, àudio de parlants nadius, exercicis autocorregits i un examen de mostra real.',
@@ -216,6 +220,7 @@ const ca: Dict = {
 const es: Dict = {
   nav: { course: 'Curso', pricing: 'Precios', login: 'Iniciar sesión', signup: 'Crear cuenta' },
   acct: { myCourses: 'Mis cursos y progreso', account: 'Cuenta y compras', admin: 'Panel de administración', accountMenu: 'Menú de la cuenta', logout: 'Cerrar sesión' },
+  purchase: { received: 'Pago recibido ✓', unlocking: 'Desbloqueando tu curso… solo tardará un momento.', slow: 'Está tardando más de lo esperado. Actualiza la página o contáctanos si continúa.', refresh: 'Actualizar' },
   langLabel: 'Idioma',
   home: { badge: 'CURSOS DE IDIOMAS INTERACTIVOS', h1: 'Aprende catalán, de verdad',
     sub: 'Curso de catalán enfocado al examen, con pronunciación AFI completa, audio de hablantes nativos, ejercicios autocorregidos y un examen de prueba real.',
@@ -284,6 +289,7 @@ const es: Dict = {
 const fr: Dict = {
   nav: { course: 'Cours', pricing: 'Tarifs', login: 'Se connecter', signup: 'Créer un compte' },
   acct: { myCourses: 'Mes cours et progression', account: 'Compte et achats', admin: 'Tableau de bord admin', accountMenu: 'Menu du compte', logout: 'Se déconnecter' },
+  purchase: { received: 'Paiement reçu ✓', unlocking: 'Déverrouillage de votre cours… cela ne prend qu’un instant.', slow: 'Cela prend plus de temps que prévu. Actualisez la page ou contactez-nous si cela persiste.', refresh: 'Actualiser' },
   langLabel: 'Langue',
   home: { badge: 'COURS DE LANGUES INTERACTIFS', h1: 'Apprenez le catalan, vraiment',
     sub: 'Cours de catalan axé sur l’examen, avec prononciation API complète, audio de locuteurs natifs, exercices autocorrigés et un examen blanc réel.',
@@ -352,6 +358,7 @@ const fr: Dict = {
 const ru: Dict = {
   nav: { course: 'Курс', pricing: 'Цены', login: 'Войти', signup: 'Создать аккаунт' },
   acct: { myCourses: 'Мои курсы и прогресс', account: 'Аккаунт и покупки', admin: 'Панель администратора', accountMenu: 'Меню аккаунта', logout: 'Выйти' },
+  purchase: { received: 'Оплата получена ✓', unlocking: 'Открываем доступ к курсу… это займёт лишь мгновение.', slow: 'Это занимает больше времени, чем обычно. Обновите страницу или свяжитесь с нами, если это не пройдёт.', refresh: 'Обновить' },
   langLabel: 'Язык',
   home: { badge: 'ИНТЕРАКТИВНЫЕ КУРСЫ ЯЗЫКОВ', h1: 'Учите каталанский как следует',
     sub: 'Курс каталанского с упором на экзамен: полная транскрипция МФА, аудио носителей языка, упражнения с автопроверкой и настоящий пробный экзамен.',
@@ -421,6 +428,7 @@ const ru: Dict = {
 const de: Dict = {
   nav: { course: 'Kurs', pricing: 'Preise', login: 'Anmelden', signup: 'Konto erstellen' },
   acct: { myCourses: 'Meine Kurse & Fortschritt', account: 'Konto & Käufe', admin: 'Admin-Dashboard', accountMenu: 'Kontomenü', logout: 'Abmelden' },
+  purchase: { received: 'Zahlung erhalten ✓', unlocking: 'Dein Kurs wird freigeschaltet… einen Moment bitte.', slow: 'Das dauert länger als erwartet. Lade die Seite neu oder kontaktiere uns, falls es weiterhin auftritt.', refresh: 'Neu laden' },
   langLabel: 'Sprache',
   home: { badge: 'INTERAKTIVE SPRACHKURSE', h1: 'Katalanisch lernen, richtig',
     sub: 'Prüfungsorientierter Katalanisch-Kurs mit vollständiger IPA-Lautschrift, Audio von Muttersprachlern, automatisch korrigierten Übungen und einer echten Musterprüfung.',
