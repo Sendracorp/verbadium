@@ -67,7 +67,7 @@ export default async function CourseHomePage({ params, searchParams }: {
     isAccessibleForFree: true,                                   // Unit 1 is a free preview
     provider: { '@type': 'EducationalOrganization', name: SITE.brand, url: SITE_URL },
     offers: {
-      '@type': 'Offer', price: '70', priceCurrency: 'EUR',
+      '@type': 'Offer', price: '25', priceCurrency: 'EUR',
       category: 'Paid', availability: 'https://schema.org/InStock', url: `${SITE_URL}/pricing`,
     },
     hasCourseInstance: {

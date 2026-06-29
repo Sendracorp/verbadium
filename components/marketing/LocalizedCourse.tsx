@@ -37,7 +37,7 @@ export default function LocalizedCourse({ lang }: { lang: Locale }) {
     coursePrerequisites: 'None — complete beginner',
     isAccessibleForFree: true,
     provider: { '@type': 'EducationalOrganization', name: SITE.brand, url: SITE_URL },
-    offers: { '@type': 'Offer', price: '70', priceCurrency: 'EUR', category: 'Paid', availability: 'https://schema.org/InStock', url: `${SITE_URL}/pricing` },
+    offers: { '@type': 'Offer', price: '25', priceCurrency: 'EUR', category: 'Paid', availability: 'https://schema.org/InStock', url: `${SITE_URL}/pricing` },
     hasCourseInstance: { '@type': 'CourseInstance', courseMode: 'online', instructor: { '@type': 'Organization', name: SITE.brand } },
   };
 

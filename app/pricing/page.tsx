@@ -12,9 +12,9 @@ import { resolveAllPrices } from '@/lib/pricing';
 import { getSessionUser, userOwnsCourse, paywallBypassed } from '@/lib/access';
 
 export const metadata: Metadata = {
-  title: 'Pricing — one-time €70, lifetime access',
+  title: 'Pricing — one-time €25, lifetime access',
   description:
-    'Verbadium pricing: buy the Catalan A1 course once for €70 and keep it forever — no subscription. Includes every unit, 100+ exercises, the mock exam, audio glossary and progress tracking. Free preview, no account needed.',
+    'Verbadium pricing: buy the Catalan A1 course once for €25 and keep it forever — no subscription. Includes every unit, 100+ exercises, the mock exam, audio glossary and progress tracking. Free preview, no account needed.',
   alternates: { canonical: '/pricing', languages: hreflang('pricing') },
 };
 export const dynamic = 'force-dynamic';
