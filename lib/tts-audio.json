@@ -2,10 +2,31 @@
  "source": "Google Cloud Text-to-Speech",
  "voice": "ca-ES-Standard-B",
  "note": "Synthesized fallback for texts without a native recording; native-audio.json takes priority at runtime.",
- "generated": "2026-06-18",
+ "generated": "2026-06-30",
  "entries": {
+  "-a": [
+   "/audio/ca/tts-b645ff96a9.mp3"
+  ],
+  "-ar → -at": [
+   "/audio/ca/tts-dd29d5232f.mp3"
+  ],
+  "-ar → -ava": [
+   "/audio/ca/tts-553e0d4221.mp3"
+  ],
+  "-e": [
+   "/audio/ca/tts-41ae576986.mp3"
+  ],
+  "-eix-": [
+   "/audio/ca/tts-b33310f2d4.mp3"
+  ],
+  "-ent": [
+   "/audio/ca/tts-a3de7bb23f.mp3"
+  ],
   "-es": [
    "/audio/ca/tts-8f1904072a.mp3"
+  ],
+  "-ir → -it": [
+   "/audio/ca/tts-910660e081.mp3"
   ],
   "-ns": [
    "/audio/ca/tts-9098ac9a5a.mp3"
@@ -16,11 +37,23 @@
   "-ques / -gues": [
    "/audio/ca/tts-c7008008a3.mp3"
   ],
+  "-re -ir → -ia": [
+   "/audio/ca/tts-c2697b99dc.mp3"
+  ],
+  "-re/-er → -ut": [
+   "/audio/ca/tts-d327ec44f0.mp3"
+  ],
   "-s": [
    "/audio/ca/tts-08f43b17d3.mp3"
   ],
   "a l'estiu fa molta calor": [
    "/audio/ca/tts-4b259df050.mp3"
+  ],
+  "a la farmàcia — at the pharmacy": [
+   "/audio/ca/tts-3690ee7e3d.mp3"
+  ],
+  "a la fruiteria — at the greengrocer's": [
+   "/audio/ca/tts-7be484fb32.mp3"
   ],
   "a la plaça hi ha un mercat": [
    "/audio/ca/tts-96d506181c.mp3"
@@ -46,8 +79,32 @@
   "adeu": [
    "/audio/ca/tts-247ce5d194.mp3"
   ],
+  "agafa el primer carrer": [
+   "/audio/ca/tts-b28855b3d6.mp3"
+  ],
   "ahir / abans-d'ahir": [
    "/audio/ca/tts-cb66c4042d.mp3"
+  ],
+  "ahir vaig menjar": [
+   "/audio/ca/tts-4a8ab1bcd9.mp3"
+  ],
+  "ahir vaig visitar la catedral": [
+   "/audio/ca/tts-1b9b7a5d8b.mp3"
+  ],
+  "al costat": [
+   "/audio/ca/tts-241c6cbd8a.mp3"
+  ],
+  "al final": [
+   "/audio/ca/tts-6d11023ee4.mp3"
+  ],
+  "al final vam veure una pel·lícula": [
+   "/audio/ca/tts-383273d048.mp3"
+  ],
+  "al matí al vespre / a la nit": [
+   "/audio/ca/tts-404dec37d9.mp3"
+  ],
+  "al mercat — at the market": [
+   "/audio/ca/tts-bb98bc1fe2.mp3"
   ],
   "alguna cosa més": [
    "/audio/ca/tts-2c5afb995d.mp3"
@@ -55,14 +112,32 @@
   "amiga → amigues": [
    "/audio/ca/tts-9f2cf9b59b.mp3"
   ],
+  "anar — vaig, vas, va, anem, aneu, van": [
+   "/audio/ca/tts-8f7cf0889e.mp3"
+  ],
+  "anar → ves": [
+   "/audio/ca/tts-f7e9407640.mp3"
+  ],
   "aneu": [
    "/audio/ca/tts-46f626edce.mp3"
   ],
   "aquest matí": [
    "/audio/ca/tts-f377c03b8f.mp3"
   ],
+  "avui he menjat": [
+   "/audio/ca/tts-39f528680d.mp3"
+  ],
+  "b, d, g": [
+   "/audio/ca/tts-e98f4256bd.mp3"
+  ],
+  "begut": [
+   "/audio/ca/tts-3264745dc0.mp3"
+  ],
   "benvolgut / benvolguda": [
    "/audio/ca/tts-4b0d5559ca.mp3"
+  ],
+  "bo → millor": [
+   "/audio/ca/tts-35a75e4ec3.mp3"
   ],
   "bon dia, què voleu": [
    "/audio/ca/tts-cd81362de2.mp3"
@@ -76,6 +151,15 @@
   "boniques": [
    "/audio/ca/tts-00f9961b73.mp3"
   ],
+  "cada dia": [
+   "/audio/ca/tts-bc3a4036da.mp3"
+  ],
+  "cada estiu anàvem a la platja": [
+   "/audio/ca/tts-def733d24d.mp3"
+  ],
+  "cambrer → cambrera": [
+   "/audio/ca/tts-e933f485a6.mp3"
+  ],
   "casa — first a": [
    "/audio/ca/tts-826ed99856.mp3"
   ],
@@ -85,11 +169,20 @@
   "casa → cases": [
    "/audio/ca/tts-da12bf51ee.mp3"
   ],
+  "certificat de nivell bàsic (a2)": [
+   "/audio/ca/tts-885c7a5ee6.mp3"
+  ],
+  "certificat de nivell bàsic de català (a2)": [
+   "/audio/ca/tts-7c424c5b7c.mp3"
+  ],
   "com es diu (vostè)": [
    "/audio/ca/tts-48bcd93c73.mp3"
   ],
   "com es diu en català": [
    "/audio/ca/tts-5ad8785784.mp3"
+  ],
+  "com estàs": [
+   "/audio/ca/tts-21fd2ec3b3.mp3"
   ],
   "com estàs? — molt bé, i tu": [
    "/audio/ca/tts-2de2aa4464.mp3"
@@ -112,20 +205,77 @@
   "cotxe ; maig": [
    "/audio/ca/tts-b9a4d6b868.mp3"
   ],
+  "crec que": [
+   "/audio/ca/tts-0f2cf3bb96.mp3"
+  ],
+  "crec que tens raó": [
+   "/audio/ca/tts-70bc6d20e3.mp3"
+  ],
   "d'on ets": [
    "/audio/ca/tts-671d14ce62.mp3"
+  ],
+  "darrere de": [
+   "/audio/ca/tts-23d85d2d95.mp3"
   ],
   "davant (de) / darrere (de)": [
    "/audio/ca/tts-bdd838ea1d.mp3"
   ],
+  "davant de": [
+   "/audio/ca/tts-e2eb672542.mp3"
+  ],
   "de dilluns a divendres": [
    "/audio/ca/tts-bc18315016.mp3"
+  ],
+  "de part de qui": [
+   "/audio/ca/tts-02aef8d6e3.mp3"
   ],
   "de quin color és": [
    "/audio/ca/tts-bd759f9a54.mp3"
   ],
+  "de sobte, va sonar el telèfon": [
+   "/audio/ca/tts-6b6665c942.mp3"
+  ],
+  "de vegades": [
+   "/audio/ca/tts-162e441db2.mp3"
+  ],
+  "demà treballaré": [
+   "/audio/ca/tts-f5e0adc580.mp3"
+  ],
+  "dependent → dependenta": [
+   "/audio/ca/tts-0c05d11c26.mp3"
+  ],
   "despertar-se": [
    "/audio/ca/tts-17c437bf2b.mp3"
+  ],
+  "despertar-se / llevar-se": [
+   "/audio/ca/tts-cd67cfdc93.mp3"
+  ],
+  "digui": [
+   "/audio/ca/tts-be2e0f2591.mp3"
+  ],
+  "dir → deia": [
+   "/audio/ca/tts-65d5319ce1.mp3"
+  ],
+  "dir → digues": [
+   "/audio/ca/tts-3ad71add07.mp3"
+  ],
+  "dir → dit": [
+   "/audio/ca/tts-2c4f8025e2.mp3"
+  ],
+  "dolent → pitjor": [
+   "/audio/ca/tts-ced3660536.mp3"
+  ],
+  "dona-me'l": [
+   "/audio/ca/tts-2ae72cdfbe.mp3"
+  ],
+  "dono el llibre a en pau → l'hi dono": [
+   "/audio/ca/tts-b9d015200c.mp3"
+  ],
+  "dono el llibre a la maria → li dono el llibre": [
+   "/audio/ca/tts-2ef813c2c6.mp3"
+  ],
+  "dono les claus als veïns → els les dono": [
+   "/audio/ca/tts-34a3d50017.mp3"
   ],
   "dorm": [
    "/audio/ca/tts-2e3d8d950b.mp3"
@@ -133,8 +283,20 @@
   "dormen": [
    "/audio/ca/tts-be9da94bc7.mp3"
   ],
+  "dormia": [
+   "/audio/ca/tts-b1ff1b89c0.mp3"
+  ],
+  "dormien": [
+   "/audio/ca/tts-5f023a2ba6.mp3"
+  ],
+  "dormies": [
+   "/audio/ca/tts-0c097de264.mp3"
+  ],
   "dormim": [
    "/audio/ca/tts-ca9e17980f.mp3"
+  ],
+  "dormit": [
+   "/audio/ca/tts-91dd905358.mp3"
   ],
   "dormiu": [
    "/audio/ca/tts-83c2a7de84.mp3"
@@ -145,17 +307,38 @@
   "dorms": [
    "/audio/ca/tts-19ed10a8bc.mp3"
   ],
+  "dormíem": [
+   "/audio/ca/tts-1641c3f407.mp3"
+  ],
+  "dormíeu": [
+   "/audio/ca/tts-a16c30b42b.mp3"
+  ],
   "dues taules": [
    "/audio/ca/tts-13c6c8e67e.mp3"
   ],
   "dutxar-se": [
    "/audio/ca/tts-37ccc3cd03.mp3"
   ],
+  "dutxar-se / rentar-se": [
+   "/audio/ca/tts-8282d97ca8.mp3"
+  ],
+  "e": [
+   "/audio/ca/tts-b914c670ab.mp3"
+  ],
   "el (l') / els": [
    "/audio/ca/tts-8b02e574b2.mp3"
   ],
+  "el braç el peu": [
+   "/audio/ca/tts-9f4bf79498.mp3"
+  ],
   "el cafè amb llet": [
    "/audio/ca/tts-8d3b9a96c6.mp3"
+  ],
+  "el cap de setmana passat vaig anar a girona amb uns amics. vam visitar la catedral i vam dinar en un restaurant del centre. a la tarda plovia, així que vam anar a un museu. m'ho vaig passar molt bé. aquest cap de setmana que ve faré una excursió a la muntanya": [
+   "/audio/ca/tts-1be98ceb0c.mp3"
+  ],
+  "el cap de setmana — the weekend": [
+   "/audio/ca/tts-5e01bee573.mp3"
   ],
   "el concert / la festa": [
    "/audio/ca/tts-6519be519c.mp3"
@@ -175,6 +358,18 @@
   "el professor / la professora": [
    "/audio/ca/tts-43a4c090b7.mp3"
   ],
+  "el veig": [
+   "/audio/ca/tts-47ed27e526.mp3"
+  ],
+  "el veig cada dia": [
+   "/audio/ca/tts-3d7bc57c9d.mp3"
+  ],
+  "els + el": [
+   "/audio/ca/tts-964f0a7810.mp3"
+  ],
+  "els cabells": [
+   "/audio/ca/tts-d161f3ff06.mp3"
+  ],
   "els dissabtes no treballo": [
    "/audio/ca/tts-8afd2844a8.mp3"
   ],
@@ -193,17 +388,47 @@
   "els teus": [
    "/audio/ca/tts-4843b6de50.mp3"
   ],
+  "els ulls": [
+   "/audio/ca/tts-dfd96b8dca.mp3"
+  ],
+  "els ulls blaus marrons": [
+   "/audio/ca/tts-2a23459e34.mp3"
+  ],
   "els vostres": [
    "/audio/ca/tts-e001b7f40d.mp3"
+  ],
+  "em + el/la": [
+   "/audio/ca/tts-dc29b8cc14.mp3"
+  ],
+  "em deixes? — will you lend me": [
+   "/audio/ca/tts-5769d93399.mp3"
   ],
   "em dic anna": [
    "/audio/ca/tts-80d4db990f.mp3"
   ],
+  "em dic i soc de ara visc a treballo en gran tinc aficions com estudio català perquè vull viure a andorra": [
+   "/audio/ca/tts-e9766cc73b.mp3"
+  ],
   "em dic sara i soc de tarragona, però ara visc a barcelona. tinc vint-i-vuit anys i soc professora d'anglès. de dilluns a divendres em llevo a les set, esmorzo un cafè amb llet i vaig a la feina amb metro. m'agrada molt la meva feina. els caps de setmana no treballo: m'agrada cuinar, llegir i passejar per la ciutat. ahir vaig anar al mercat i vaig comprar fruita i peix. a la tarda va fer molt sol i vam passejar per la platja. m'encanta barcelona": [
    "/audio/ca/tts-919e89b612.mp3"
   ],
+  "em dic soc de però ara visc a treballo en i també estudio català perquè vull viure a andorra": [
+   "/audio/ca/tts-866c0b10df.mp3"
+  ],
   "em dic tom. i tu": [
    "/audio/ca/tts-881eeda6dd.mp3"
+  ],
+  "em dutxo i esmorzo": [
+   "/audio/ca/tts-458ca5ca7d.mp3"
+  ],
+  "em fa mal el cap": [
+   "/audio/ca/tts-b425af79ae.mp3"
+  ],
+  "em fa mal la gola": [
+   "/audio/ca/tts-1aba1ee327.mp3"
+  ],
+  "em fan mal els peus": [
+   "/audio/ca/tts-a851412fec.mp3"
   ],
   "em llevo": [
    "/audio/ca/tts-d23d97b12b.mp3"
@@ -214,20 +439,86 @@
   "em llevo a les set i esmorzo a les vuit": [
    "/audio/ca/tts-f839dee5b0.mp3"
   ],
+  "em llevo, et lleves, es lleva, ens llevem, us lleveu, es lleven": [
+   "/audio/ca/tts-5ba718cddb.mp3"
+  ],
+  "em portes el cafè? → me'l portes": [
+   "/audio/ca/tts-5ed8cd379f.mp3"
+  ],
+  "em sembla que": [
+   "/audio/ca/tts-36eaa67622.mp3"
+  ],
+  "em sembla una bona idea": [
+   "/audio/ca/tts-d5583e9e0e.mp3"
+  ],
+  "en + hi (haver-hi)": [
+   "/audio/ca/tts-e8eb2bd241.mp3"
+  ],
+  "en efectiu / amb targeta": [
+   "/audio/ca/tts-7671b1151d.mp3"
+  ],
   "en vull tres": [
    "/audio/ca/tts-34e7ccfb29.mp3"
   ],
   "encara aprenc": [
    "/audio/ca/tts-c17f26e3de.mp3"
   ],
+  "encara no": [
+   "/audio/ca/tts-2bbaa54bb4.mp3"
+  ],
+  "encara no he dinat": [
+   "/audio/ca/tts-90af4bc6f8.mp3"
+  ],
+  "enginyer → enginyera": [
+   "/audio/ca/tts-99de52fe8d.mp3"
+  ],
+  "era tard": [
+   "/audio/ca/tts-b0270f64e0.mp3"
+  ],
   "es diu marc": [
    "/audio/ca/tts-5fd597b022.mp3"
+  ],
+  "es retroben — catching up": [
+   "/audio/ca/tts-e377c4737f.mp3"
+  ],
+  "escolta'm": [
+   "/audio/ca/tts-bd92cebe59.mp3"
+  ],
+  "escriure → escrit": [
+   "/audio/ca/tts-2b730eee1d.mp3"
+  ],
+  "espero que": [
+   "/audio/ca/tts-aaf8cfaa5a.mp3"
+  ],
+  "estar — estic, estàs, està, estem, esteu, estan": [
+   "/audio/ca/tts-960d96c1b0.mp3"
+  ],
+  "estic cansat": [
+   "/audio/ca/tts-6fdebaeb50.mp3"
   ],
   "estic casat / casada": [
    "/audio/ca/tts-4999394cec.mp3"
   ],
+  "estic d'acord": [
+   "/audio/ca/tts-8c4f330fcd.mp3"
+  ],
+  "estic molt bé, gràcies": [
+   "/audio/ca/tts-7d899aff4b.mp3"
+  ],
+  "estudio a la universitat": [
+   "/audio/ca/tts-4aff23d377.mp3"
+  ],
+  "estudio medicina": [
+   "/audio/ca/tts-3c27528e14.mp3"
+  ],
   "està ennuvolat": [
    "/audio/ca/tts-27040236dd.mp3"
+  ],
+  "et + el/la": [
+   "/audio/ca/tts-4c6ac908c6.mp3"
+  ],
+  "et dono el regal → te'l dono": [
+   "/audio/ca/tts-f7356e616d.mp3"
   ],
   "et lleves, es lleva, ens llevem, us lleveu, es lleven": [
    "/audio/ca/tts-2bfb3e0e67.mp3"
@@ -238,6 +529,9 @@
   "ets de londres": [
    "/audio/ca/tts-79f6bc9078.mp3"
   ],
+  "fa dos dies": [
+   "/audio/ca/tts-0d36fc833e.mp3"
+  ],
   "fa sol calor / vent": [
    "/audio/ca/tts-7ad16dd924.mp3"
   ],
@@ -247,14 +541,47 @@
   "fan": [
    "/audio/ca/tts-c881e09046.mp3"
   ],
+  "faré el projecte demà": [
+   "/audio/ca/tts-4ebf2433bd.mp3"
+  ],
   "fas": [
    "/audio/ca/tts-9112df1036.mp3"
+  ],
+  "fem plans — making plans": [
+   "/audio/ca/tts-214ed382a4.mp3"
+  ],
+  "fem un pla — making a plan": [
+   "/audio/ca/tts-5c6532a6f1.mp3"
+  ],
+  "fer mal": [
+   "/audio/ca/tts-4255b3d667.mp3"
+  ],
+  "fer — faig, fas, fa, fem, feu, fan": [
+   "/audio/ca/tts-afdd44108d.mp3"
+  ],
+  "fer → faré": [
+   "/audio/ca/tts-6ecfa4caa3.mp3"
+  ],
+  "fer → feia": [
+   "/audio/ca/tts-413034d3c9.mp3"
+  ],
+  "fer → fes": [
+   "/audio/ca/tts-709b875e89.mp3"
+  ],
+  "fer → fet": [
+   "/audio/ca/tts-b6e260df8a.mp3"
   ],
   "fins demà": [
    "/audio/ca/tts-ea6f995f7f.mp3"
   ],
+  "gira a la dreta": [
+   "/audio/ca/tts-b842cea3c5.mp3"
+  ],
   "gira a la dreta / a l'esquerra": [
    "/audio/ca/tts-7f24429a98.mp3"
+  ],
+  "gira a la dreta / esquerra": [
+   "/audio/ca/tts-1cbdc4c526.mp3"
   ],
   "gos → gossos ; peix → peixos": [
    "/audio/ca/tts-29ea361669.mp3"
@@ -265,8 +592,44 @@
   "h": [
    "/audio/ca/tts-e97a21551c.mp3"
   ],
+  "ha": [
+   "/audio/ca/tts-19fa856642.mp3"
+  ],
+  "han": [
+   "/audio/ca/tts-46f3e93143.mp3"
+  ],
+  "has": [
+   "/audio/ca/tts-2f31e74272.mp3"
+  ],
+  "hauries de descansar": [
+   "/audio/ca/tts-7dcb15bb93.mp3"
+  ],
+  "haver — he, has, ha, hem, heu, han": [
+   "/audio/ca/tts-2833e9fdc4.mp3"
+  ],
+  "he": [
+   "/audio/ca/tts-978341f7dd.mp3"
+  ],
   "he acabat": [
    "/audio/ca/tts-01297917d8.mp3"
+  ],
+  "he treballat al matí": [
+   "/audio/ca/tts-e66fded686.mp3"
+  ],
+  "he vist la júlia avui": [
+   "/audio/ca/tts-36918218da.mp3"
+  ],
+  "hem": [
+   "/audio/ca/tts-401224b14e.mp3"
+  ],
+  "heu": [
+   "/audio/ca/tts-6d080754b2.mp3"
+  ],
+  "hi anem dissabte": [
+   "/audio/ca/tts-7820c64e68.mp3"
+  ],
+  "hi ha pa? sí, n'hi ha": [
+   "/audio/ca/tts-bf7119361d.mp3"
   ],
   "hi ha tres gats": [
    "/audio/ca/tts-a34599dade.mp3"
@@ -276,6 +639,9 @@
   ],
   "hi ha un gat": [
    "/audio/ca/tts-c9f9b67adc.mp3"
+  ],
+  "hi vaig demà": [
+   "/audio/ca/tts-829f233665.mp3"
   ],
   "ho sento": [
    "/audio/ca/tts-ac17cbfa03.mp3"
@@ -289,6 +655,9 @@
   "j ; g+e,i": [
    "/audio/ca/tts-20a0293bdc.mp3"
   ],
+  "ja he comprat el regal": [
+   "/audio/ca/tts-dc1d561758.mp3"
+  ],
   "jo ; gent": [
    "/audio/ca/tts-289cf8da54.mp3"
   ],
@@ -301,8 +670,23 @@
   "jugar (a futbol)": [
    "/audio/ca/tts-46e0364b53.mp3"
   ],
+  "l'agafo": [
+   "/audio/ca/tts-c3aa6ec128.mp3"
+  ],
+  "l'any passat": [
+   "/audio/ca/tts-250820f0a6.mp3"
+  ],
   "l'enginyer / l'enginyera": [
    "/audio/ca/tts-7732eed9fd.mp3"
+  ],
+  "l'hi dono demà": [
+   "/audio/ca/tts-4b7c1c9d03.mp3"
+  ],
+  "l'hi he donat": [
+   "/audio/ca/tts-664d950ac3.mp3"
+  ],
+  "l'oficina l'hospital": [
+   "/audio/ca/tts-5fcbc1620c.mp3"
   ],
   "l'ou / els ous": [
    "/audio/ca/tts-7450825fd0.mp3"
@@ -313,8 +697,23 @@
   "la data (de naixement)": [
    "/audio/ca/tts-7257cd087c.mp3"
   ],
+  "la dona amb qui parlo": [
+   "/audio/ca/tts-e93918a724.mp3"
+  ],
+  "la dreta": [
+   "/audio/ca/tts-f4ab9cfb6e.mp3"
+  ],
   "la dreta / l'esquerra": [
    "/audio/ca/tts-315f9c1b7d.mp3"
+  ],
+  "la farmàcia és a prop": [
+   "/audio/ca/tts-17480d28b9.mp3"
+  ],
+  "la fruiteria": [
+   "/audio/ca/tts-79be185035.mp3"
+  ],
+  "la fruiteria / la carnisseria": [
+   "/audio/ca/tts-a18a09e305.mp3"
   ],
   "la meva germana": [
    "/audio/ca/tts-0d2aca5a2a.mp3"
@@ -328,11 +727,23 @@
   "la parada de metro": [
    "/audio/ca/tts-97c8e19996.mp3"
   ],
+  "la persona que treballa aquí": [
+   "/audio/ca/tts-e8875b95b6.mp3"
+  ],
   "la primera a la dreta": [
    "/audio/ca/tts-e90c169786.mp3"
   ],
+  "la professora": [
+   "/audio/ca/tts-6ef348831a.mp3"
+  ],
   "la setmana passada": [
    "/audio/ca/tts-4bea1f2400.mp3"
+  ],
+  "la setmana passada vam anar a reus": [
+   "/audio/ca/tts-7cffb5b676.mp3"
+  ],
+  "la setmana que ve anirem a barcelona": [
+   "/audio/ca/tts-f435549467.mp3"
   ],
   "la seva": [
    "/audio/ca/tts-c515618d4c.mp3"
@@ -358,6 +769,12 @@
   "les vostres": [
    "/audio/ca/tts-9e64a152d6.mp3"
   ],
+  "li + el/la": [
+   "/audio/ca/tts-7135f36a9b.mp3"
+  ],
+  "li / els": [
+   "/audio/ca/tts-8714398125.mp3"
+  ],
   "li agrada la música": [
    "/audio/ca/tts-c04269f683.mp3"
   ],
@@ -370,8 +787,14 @@
   "llibre → llibres": [
    "/audio/ca/tts-fd6c84dc52.mp3"
   ],
+  "lluny de": [
+   "/audio/ca/tts-6affa65618.mp3"
+  ],
   "l·l": [
    "/audio/ca/tts-8ca85d502b.mp3"
+  ],
+  "m'adormo de seguida": [
+   "/audio/ca/tts-66d7e325fb.mp3"
   ],
   "m'agrada el cafè": [
    "/audio/ca/tts-6bb224abde.mp3"
@@ -382,8 +805,17 @@
   "m'agrada molt cuinar": [
    "/audio/ca/tts-9a4e2b4e1e.mp3"
   ],
+  "m'agradaria": [
+   "/audio/ca/tts-07cf46381d.mp3"
+  ],
+  "m'agradaria visitar girona": [
+   "/audio/ca/tts-cb930641e8.mp3"
+  ],
   "m'agraden els llibres": [
    "/audio/ca/tts-112e827c54.mp3"
+  ],
+  "m'ajuda": [
+   "/audio/ca/tts-cbfaf44e0f.mp3"
   ],
   "m'encanta": [
    "/audio/ca/tts-e3e2ca8fdf.mp3"
@@ -391,8 +823,29 @@
   "m'ho vaig passar molt bé": [
    "/audio/ca/tts-594509ae6b.mp3"
   ],
+  "me'l / me la": [
+   "/audio/ca/tts-3dc17709d7.mp3"
+  ],
+  "me'l dones": [
+   "/audio/ca/tts-3c8a3e8c62.mp3"
+  ],
+  "menjat": [
+   "/audio/ca/tts-c494fec627.mp3"
+  ],
+  "mentre dormia, va sonar el telèfon": [
+   "/audio/ca/tts-5c15d5d99f.mp3"
+  ],
+  "menys que": [
+   "/audio/ca/tts-dd932bdf44.mp3"
+  ],
+  "metge → metgessa": [
+   "/audio/ca/tts-cd62bc6da0.mp3"
+  ],
   "mig quilo": [
    "/audio/ca/tts-78ecb9f9ad.mp3"
+  ],
+  "mira'l": [
+   "/audio/ca/tts-b2501e2e1c.mp3"
   ],
   "molt bé. alguna cosa més": [
    "/audio/ca/tts-a61195f78f.mp3"
@@ -403,14 +856,41 @@
   "moltes gràcies": [
    "/audio/ca/tts-b1b0ad4e58.mp3"
   ],
+  "morè": [
+   "/audio/ca/tts-e900f7aa7f.mp3"
+  ],
   "més a poc a poc, si us plau": [
    "/audio/ca/tts-bc1ce39d17.mp3"
+  ],
+  "més que": [
+   "/audio/ca/tts-d9fbb676fd.mp3"
+  ],
+  "n'hi ha": [
+   "/audio/ca/tts-1793a6ccd3.mp3"
+  ],
+  "n'hi ha tres": [
+   "/audio/ca/tts-9dc3bc45ac.mp3"
   ],
   "neva": [
    "/audio/ca/tts-d243466bdb.mp3"
   ],
+  "no en tinc": [
+   "/audio/ca/tts-76e20df8b9.mp3"
+  ],
+  "no en vull, gràcies": [
+   "/audio/ca/tts-17007d1703.mp3"
+  ],
   "no ens agrada gens": [
    "/audio/ca/tts-c633eae919.mp3"
+  ],
+  "no estic d'acord": [
+   "/audio/ca/tts-b76fc13a75.mp3"
+  ],
+  "no facis": [
+   "/audio/ca/tts-443bd72235.mp3"
+  ],
+  "no he fet res aquest matí": [
+   "/audio/ca/tts-b11850ec45.mp3"
   ],
   "no ho entenc": [
    "/audio/ca/tts-8e4be0d8da.mp3"
@@ -418,11 +898,23 @@
   "no m'agrada gens el futbol": [
    "/audio/ca/tts-4fc1176145.mp3"
   ],
+  "no n'hi ha": [
+   "/audio/ca/tts-66ea34623a.mp3"
+  ],
+  "no parlis": [
+   "/audio/ca/tts-66d288d96b.mp3"
+  ],
+  "no parlis tan ràpid": [
+   "/audio/ca/tts-acd142fc90.mp3"
+  ],
   "no parlo gaire": [
    "/audio/ca/tts-0909743557.mp3"
   ],
   "no puc venir avui": [
    "/audio/ca/tts-7f716081fb.mp3"
+  ],
+  "no teníem televisió": [
+   "/audio/ca/tts-4252240481.mp3"
   ],
   "no tinc temps": [
    "/audio/ca/tts-9732cfacdb.mp3"
@@ -436,8 +928,14 @@
   "no, és a prop. cinc minuts": [
    "/audio/ca/tts-7df756795a.mp3"
   ],
+  "normalment començo a les nou": [
+   "/audio/ca/tts-151ddc74d9.mp3"
+  ],
   "ny": [
    "/audio/ca/tts-3460a9f7eb.mp3"
+  ],
+  "obrir → obert": [
+   "/audio/ca/tts-7f6605d885.mp3"
   ],
   "on vas anar de vacances": [
    "/audio/ca/tts-1069603a65.mp3"
@@ -445,11 +943,41 @@
   "on vau anar": [
    "/audio/ca/tts-68b2c33cf1.mp3"
   ],
+  "on vius ara": [
+   "/audio/ca/tts-06172a72d0.mp3"
+  ],
   "on vius? — visc a barcelona": [
    "/audio/ca/tts-6fc8000628.mp3"
   ],
+  "on vivies quan eres petit": [
+   "/audio/ca/tts-4cb45eeda7.mp3"
+  ],
   "pa → pans ; mà → mans": [
    "/audio/ca/tts-6676e4098b.mp3"
+  ],
+  "pago amb targeta": [
+   "/audio/ca/tts-7423f93db0.mp3"
+  ],
+  "parla parleu": [
+   "/audio/ca/tts-209e50d9e2.mp3"
+  ],
+  "parlar → parlaré, parlaràs, parlarà, parlarem, parlareu, parlaran": [
+   "/audio/ca/tts-9e63511b1b.mp3"
+  ],
+  "parlaria": [
+   "/audio/ca/tts-c7dc7d93af.mp3"
+  ],
+  "parlat": [
+   "/audio/ca/tts-83203a6b82.mp3"
+  ],
+  "parlava": [
+   "/audio/ca/tts-504606e630.mp3"
+  ],
+  "parlaven": [
+   "/audio/ca/tts-97fbaafa0f.mp3"
+  ],
+  "parlaves": [
+   "/audio/ca/tts-a7976945f7.mp3"
   ],
   "parlem": [
    "/audio/ca/tts-737e3c4ee3.mp3"
@@ -472,8 +1000,26 @@
   "parlo una mica de català": [
    "/audio/ca/tts-ea72446f89.mp3"
   ],
+  "parlàvem": [
+   "/audio/ca/tts-26e675e0ed.mp3"
+  ],
+  "parlàveu": [
+   "/audio/ca/tts-000e0b49dd.mp3"
+  ],
   "per a mi, un cafè amb llet": [
    "/audio/ca/tts-fdef9aefc4.mp3"
+  ],
+  "per anar a l'estació? — how do i get to the station": [
+   "/audio/ca/tts-944b7c520e.mp3"
+  ],
+  "per mi": [
+   "/audio/ca/tts-0dfcfc5b7d.mp3"
+  ],
+  "per què no": [
+   "/audio/ca/tts-aa34c32a29.mp3"
+  ],
+  "per què no sopem fora": [
+   "/audio/ca/tts-4f476c36ff.mp3"
   ],
   "perd": [
    "/audio/ca/tts-378222f5e7.mp3"
@@ -490,6 +1036,9 @@
   "perdo": [
    "/audio/ca/tts-34fd20d973.mp3"
   ],
+  "perdona disculpa": [
+   "/audio/ca/tts-162fa263a5.mp3"
+  ],
   "perdoni, on és": [
    "/audio/ca/tts-089de233d9.mp3"
   ],
@@ -505,14 +1054,32 @@
   "plou": [
    "/audio/ca/tts-f78ff8ea9f.mp3"
   ],
+  "plovia": [
+   "/audio/ca/tts-47a46bc5c8.mp3"
+  ],
+  "plovia molt aquell dia": [
+   "/audio/ca/tts-3ceca06efb.mp3"
+  ],
   "podem": [
    "/audio/ca/tts-0980170a73.mp3"
   ],
   "poden": [
    "/audio/ca/tts-e60348a51b.mp3"
   ],
+  "poder → podré": [
+   "/audio/ca/tts-5c57780c47.mp3"
+  ],
   "podeu": [
    "/audio/ca/tts-6f88e75207.mp3"
+  ],
+  "podries": [
+   "/audio/ca/tts-3ab5b5cae1.mp3"
+  ],
+  "podries ajudar-me": [
+   "/audio/ca/tts-78d05de98a.mp3"
+  ],
+  "podríem": [
+   "/audio/ca/tts-b87929eb51.mp3"
   ],
   "pot": [
    "/audio/ca/tts-623037fafd.mp3"
@@ -529,17 +1096,47 @@
   "pots venir al cafè a les sis": [
    "/audio/ca/tts-aca0a7751e.mp3"
   ],
+  "pren aquesta pastilla": [
+   "/audio/ca/tts-3ca48e9458.mp3"
+  ],
+  "prendre → pres": [
+   "/audio/ca/tts-f8f810ff32.mp3"
+  ],
+  "primer finalment": [
+   "/audio/ca/tts-390f6ff4f1.mp3"
+  ],
+  "primer vam sopar": [
+   "/audio/ca/tts-db1b902f74.mp3"
+  ],
+  "professor → professora": [
+   "/audio/ca/tts-d2c4ca6f89.mp3"
+  ],
   "puc": [
    "/audio/ca/tts-e57a8cccd7.mp3"
   ],
   "puc fer una pregunta": [
    "/audio/ca/tts-3b2a0a1765.mp3"
   ],
+  "quan era petit/a": [
+   "/audio/ca/tts-a85dcddf50.mp3"
+  ],
+  "quan era petita — when i was little": [
+   "/audio/ca/tts-dbe270da55.mp3"
+  ],
+  "quan era petita, jugava al carrer": [
+   "/audio/ca/tts-6714513b25.mp3"
+  ],
+  "quan vaig arribar, plovia": [
+   "/audio/ca/tts-65227df1da.mp3"
+  ],
   "quant costa? és molt car": [
    "/audio/ca/tts-a2b1886b07.mp3"
   ],
   "quant de temps tenim": [
    "/audio/ca/tts-12b5cbd324.mp3"
+  ],
+  "quant és": [
+   "/audio/ca/tts-813cc1499d.mp3"
   ],
   "quant és? / quant val": [
    "/audio/ca/tts-7215de8a31.mp3"
@@ -555,6 +1152,9 @@
   ],
   "quaranta-quatre": [
    "/audio/ca/tts-d39b62e466.mp3"
+  ],
+  "qui és aquell? — who's that": [
+   "/audio/ca/tts-e28bf37e87.mp3"
   ],
   "quin dia és avui": [
    "/audio/ca/tts-eb391692ef.mp3"
@@ -577,8 +1177,23 @@
   "quina hora és": [
    "/audio/ca/tts-bde9d01f5a.mp3"
   ],
+  "què et sembla si": [
+   "/audio/ca/tts-15b5dad219.mp3"
+  ],
+  "què et sembla si anem al cinema": [
+   "/audio/ca/tts-d1a45d8f5c.mp3"
+  ],
+  "què fas": [
+   "/audio/ca/tts-b40225da4a.mp3"
+  ],
   "què fas avui": [
    "/audio/ca/tts-fc5a87b280.mp3"
+  ],
+  "què has fet avui": [
+   "/audio/ca/tts-2cba657810.mp3"
+  ],
+  "què has fet avui? — what have you done today": [
+   "/audio/ca/tts-42bbfa0c66.mp3"
   ],
   "què t'agrada fer": [
    "/audio/ca/tts-8c5f9674b0.mp3"
@@ -601,11 +1216,38 @@
   "ros / morè": [
    "/audio/ca/tts-6ad8d6be7b.mp3"
   ],
+  "ros castany": [
+   "/audio/ca/tts-591ccbefef.mp3"
+  ],
+  "saber → sabré": [
+   "/audio/ca/tts-bda034db0e.mp3"
+  ],
   "salutacions / una abraçada": [
    "/audio/ca/tts-422733ea16.mp3"
   ],
+  "segueix / agafa": [
+   "/audio/ca/tts-ee9f58ce65.mp3"
+  ],
+  "segueix tot recte": [
+   "/audio/ca/tts-01badf9c7e.mp3"
+  ],
   "seixanta-vuit": [
    "/audio/ca/tts-da65e1f429.mp3"
+  ],
+  "sempre jugava al carrer": [
+   "/audio/ca/tts-42df12aff0.mp3"
+  ],
+  "ser — soc, ets, és, som, sou, són": [
+   "/audio/ca/tts-a84fa48e8c.mp3"
+  ],
+  "ser → era": [
+   "/audio/ca/tts-ad2adf1f2b.mp3"
+  ],
+  "ser → sigues": [
+   "/audio/ca/tts-cd17a7200b.mp3"
+  ],
+  "servir → serveixo": [
+   "/audio/ca/tts-bb7323ef84.mp3"
   ],
   "simpàtic / simpàtica": [
    "/audio/ca/tts-85fa947843.mp3"
@@ -613,20 +1255,35 @@
   "soc anglès": [
    "/audio/ca/tts-49c2909b30.mp3"
   ],
+  "soc de lleida": [
+   "/audio/ca/tts-5274aad864.mp3"
+  ],
   "soc de manchester": [
    "/audio/ca/tts-43d5e4c729.mp3"
   ],
   "soc de manchester, soc anglès. i tu, ets catalana": [
    "/audio/ca/tts-4de55209d5.mp3"
   ],
+  "soc de reus": [
+   "/audio/ca/tts-da924fd827.mp3"
+  ],
   "soc enginyera": [
    "/audio/ca/tts-d3cf74d827.mp3"
+  ],
+  "soc professora": [
+   "/audio/ca/tts-b378c034ae.mp3"
   ],
   "som amics": [
    "/audio/ca/tts-d3c9a3607b.mp3"
   ],
+  "sopo aviat": [
+   "/audio/ca/tts-1f85584cf6.mp3"
+  ],
   "sou estudiants": [
    "/audio/ca/tts-836024f26d.mp3"
+  ],
+  "sí, el conec": [
+   "/audio/ca/tts-dfd7098ad9.mp3"
   ],
   "sí, en vull": [
    "/audio/ca/tts-3c24d1b709.mp3"
@@ -636,6 +1293,9 @@
   ],
   "sí, soc de girona. molt de gust": [
    "/audio/ca/tts-fc3b094afd.mp3"
+  ],
+  "sí, te'l porto": [
+   "/audio/ca/tts-0ea24e16e9.mp3"
   ],
   "sí, tinc una germana. es diu clara i és metgessa": [
    "/audio/ca/tts-b26c4dd5b7.mp3"
@@ -661,11 +1321,32 @@
   "t'agrada llegir": [
    "/audio/ca/tts-17621748bf.mp3"
   ],
+  "també estudio català": [
+   "/audio/ca/tts-df49d93abf.mp3"
+  ],
+  "tan com": [
+   "/audio/ca/tts-356d2d5add.mp3"
+  ],
+  "te'l / te la": [
+   "/audio/ca/tts-aa98f77037.mp3"
+  ],
+  "te'l dono ara": [
+   "/audio/ca/tts-970cd31b18.mp3"
+  ],
   "tenen": [
    "/audio/ca/tts-8649360e3d.mp3"
   ],
   "tenim": [
    "/audio/ca/tts-2dbc9e641f.mp3"
+  ],
+  "tenir febre mal de panxa / un refredat": [
+   "/audio/ca/tts-465e2f3f4f.mp3"
+  ],
+  "tenir — tinc, tens, té, tenim, teniu, tenen": [
+   "/audio/ca/tts-4331648ee2.mp3"
+  ],
+  "tenir → tindré": [
+   "/audio/ca/tts-78543de335.mp3"
   ],
   "teniu": [
    "/audio/ca/tts-9e82aa1803.mp3"
@@ -676,17 +1357,38 @@
   "tens germans": [
    "/audio/ca/tts-1ab17070e6.mp3"
   ],
+  "tens pa? sí, en tinc": [
+   "/audio/ca/tts-fc794b5541.mp3"
+  ],
+  "tens raó": [
+   "/audio/ca/tts-0630f2f86e.mp3"
+  ],
   "tinc": [
    "/audio/ca/tts-db8b3d8e8e.mp3"
   ],
+  "tinc febre": [
+   "/audio/ca/tts-726e9d7cf5.mp3"
+  ],
   "tinc gana son": [
    "/audio/ca/tts-5436a32d94.mp3"
+  ],
+  "tinc mal de panxa": [
+   "/audio/ca/tts-509d29aefd.mp3"
   ],
   "tinc trenta-dos anys": [
    "/audio/ca/tts-aff01fc4d4.mp3"
   ],
   "tot recte i després la primera a la dreta. és al costat del banc": [
    "/audio/ca/tts-d90cca346e.mp3"
+  ],
+  "treballo en un hospital": [
+   "/audio/ca/tts-c375c0d5e1.mp3"
+  ],
+  "treballo en una llibreria": [
+   "/audio/ca/tts-7c44dbbcf3.mp3"
+  ],
+  "treballo en una oficina": [
+   "/audio/ca/tts-65aadfa9b8.mp3"
   ],
   "trenta-tres": [
    "/audio/ca/tts-ffa8bc95c2.mp3"
@@ -697,6 +1399,12 @@
   "té": [
    "/audio/ca/tts-08edf03c00.mp3"
   ],
+  "té els cabells rossos": [
+   "/audio/ca/tts-c3f300a12b.mp3"
+  ],
+  "té els ulls blaus": [
+   "/audio/ca/tts-33b11b9207.mp3"
+  ],
   "un / uns": [
    "/audio/ca/tts-a7fffd4699.mp3"
   ],
@@ -706,17 +1414,44 @@
   "un cotxe vermell": [
    "/audio/ca/tts-40b6bccd77.mp3"
   ],
+  "un dia normal — a normal day": [
+   "/audio/ca/tts-f873cde718.mp3"
+  ],
+  "un noi alt": [
+   "/audio/ca/tts-eef396b31d.mp3"
+  ],
   "un quilo de": [
    "/audio/ca/tts-0b3542fa2a.mp3"
+  ],
+  "un quilo una dotzena": [
+   "/audio/ca/tts-dda83f60bf.mp3"
   ],
   "una / unes": [
    "/audio/ca/tts-59b72916e5.mp3"
   ],
+  "una anècdota — an anecdote": [
+   "/audio/ca/tts-53e91492db.mp3"
+  ],
   "una casa vermella": [
    "/audio/ca/tts-76f3236fef.mp3"
   ],
+  "una dotzena": [
+   "/audio/ca/tts-30527518b4.mp3"
+  ],
   "una mica de": [
    "/audio/ca/tts-4dad1f0f96.mp3"
+  ],
+  "una noia alta": [
+   "/audio/ca/tts-6960f47ab8.mp3"
+  ],
+  "una trucada — a phone call": [
+   "/audio/ca/tts-e5c35c5c54.mp3"
+  ],
+  "unes noies altes": [
+   "/audio/ca/tts-ac94f43de6.mp3"
+  ],
+  "uns nois alts": [
+   "/audio/ca/tts-a04eaa9293.mp3"
   ],
   "unstressed a, e": [
    "/audio/ca/tts-3b1560a5a3.mp3"
@@ -739,11 +1474,17 @@
   "vaig anar": [
    "/audio/ca/tts-82a48cf26b.mp3"
   ],
+  "vaig anar a girona": [
+   "/audio/ca/tts-789bb06ee5.mp3"
+  ],
   "vaig anar a la platja": [
    "/audio/ca/tts-2e2b652465.mp3"
   ],
   "vaig anar al mercat i vaig comprar fruita. i tu": [
    "/audio/ca/tts-8ecb3561ed.mp3"
+  ],
+  "vaig sortir": [
+   "/audio/ca/tts-0b2ee98a39.mp3"
   ],
   "vaig treballar tot el dia, però al vespre vam sopar fora": [
    "/audio/ca/tts-fcdf5bbccc.mp3"
@@ -754,11 +1495,29 @@
   "vam sopar fora": [
    "/audio/ca/tts-1d91d309d5.mp3"
   ],
+  "vam veure una pel·lícula": [
+   "/audio/ca/tts-36edaf5be4.mp3"
+  ],
   "van": [
    "/audio/ca/tts-a5dc5121e9.mp3"
   ],
+  "van quedar a casa": [
+   "/audio/ca/tts-eaa8e4a732.mp3"
+  ],
+  "vas a girona? sí, hi vaig": [
+   "/audio/ca/tts-42f75a8b0a.mp3"
+  ],
   "vau": [
    "/audio/ca/tts-27729bdb9d.mp3"
+  ],
+  "venir → vindré": [
+   "/audio/ca/tts-728c908171.mp3"
+  ],
+  "venir → vine": [
+   "/audio/ca/tts-680187bfd6.mp3"
+  ],
+  "venir → vingut": [
+   "/audio/ca/tts-af769ac210.mp3"
   ],
   "verda": [
    "/audio/ca/tts-e9929e1f56.mp3"
@@ -769,11 +1528,44 @@
   "verds": [
    "/audio/ca/tts-a5bb672579.mp3"
   ],
+  "ves al metge": [
+   "/audio/ca/tts-ab5954b359.mp3"
+  ],
   "ves tot recte": [
    "/audio/ca/tts-34f2d03165.mp3"
   ],
   "vestir-se": [
    "/audio/ca/tts-2abea65622.mp3"
+  ],
+  "vestir-se / adormir-se": [
+   "/audio/ca/tts-1debe693f7.mp3"
+  ],
+  "veure → veia": [
+   "/audio/ca/tts-e7fa645964.mp3"
+  ],
+  "veure → vist": [
+   "/audio/ca/tts-d1e250ca59.mp3"
+  ],
+  "veus el llibre? sí, el veig": [
+   "/audio/ca/tts-2bcd4f4675.mp3"
+  ],
+  "vist": [
+   "/audio/ca/tts-ad85c11495.mp3"
+  ],
+  "vivia a un poble petit": [
+   "/audio/ca/tts-124608aadb.mp3"
+  ],
+  "voldria": [
+   "/audio/ca/tts-fdf0a04600.mp3"
+  ],
+  "voldria mig quilo de tomàquets": [
+   "/audio/ca/tts-7da58f69bf.mp3"
+  ],
+  "voldria un cafè": [
+   "/audio/ca/tts-8ee9068463.mp3"
+  ],
+  "voldria un quilo de pomes": [
+   "/audio/ca/tts-cbdeff4be7.mp3"
   ],
   "volem": [
    "/audio/ca/tts-6b719ebc7a.mp3"
@@ -781,11 +1573,17 @@
   "volen": [
    "/audio/ca/tts-9d552d66a0.mp3"
   ],
+  "voler → voldré": [
+   "/audio/ca/tts-36edcbfd1f.mp3"
+  ],
   "voleu": [
    "/audio/ca/tts-03b5b5dd1f.mp3"
   ],
   "vols": [
    "/audio/ca/tts-8ccf17d1da.mp3"
+  ],
+  "vols donar-me'l": [
+   "/audio/ca/tts-aa4474db5e.mp3"
   ],
   "vols pa": [
    "/audio/ca/tts-80033c429b.mp3"
@@ -795,6 +1593,15 @@
   ],
   "vull aprendre català": [
    "/audio/ca/tts-9d9ed87ce6.mp3"
+  ],
+  "vull que": [
+   "/audio/ca/tts-10a6468172.mp3"
+  ],
+  "vull que vinguis": [
+   "/audio/ca/tts-f2920de2f0.mp3"
+  ],
+  "vull veure'l": [
+   "/audio/ca/tts-c8007e1afd.mp3"
   ],
   "x": [
    "/audio/ca/tts-9c431bf806.mp3"
@@ -819,6 +1626,165 @@
   ],
   "és lluny? — no, és a prop": [
    "/audio/ca/tts-406f99bd67.mp3"
+  ],
+  "és molt simpàtic": [
+   "/audio/ca/tts-b8f31d5e72.mp3"
+  ],
+  "és més alta que jo": [
+   "/audio/ca/tts-c5a5fc3f0b.mp3"
+  ],
+  "és tan alta com ell": [
+   "/audio/ca/tts-8822fb0865.mp3"
+  ],
+  "és una mica tímid": [
+   "/audio/ca/tts-749718db59.mp3"
+  ],
+  "— a quina hora et lleves": [
+   "/audio/ca/tts-b463cdcc87.mp3"
+  ],
+  "— ah, doncs parles molt bé! i on vius ara": [
+   "/audio/ca/tts-12213deef5.mp3"
+  ],
+  "— ahir, mentre dormia, va sonar el telèfon a les tres de la matinada": [
+   "/audio/ca/tts-da9bdac3a6.mp3"
+  ],
+  "— aniré a la muntanya. m'agradaria descansar una mica": [
+   "/audio/ca/tts-a8b746410d.mp3"
+  ],
+  "— bon dia, em fa mal la gola i tinc una mica de febre": [
+   "/audio/ca/tts-f5a36900aa.mp3"
+  ],
+  "— bon dia, què volia": [
+   "/audio/ca/tts-7a3cb010ef.mp3"
+  ],
+  "— bon dia, voldria parlar amb la senyora roca, si us plau": [
+   "/audio/ca/tts-24427f9de2.mp3"
+  ],
+  "— bon dia. — voldria un quilo de pomes i mitja dotzena d'ous. — quant és? — pago amb targeta. — gràcies, adeu": [
+   "/audio/ca/tts-f3bbb000f2.mp3"
+  ],
+  "— bona idea! però per què no sopem abans": [
+   "/audio/ca/tts-fcb5f68fad.mp3"
+  ],
+  "— d'acord, em sembla perfecte. crec que fan una pel·lícula catalana": [
+   "/audio/ca/tts-9e35d81399.mp3"
+  ],
+  "— de part de qui? — un moment, ara es posa": [
+   "/audio/ca/tts-5eab0542a0.mp3"
+  ],
+  "— digui": [
+   "/audio/ca/tts-7e6e927109.mp3"
+  ],
+  "— em deixes el llibre": [
+   "/audio/ca/tts-b3fd77c0c0.mp3"
+  ],
+  "— em llevo a les set, em dutxo i esmorzo. normalment començo a treballar a les nou": [
+   "/audio/ca/tts-37536fcc35.mp3"
+  ],
+  "— encara no he fet res! però ja he comprat el regal": [
+   "/audio/ca/tts-c7a4e6e35e.mp3"
+  ],
+  "— era la meva germana. es va equivocar de número. al final no vaig poder dormir més": [
+   "/audio/ca/tts-5a4517957d.mp3"
+  ],
+  "— gràcies. i si no milloro? — doncs ves al metge": [
+   "/audio/ca/tts-ab85587957.mp3"
+  ],
+  "— hauries de descansar. pren aquestes pastilles i beu molta aigua": [
+   "/audio/ca/tts-73ea4d74dc.mp3"
+  ],
+  "— he treballat al matí i he dinat amb la júlia. i tu": [
+   "/audio/ca/tts-e8bc53d14f.mp3"
+  ],
+  "— hola, marc! quant de temps! com estàs": [
+   "/audio/ca/tts-fb80487237.mp3"
+  ],
+  "— i a la nit? — sopo aviat i m'adormo de seguida": [
+   "/audio/ca/tts-87ab1ab394.mp3"
+  ],
+  "— i el diccionari, el tens": [
+   "/audio/ca/tts-b793e68437.mp3"
+  ],
+  "— i la noia? és més alta que ell": [
+   "/audio/ca/tts-414465ab52.mp3"
+  ],
+  "— molt bé, gràcies. ara treballo en una llibreria i també estudio català": [
+   "/audio/ca/tts-907c013b17.mp3"
+  ],
+  "— moltes gràcies": [
+   "/audio/ca/tts-be4ce3cf1b.mp3"
+  ],
+  "— no n'hi ha cap a casa, ho sento": [
+   "/audio/ca/tts-3f66dcf743.mp3"
+  ],
+  "— perdoni, per anar a l'estació": [
+   "/audio/ca/tts-1b39b262d2.mp3"
+  ],
+  "— quan eres petita, on vivies": [
+   "/audio/ca/tts-9994b491c3.mp3"
+  ],
+  "— que bé! jo sempre jugava al carrer amb els amics": [
+   "/audio/ca/tts-2bd3395a50.mp3"
+  ],
+  "— que bé! podries portar-me, si vas amb cotxe": [
+   "/audio/ca/tts-0c4bb8f642.mp3"
+  ],
+  "— qui és aquell noi alt dels cabells rossos": [
+   "/audio/ca/tts-7e760bd8f4.mp3"
+  ],
+  "— quina por! qui era": [
+   "/audio/ca/tts-f2c8a0e53a.mp3"
+  ],
+  "— què et sembla si anem al cinema dissabte": [
+   "/audio/ca/tts-932e19a7a0.mp3"
+  ],
+  "— què faràs aquest cap de setmana": [
+   "/audio/ca/tts-207dbd1334.mp3"
+  ],
+  "— què has fet avui": [
+   "/audio/ca/tts-206a15559d.mp3"
+  ],
+  "— què vas fer el cap de setmana": [
+   "/audio/ca/tts-e4b3514dff.mp3"
+  ],
+  "— sí, en vull un quilo. i tens pomes": [
+   "/audio/ca/tts-b46b2d218f.mp3"
+  ],
+  "— sí, les tinc aquí. les vols": [
+   "/audio/ca/tts-f5edc05398.mp3"
+  ],
+  "— sí, te'l deixo demà": [
+   "/audio/ca/tts-5816d06a12.mp3"
+  ],
+  "— són quatre euros. alguna cosa més? — no, gràcies, pago amb targeta": [
+   "/audio/ca/tts-feb32a80e7.mp3"
+  ],
+  "— vagi tot recte, giri a la dreta i agafi el primer carrer": [
+   "/audio/ca/tts-403a69c821.mp3"
+  ],
+  "— vaig anar a girona i vaig visitar la catedral. i vosaltres": [
+   "/audio/ca/tts-0133daa6f2.mp3"
+  ],
+  "— vam quedar a casa i vam veure una pel·lícula": [
+   "/audio/ca/tts-2fa674c541.mp3"
+  ],
+  "— visc a girona, però soc de reus. i tu, què fas": [
+   "/audio/ca/tts-0e47f57314.mp3"
+  ],
+  "— vivia a un poble petit. cada estiu anàvem a la platja": [
+   "/audio/ca/tts-dcda5ec339.mp3"
+  ],
+  "— voldria un quilo de pomes i mitja dotzena d'ous. quant és": [
+   "/audio/ca/tts-2e092bacdf.mp3"
+  ],
+  "— vols taronges": [
+   "/audio/ca/tts-5c32497a40.mp3"
+  ],
+  "— és en pau. és molt simpàtic, però una mica tímid": [
+   "/audio/ca/tts-6123838552.mp3"
+  ],
+  "— és la seva germana. és tan simpàtica com ell": [
+   "/audio/ca/tts-4cf2526dc8.mp3"
   ]
  }
 }

@@ -1,13 +1,13 @@
 {
  "source": "Lingua Libre (lingualibre.org) via Wikimedia Commons",
  "license": "CC BY-SA 4.0",
- "fetched": "2026-06-18",
+ "fetched": "2026-06-30",
  "credits": {
-  "Unjoanqualsevol": 230,
-  "Marvives": 82,
-  "Millars": 54,
-  "Toniher": 9,
-  "TaronjaSatsuma": 6
+  "Unjoanqualsevol": 299,
+  "Marvives": 146,
+  "Millars": 59,
+  "Toniher": 11,
+  "TaronjaSatsuma": 10
  },
  "entries": {
   "set": [
@@ -847,8 +847,419 @@
   "vint": [
    "/audio/ca/vint-d06ba8.mp3"
   ],
+  "trenta": [
+   "/audio/ca/trenta-596c0e.mp3"
+  ],
+  "cinquanta": [
+   "/audio/ca/cinquanta-b0d0fe.mp3"
+  ],
+  "vint-i-cinc": [
+   "/audio/ca/vint-i-cinc-a7e5d3.mp3"
+  ],
   "cent": [
    "/audio/ca/cent-a405f8.mp3"
+  ],
+  "ell/ella": [
+   "/audio/ca/ell-79c6b7.mp3",
+   "/audio/ca/ella-c7d362.mp3"
+  ],
+  "ells/elles": [
+   "/audio/ca/ells-b501b8.mp3",
+   "/audio/ca/elles-bfd2e3.mp3"
+  ],
+  "doncs": [
+   "/audio/ca/doncs-6b5cb2.mp3"
+  ],
+  "llavors / aleshores": [
+   "/audio/ca/llavors-6a85a0.mp3",
+   "/audio/ca/aleshores-9f9ca7.mp3"
+  ],
+  "per exemple": [
+   "/audio/ca/per-exemple-ab9c3e.mp3"
+  ],
+  "és a dir": [
+   "/audio/ca/es-a-dir-80941c.mp3"
+  ],
+  "prim / gros": [
+   "/audio/ca/prim-2b92ec.mp3",
+   "/audio/ca/gros-6bb565.mp3"
+  ],
+  "simpàtic / antipàtic": [
+   "/audio/ca/simpatic-85b883.mp3",
+   "/audio/ca/antipatic-572b20.mp3"
+  ],
+  "alegre / seriós": [
+   "/audio/ca/alegre-794ea5.mp3",
+   "/audio/ca/serios-8e2e11.mp3"
+  ],
+  "treballador / mandrós": [
+   "/audio/ca/treballador-7dc809.mp3",
+   "/audio/ca/mandros-0a7ee6.mp3"
+  ],
+  "tímid / obert": [
+   "/audio/ca/timid-053ed2.mp3",
+   "/audio/ca/obert-c25436.mp3"
+  ],
+  "fet": [
+   "/audio/ca/fet-b15222.mp3"
+  ],
+  "parlar": [
+   "/audio/ca/parlar-7e887d.mp3"
+  ],
+  "dormir": [
+   "/audio/ca/dormir-13f7e8.mp3"
+  ],
+  "veure": [
+   "/audio/ca/veure-307c57.mp3"
+  ],
+  "fer": [
+   "/audio/ca/fer-f38107.mp3"
+  ],
+  "el els / les": [
+   "/audio/ca/els-4f25fd.mp3",
+   "/audio/ca/les-3acad1.mp3"
+  ],
+  "en": [
+   "/audio/ca/en-94d2da.mp3"
+  ],
+  "hi": [
+   "/audio/ca/hi-719051.mp3"
+  ],
+  "l'hi": [
+   "/audio/ca/hi-719051.mp3"
+  ],
+  "els hi": [
+   "/audio/ca/hi-719051.mp3"
+  ],
+  "tot recte": [
+   "/audio/ca/tot-recte-5e9ecf.mp3"
+  ],
+  "el cap / la gola": [
+   "/audio/ca/cap-e1e401.mp3",
+   "/audio/ca/gola-9f8fc5.mp3"
+  ],
+  "l'esquena / la panxa": [
+   "/audio/ca/esquena-09e620.mp3",
+   "/audio/ca/panxa-4cb393.mp3"
+  ],
+  "treballar / estudiar": [
+   "/audio/ca/treballar-7a42f7.mp3",
+   "/audio/ca/estudiar-f2a19b.mp3"
+  ],
+  "la carrera / la universitat": [
+   "/audio/ca/carrera-d56d08.mp3",
+   "/audio/ca/universitat-402ac5.mp3"
+  ],
+  "el forn / la farmàcia": [
+   "/audio/ca/forn-3ed731.mp3",
+   "/audio/ca/farmacia-b6d59a.mp3"
+  ],
+  "també": [
+   "/audio/ca/tambe-a763c8.mp3"
+  ],
+  "tampoc": [
+   "/audio/ca/tampoc-7f44ff.mp3"
+  ],
+  "llavors": [
+   "/audio/ca/llavors-6a85a0.mp3"
+  ],
+  "primer": [
+   "/audio/ca/primer-d29c27.mp3"
+  ],
+  "després": [
+   "/audio/ca/despres-3c7eb3.mp3"
+  ],
+  "finalment": [
+   "/audio/ca/finalment-042d4c.mp3"
+  ],
+  "alt": [
+   "/audio/ca/alt-6400b3.mp3"
+  ],
+  "baix": [
+   "/audio/ca/baix-03273d.mp3"
+  ],
+  "prim": [
+   "/audio/ca/prim-2b92ec.mp3"
+  ],
+  "gros": [
+   "/audio/ca/gros-6bb565.mp3"
+  ],
+  "jove": [
+   "/audio/ca/jove-e82c2d.mp3"
+  ],
+  "simpàtic": [
+   "/audio/ca/simpatic-85b883.mp3"
+  ],
+  "antipàtic": [
+   "/audio/ca/antipatic-572b20.mp3"
+  ],
+  "alegre": [
+   "/audio/ca/alegre-794ea5.mp3"
+  ],
+  "seriós": [
+   "/audio/ca/serios-8e2e11.mp3"
+  ],
+  "treballador": [
+   "/audio/ca/treballador-7dc809.mp3"
+  ],
+  "mandrós": [
+   "/audio/ca/mandros-0a7ee6.mp3"
+  ],
+  "tímid": [
+   "/audio/ca/timid-053ed2.mp3"
+  ],
+  "ros": [
+   "/audio/ca/ros-2e7e32.mp3"
+  ],
+  "millor": [
+   "/audio/ca/millor-98226c.mp3"
+  ],
+  "pitjor": [
+   "/audio/ca/pitjor-c96b7e.mp3"
+  ],
+  "haver": [
+   "/audio/ca/haver-d4e34e.mp3"
+  ],
+  "avui": [
+   "/audio/ca/avui-d857db.mp3"
+  ],
+  "ja": [
+   "/audio/ca/ja-2cdc55.mp3"
+  ],
+  "mai": [
+   "/audio/ca/mai-02494a.mp3"
+  ],
+  "el regal": [
+   "/audio/ca/regal-7f0d5c.mp3"
+  ],
+  "ahir": [
+   "/audio/ca/ahir-869000.mp3"
+  ],
+  "visitar": [
+   "/audio/ca/visitar-f47ba3.mp3"
+  ],
+  "la catedral": [
+   "/audio/ca/catedral-0510e6.mp3"
+  ],
+  "quedar": [
+   "/audio/ca/quedar-8e087b.mp3"
+  ],
+  "abans": [
+   "/audio/ca/abans-aabe2a.mp3"
+  ],
+  "sempre": [
+   "/audio/ca/sempre-6e9cd9.mp3"
+  ],
+  "el poble": [
+   "/audio/ca/poble-63410b.mp3"
+  ],
+  "jugar": [
+   "/audio/ca/jugar-6aaa47.mp3"
+  ],
+  "petit": [
+   "/audio/ca/petit-fc9cd4.mp3"
+  ],
+  "mentre": [
+   "/audio/ca/mentre-e26528.mp3"
+  ],
+  "de sobte": [
+   "/audio/ca/de-sobte-fbc76c.mp3"
+  ],
+  "el soroll": [
+   "/audio/ca/soroll-205d48.mp3"
+  ],
+  "sentir": [
+   "/audio/ca/sentir-479409.mp3"
+  ],
+  "ploure": [
+   "/audio/ca/ploure-5c0590.mp3"
+  ],
+  "el llibre": [
+   "/audio/ca/llibre-1a84b4.mp3"
+  ],
+  "la fruita": [
+   "/audio/ca/fruita-5df108.mp3"
+  ],
+  "conèixer": [
+   "/audio/ca/coneixer-bae7c0.mp3"
+  ],
+  "les taronges": [
+   "/audio/ca/taronges-55e4a9.mp3"
+  ],
+  "les pomes": [
+   "/audio/ca/pomes-da8468.mp3"
+  ],
+  "deixar": [
+   "/audio/ca/deixar-52c465.mp3"
+  ],
+  "portar": [
+   "/audio/ca/portar-05264b.mp3"
+  ],
+  "donar": [
+   "/audio/ca/donar-03aa75.mp3"
+  ],
+  "el diccionari": [
+   "/audio/ca/diccionari-5bcca6.mp3"
+  ],
+  "la llet": [
+   "/audio/ca/llet-7780a1.mp3"
+  ],
+  "demà": [
+   "/audio/ca/dema-475559.mp3"
+  ],
+  "la muntanya": [
+   "/audio/ca/muntanya-2c05d9.mp3"
+  ],
+  "girar": [
+   "/audio/ca/girar-e8aa7e.mp3"
+  ],
+  "l'esquerra": [
+   "/audio/ca/esquerra-efbae2.mp3"
+  ],
+  "seguir": [
+   "/audio/ca/seguir-6b962f.mp3"
+  ],
+  "agafar": [
+   "/audio/ca/agafar-96105f.mp3"
+  ],
+  "sovint": [
+   "/audio/ca/sovint-86c66c.mp3"
+  ],
+  "normalment": [
+   "/audio/ca/normalment-e38241.mp3"
+  ],
+  "el cap": [
+   "/audio/ca/cap-e1e401.mp3"
+  ],
+  "la gola": [
+   "/audio/ca/gola-9f8fc5.mp3"
+  ],
+  "l'esquena": [
+   "/audio/ca/esquena-09e620.mp3"
+  ],
+  "la panxa": [
+   "/audio/ca/panxa-4cb393.mp3"
+  ],
+  "el braç": [
+   "/audio/ca/brac-7f443a.mp3"
+  ],
+  "la cama": [
+   "/audio/ca/cama-51755d.mp3"
+  ],
+  "el peu": [
+   "/audio/ca/peu-bafac6.mp3"
+  ],
+  "la febre": [
+   "/audio/ca/febre-84ef3d.mp3"
+  ],
+  "la tos": [
+   "/audio/ca/tos-c5cf08.mp3"
+  ],
+  "el refredat": [
+   "/audio/ca/refredat-5300ea.mp3"
+  ],
+  "la pastilla": [
+   "/audio/ca/pastilla-c99e7f.mp3"
+  ],
+  "el metge": [
+   "/audio/ca/metge-ad6492.mp3"
+  ],
+  "l'oficina": [
+   "/audio/ca/oficina-ff65d7.mp3"
+  ],
+  "la universitat": [
+   "/audio/ca/universitat-402ac5.mp3"
+  ],
+  "el cambrer": [
+   "/audio/ca/cambrer-cdd839.mp3"
+  ],
+  "la carrera": [
+   "/audio/ca/carrera-d56d08.mp3"
+  ],
+  "la carnisseria": [
+   "/audio/ca/carnisseria-c8f2ca.mp3"
+  ],
+  "el forn": [
+   "/audio/ca/forn-3ed731.mp3"
+  ],
+  "el supermercat": [
+   "/audio/ca/supermercat-60eb1a.mp3"
+  ],
+  "un quilo": [
+   "/audio/ca/quilo-55b5ae.mp3"
+  ],
+  "la targeta": [
+   "/audio/ca/targeta-254e90.mp3"
+  ],
+  "a prop": [
+   "/audio/ca/a-prop-052af5.mp3"
+  ],
+  "davant": [
+   "/audio/ca/davant-7d8026.mp3"
+  ],
+  "darrere": [
+   "/audio/ca/darrere-e8275a.mp3"
+  ],
+  "creure": [
+   "/audio/ca/creure-7ac658.mp3"
+  ],
+  "pensar": [
+   "/audio/ca/pensar-00380a.mp3"
+  ],
+  "semblar": [
+   "/audio/ca/semblar-965656.mp3"
+  ],
+  "l'opinió": [
+   "/audio/ca/opinio-e4a94c.mp3"
+  ],
+  "estar d'acord": [
+   "/audio/ca/estar-d-acord-6ebb89.mp3"
+  ],
+  "tenir raó": [
+   "/audio/ca/tenir-rao-b14ec2.mp3"
+  ],
+  "la idea": [
+   "/audio/ca/idea-04f052.mp3"
+  ],
+  "el cinema": [
+   "/audio/ca/cinema-8a9d77.mp3"
+  ],
+  "perdonar": [
+   "/audio/ca/perdonar-41e4f4.mp3"
+  ],
+  "el pla": [
+   "/audio/ca/pla-b10101.mp3"
+  ],
+  "a": [
+   "/audio/ca/a-0632e3.mp3"
+  ],
+  "o": [
+   "/audio/ca/o-9c9d6d.mp3"
+  ],
+  "ser": [
+   "/audio/ca/ser-19618d.mp3"
+  ],
+  "estar": [
+   "/audio/ca/estar-4f0d98.mp3"
+  ],
+  "el/la més": [
+   "/audio/ca/el-6ed44c.mp3",
+   "/audio/ca/mes-2e1f49.mp3"
+  ],
+  "anar": [
+   "/audio/ca/anar-13c19a.mp3"
+  ],
+  "tenir": [
+   "/audio/ca/tenir-a3abbc.mp3"
+  ],
+  "que": [
+   "/audio/ca/que-ada6ec.mp3"
+  ],
+  "un moment": [
+   "/audio/ca/moment-f20894.mp3"
+  ],
+  "a prop de": [
+   "/audio/ca/a-prop-de-801c7e.mp3"
   ],
   "zero": [
    "/audio/ca/zero-f4098f.mp3"
@@ -901,14 +1312,8 @@
   "dinou": [
    "/audio/ca/dinou-ea7adc.mp3"
   ],
-  "trenta": [
-   "/audio/ca/trenta-596c0e.mp3"
-  ],
   "quaranta": [
    "/audio/ca/quaranta-6ce46c.mp3"
-  ],
-  "cinquanta": [
-   "/audio/ca/cinquanta-b0d0fe.mp3"
   ],
   "seixanta": [
    "/audio/ca/seixanta-dad863.mp3"
@@ -927,9 +1332,6 @@
   ],
   "vint-i-dos": [
    "/audio/ca/vint-i-dos-248c1a.mp3"
-  ],
-  "vint-i-cinc": [
-   "/audio/ca/vint-i-cinc-a7e5d3.mp3"
   ]
  }
 }

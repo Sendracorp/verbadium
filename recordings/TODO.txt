@@ -1,11 +1,20 @@
-# 240 course texts without native audio (fall back to TTS).
+# 547 course texts without native audio (fall back to TTS).
 # Record these with a native speaker, list them in recordings/index.json
 # as { "<text>": "<file.mp3>" }, then re-run scripts/fetch-native-audio.mjs.
 
+-a
+-ar → -at
+-ar → -ava
+-e
+-eix-
+-ent
 -es
+-ir → -it
 -ns
 -os
 -ques / -gues
+-re -ir → -ia
+-re/-er → -ut
 -s
 a l'estiu fa molta calor
 a la plaça hi ha un mercat
@@ -14,92 +23,212 @@ a prop (de) / lluny (de)
 a quina hora et lleves
 a què et dediques
 adeu
+agafa el primer carrer
 ahir / abans-d'ahir
+ahir vaig menjar
+ahir vaig visitar la catedral
+al costat
+al final
+al final vam veure una pel·lícula
+al matí al vespre / a la nit
 alguna cosa més
 amiga → amigues
+anar — vaig, vas, va, anem, aneu, van
+anar → ves
 aneu
 aquest matí
+avui he menjat
+b, d, g
+begut
 benvolgut / benvolguda
+bo → millor
 bonica
 bonics
 boniques
+cada dia
+cada estiu anàvem a la platja
+cambrer → cambrera
 casa — first a
 casa — second a
 casa → cases
+certificat de nivell bàsic (a2)
+certificat de nivell bàsic de català (a2)
 com es diu (vostè)
 com es diu en català
+com estàs
 com estàs? — molt bé, i tu
 com et dius
 com s'escriu
 com és casa teva
 com és el teu germà
 cotxe ; maig
+crec que
+crec que tens raó
 d'on ets
+darrere de
 davant (de) / darrere (de)
+davant de
 de dilluns a divendres
+de part de qui
 de quin color és
+de sobte, va sonar el telèfon
+de vegades
+demà treballaré
+dependent → dependenta
 despertar-se
+despertar-se / llevar-se
+digui
+dir → deia
+dir → digues
+dir → dit
+dolent → pitjor
+dona-me'l
+dono el llibre a en pau → l'hi dono
+dono el llibre a la maria → li dono el llibre
+dono les claus als veïns → els les dono
 dorm
 dormen
+dormia
+dormien
+dormies
 dormim
+dormit
 dormiu
 dormo
 dorms
+dormíem
+dormíeu
 dues taules
 dutxar-se
+dutxar-se / rentar-se
+e
 el (l') / els
+el braç el peu
 el cafè amb llet
+el cap de setmana passat vaig anar a girona amb uns amics. vam visitar la catedral i vam dinar en un restaurant del centre. a la tarda plovia, així que vam anar a un museu. m'ho vaig passar molt bé. aquest cap de setmana que ve faré una excursió a la muntanya
 el concert / la festa
 el document d'identitat
 el mercat és a la plaça
 el mes passat / l'any passat
 el pis és petit però bonic
 el professor / la professora
+el veig
+el veig cada dia
+els + el
+els cabells
 els dissabtes no treballo
 els meus
 els nostres
 els seus
 els teus
+els ulls
+els ulls blaus marrons
 els vostres
+em + el/la
 em dic anna
+em dic i soc de ara visc a treballo en gran tinc aficions com estudio català perquè vull viure a andorra
+em dic soc de però ara visc a treballo en i també estudio català perquè vull viure a andorra
+em dutxo i esmorzo
+em fa mal el cap
+em fa mal la gola
+em fan mal els peus
 em llevo
 em llevo a les set
+em llevo, et lleves, es lleva, ens llevem, us lleveu, es lleven
+em portes el cafè? → me'l portes
+em sembla que
+em sembla una bona idea
+en + hi (haver-hi)
+en efectiu / amb targeta
 en vull tres
 encara aprenc
+encara no
+encara no he dinat
+enginyer → enginyera
+era tard
 es diu marc
+escolta'm
+escriure → escrit
+espero que
+estar — estic, estàs, està, estem, esteu, estan
+estic cansat
 estic casat / casada
+estic d'acord
+estic molt bé, gràcies
+estudio a la universitat
+estudio medicina
 està ennuvolat
+et + el/la
+et dono el regal → te'l dono
 et lleves, es lleva, ens llevem, us lleveu, es lleven
 ets
 ets de londres
+fa dos dies
 fa sol calor / vent
 fan
+faré el projecte demà
 fas
+fer mal
+fer — faig, fas, fa, fem, feu, fan
+fer → faré
+fer → feia
+fer → fes
+fer → fet
 fins demà
+gira a la dreta
 gira a la dreta / a l'esquerra
+gira a la dreta / esquerra
 gos → gossos ; peix → peixos
 grans
 h
+ha
+han
+has
+hauries de descansar
+haver — he, has, ha, hem, heu, han
+he
 he acabat
+he treballat al matí
+he vist la júlia avui
+hem
+heu
+hi anem dissabte
+hi ha pa? sí, n'hi ha
 hi ha tres gats
 hi ha un banc a prop
 hi ha un gat
+hi vaig demà
 ho sento
 j ; g+e,i
+ja he comprat el regal
 jo ; gent
 jo soc anglès
 jugar (a futbol)
+l'agafo
+l'any passat
 l'enginyer / l'enginyera
+l'hi dono demà
+l'hi he donat
+l'oficina l'hospital
 l'ou / els ous
 la (l') / les
 la data (de naixement)
+la dona amb qui parlo
+la dreta
 la dreta / l'esquerra
+la farmàcia és a prop
+la fruiteria
+la fruiteria / la carnisseria
 la meva germana
 la meva habitació és gran
 la nostra
 la parada de metro
+la persona que treballa aquí
 la primera a la dreta
+la professora
 la setmana passada
+la setmana passada vam anar a reus
+la setmana que ve anirem a barcelona
 la seva
 la teva
 la vostra
@@ -108,32 +237,71 @@ les nostres
 les seves
 les teves
 les vostres
+li + el/la
+li / els
 li agrada la música
 ll
 llevar-se
 llibre → llibres
+lluny de
 l·l
+m'adormo de seguida
 m'agrada el cafè
 m'agrada molt cuinar
+m'agradaria
+m'agradaria visitar girona
 m'agraden els llibres
+m'ajuda
 m'encanta
 m'ho vaig passar molt bé
+me'l / me la
+me'l dones
+menjat
+mentre dormia, va sonar el telèfon
+menys que
+metge → metgessa
 mig quilo
+mira'l
 molt de gust
 moltes gràcies
+morè
 més a poc a poc, si us plau
+més que
+n'hi ha
+n'hi ha tres
 neva
+no en tinc
+no en vull, gràcies
 no ens agrada gens
+no estic d'acord
+no facis
+no he fet res aquest matí
 no ho entenc
 no m'agrada gens el futbol
+no n'hi ha
+no parlis
+no parlis tan ràpid
 no parlo gaire
 no puc venir avui
+no teníem televisió
 no tinc temps
 no, no en tinc
+normalment començo a les nou
 ny
+obrir → obert
 on vas anar de vacances
+on vius ara
 on vius? — visc a barcelona
+on vivies quan eres petit
 pa → pans ; mà → mans
+pago amb targeta
+parla parleu
+parlar → parlaré, parlaràs, parlarà, parlarem, parlareu, parlaran
+parlaria
+parlat
+parlava
+parlaven
+parlaves
 parlem
 parlen
 parles
@@ -141,27 +309,48 @@ parles anglès
 parleu
 parlo
 parlo una mica de català
+parlàvem
+parlàveu
 per a mi, un cafè amb llet
+per mi
+per què no
+per què no sopem fora
 perd
 perdem
 perden
 perdeu
 perdo
+perdona disculpa
 perdoni, on és
 perds
 plaça ; cinc
 plou
+plovia
+plovia molt aquell dia
 podem
 poden
+poder → podré
 podeu
+podries
+podries ajudar-me
+podríem
 pot
 pots
 pots ajudar-me
 pots repetir, si us plau
+pren aquesta pastilla
+prendre → pres
+primer finalment
+primer vam sopar
+professor → professora
 puc
 puc fer una pregunta
+quan era petit/a
+quan era petita, jugava al carrer
+quan vaig arribar, plovia
 quant costa? és molt car
 quant de temps tenim
+quant és
 quant és? / quant val
 quantes pomes vols
 quants anys tens
@@ -173,22 +362,41 @@ quin temps fa avui
 quin és el teu número de telèfon
 quina feina fas
 quina hora és
+què et sembla si
+què et sembla si anem al cinema
+què fas
 què fas avui
+què has fet avui
 què t'agrada fer
 què vas fer ahir
 què vol dir
 què voleu (prendre)
 res més, gràcies
 ros / morè
+ros castany
+saber → sabré
 salutacions / una abraçada
+segueix / agafa
+segueix tot recte
 seixanta-vuit
+sempre jugava al carrer
+ser — soc, ets, és, som, sou, són
+ser → era
+ser → sigues
+servir → serveixo
 simpàtic / simpàtica
 soc anglès
+soc de lleida
 soc de manchester
+soc de reus
 soc enginyera
+soc professora
 som amics
+sopo aviat
 sou estudiants
+sí, el conec
 sí, en vull
+sí, te'l porto
 són
 són de girona
 són les dues
@@ -196,49 +404,148 @@ són les sis i mitja
 són les tres i deu
 són quatre euros amb cinquanta
 t'agrada llegir
+també estudio català
+tan com
+te'l / te la
+te'l dono ara
 tenen
 tenim
+tenir febre mal de panxa / un refredat
+tenir — tinc, tens, té, tenim, teniu, tenen
+tenir → tindré
 teniu
 tens cafè
 tens germans
+tens pa? sí, en tinc
+tens raó
 tinc
+tinc febre
 tinc gana son
+tinc mal de panxa
 tinc trenta-dos anys
+treballo en un hospital
+treballo en una llibreria
+treballo en una oficina
 trenta-tres
 tx ; -ig final
 té
+té els cabells rossos
+té els ulls blaus
 un / uns
 un cotxe vermell
+un noi alt
 un quilo de
+un quilo una dotzena
 una / unes
 una casa vermella
+una dotzena
 una mica de
+una noia alta
+unes noies altes
+uns nois alts
 unstressed a, e
 unstressed o
 v
 va ser fantàstic
 vaig
 vaig anar
+vaig anar a girona
 vaig anar a la platja
+vaig sortir
 vam
 vam sopar fora
+vam veure una pel·lícula
 van
+van quedar a casa
+vas a girona? sí, hi vaig
 vau
+venir → vindré
+venir → vine
+venir → vingut
 verda
 verdes
 verds
+ves al metge
 ves tot recte
 vestir-se
+vestir-se / adormir-se
+veure → veia
+veure → vist
+veus el llibre? sí, el veig
+vist
+vivia a un poble petit
+voldria
+voldria mig quilo de tomàquets
+voldria un cafè
+voldria un quilo de pomes
 volem
 volen
+voler → voldré
 voleu
 vols
+vols donar-me'l
 vols pa
 vull
 vull aprendre català
+vull que
+vull que vinguis
+vull veure'l
 x
 ç ; c+e,i
 és alta i molt simpàtica
 és catalana
 és la una
 és lluny? — no, és a prop
+és molt simpàtic
+és més alta que jo
+és tan alta com ell
+és una mica tímid
+— a quina hora et lleves
+— ah, doncs parles molt bé! i on vius ara
+— ahir, mentre dormia, va sonar el telèfon a les tres de la matinada
+— aniré a la muntanya. m'agradaria descansar una mica
+— bon dia, em fa mal la gola i tinc una mica de febre
+— bon dia, què volia
+— bon dia, voldria parlar amb la senyora roca, si us plau
+— bon dia. — voldria un quilo de pomes i mitja dotzena d'ous. — quant és? — pago amb targeta. — gràcies, adeu
+— bona idea! però per què no sopem abans
+— d'acord, em sembla perfecte. crec que fan una pel·lícula catalana
+— de part de qui? — un moment, ara es posa
+— digui
+— em deixes el llibre
+— em llevo a les set, em dutxo i esmorzo. normalment començo a treballar a les nou
+— encara no he fet res! però ja he comprat el regal
+— era la meva germana. es va equivocar de número. al final no vaig poder dormir més
+— gràcies. i si no milloro? — doncs ves al metge
+— hauries de descansar. pren aquestes pastilles i beu molta aigua
+— he treballat al matí i he dinat amb la júlia. i tu
+— hola, marc! quant de temps! com estàs
+— i a la nit? — sopo aviat i m'adormo de seguida
+— i el diccionari, el tens
+— i la noia? és més alta que ell
+— molt bé, gràcies. ara treballo en una llibreria i també estudio català
+— moltes gràcies
+— no n'hi ha cap a casa, ho sento
+— perdoni, per anar a l'estació
+— quan eres petita, on vivies
+— que bé! jo sempre jugava al carrer amb els amics
+— que bé! podries portar-me, si vas amb cotxe
+— qui és aquell noi alt dels cabells rossos
+— quina por! qui era
+— què et sembla si anem al cinema dissabte
+— què faràs aquest cap de setmana
+— què has fet avui
+— què vas fer el cap de setmana
+— sí, en vull un quilo. i tens pomes
+— sí, les tinc aquí. les vols
+— sí, te'l deixo demà
+— són quatre euros. alguna cosa més? — no, gràcies, pago amb targeta
+— vagi tot recte, giri a la dreta i agafi el primer carrer
+— vaig anar a girona i vaig visitar la catedral. i vosaltres
+— vam quedar a casa i vam veure una pel·lícula
+— visc a girona, però soc de reus. i tu, què fas
+— vivia a un poble petit. cada estiu anàvem a la platja
+— voldria un quilo de pomes i mitja dotzena d'ous. quant és
+— vols taronges
+— és en pau. és molt simpàtic, però una mica tímid
+— és la seva germana. és tan simpàtica com ell
