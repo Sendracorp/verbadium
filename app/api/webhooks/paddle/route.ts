@@ -51,6 +51,13 @@ export async function POST(request: Request) {
     }
     const totals = data.details?.totals ?? {};
     const amount = Number(totals.grand_total ?? totals.total ?? NaN);   // lowest denomination, as string
+    // First-party campaign attribution captured at checkout (object or JSON string).
+    let attribution: unknown = null;
+    if (custom.attribution) {
+      attribution = typeof custom.attribution === 'string'
+        ? (() => { try { return JSON.parse(custom.attribution); } catch { return null; } })()
+        : custom.attribution;
+    }
     const { error } = await supabase.from('purchases').upsert({
       user_id: userId,
       course_slug: courseSlug,
@@ -58,6 +65,7 @@ export async function POST(request: Request) {
       status: 'paid',
       amount_cents: Number.isFinite(amount) ? amount : null,
       currency: data.currency_code ?? null,
+      attribution,
     }, { onConflict: 'provider_order_id' });
     if (error) {
       console.error('Paddle webhook: purchase upsert failed', error);

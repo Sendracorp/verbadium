@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { track } from '@vercel/analytics';
 
 /* Shown right after Paddle redirects back (?purchased=1) while the user isn't
    owned YET — access is granted by the transaction.completed webhook, which
@@ -17,6 +18,10 @@ export default function PurchaseFinalizing(
   const router = useRouter();
   const [tries, setTries] = useState(0);
   const gaveUp = tries >= MAX_TRIES;
+
+  // Fired once when the buyer returns from Paddle (?purchased=1) — funnel
+  // conversion signal. Revenue's source of truth stays the webhook/DB.
+  useEffect(() => { track('purchase'); }, []);
 
   useEffect(() => {
     if (gaveUp) return;

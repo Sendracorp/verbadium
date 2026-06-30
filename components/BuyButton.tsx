@@ -2,7 +2,9 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { initializePaddle } from '@paddle/paddle-js';
+import { track } from '@vercel/analytics';
 import { interpolate, type BuyLabels } from '@/lib/ui-runtime';
+import { getAttribution } from '@/lib/attribution';
 
 /* Opens the Paddle overlay checkout. /api/checkout is the auth gate —
    401 sends the user to /login and back here afterwards. Access itself is
@@ -42,10 +44,12 @@ export default function BuyButton({ courseSlug, priceLabel, returnTo, labels }: 
         setError(labels.errLoad);
         return;
       }
+      const attribution = getAttribution();
+      track('checkout_opened', { course: courseSlug, source: attribution?.utm_source ?? attribution?.referrer ?? 'direct' });
       paddle.Checkout.open({
         items: [{ priceId: body.priceId, quantity: 1 }],
         customer: { email: body.email },
-        customData: { user_id: body.userId, course_slug: courseSlug },
+        customData: { user_id: body.userId, course_slug: courseSlug, ...(attribution ? { attribution } : {}) },
         settings: {
           displayMode: 'overlay',
           successUrl: `${window.location.origin}${returnTo}?purchased=1`,

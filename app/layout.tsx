@@ -5,6 +5,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import JsonLd from '@/components/JsonLd';
 import CookieNotice from '@/components/CookieNotice';
+import AttributionTracker from '@/components/AttributionTracker';
 import { SITE } from '@/lib/site';
 
 // Display: Bricolage Grotesque (characterful, modern). Body: Hanken Grotesk
@@ -72,6 +73,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <JsonLd data={ORG_JSONLD} />
         {children}
         <CookieNotice />
+        {/* First-party, session-only campaign attribution (no persistent cookie). */}
+        <AttributionTracker />
         {/* Cookieless, no-PII — GDPR-friendly without a consent banner. */}
         <Analytics />
         <SpeedInsights />
