@@ -99,7 +99,10 @@ export async function getSalesBreakdown(): Promise<SalesBreakdown> {
     for (const p of (profs ?? []) as { id: string; email: string | null }[]) emailMap.set(p.id, p.email);
   }
 
-  const srcKey = (attr: PurchaseRow['attribution']) => attr?.utm_source || attr?.referrer || 'direct';
+  // A bare Google Ads click carries a gclid but no utm_source — label it so it
+  // doesn't get bucketed as "google.com"/"direct".
+  const srcKey = (attr: PurchaseRow['attribution']) =>
+    attr?.utm_source || (attr?.gclid ? 'Google Ads' : '') || attr?.referrer || 'direct';
   const bump = (m: Map<string, SourceStat>, key: string, r: PurchaseRow) => {
     const s = m.get(key) ?? { key, sales: 0, refunds: 0, grossCents: 0 };
     if (r.status === 'paid') { s.sales++; s.grossCents += r.amount_cents ?? 0; }

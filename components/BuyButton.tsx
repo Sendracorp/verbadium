@@ -45,7 +45,7 @@ export default function BuyButton({ courseSlug, priceLabel, returnTo, labels }: 
         return;
       }
       const attribution = getAttribution();
-      track('checkout_opened', { course: courseSlug, source: attribution?.utm_source ?? attribution?.referrer ?? 'direct' });
+      track('checkout_opened', { course: courseSlug, source: attribution?.utm_source ?? (attribution?.gclid ? 'google-ads' : undefined) ?? attribution?.referrer ?? 'direct' });
       paddle.Checkout.open({
         items: [{ priceId: body.priceId, quantity: 1 }],
         customer: { email: body.email },
