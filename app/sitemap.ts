@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { courseFamilies } from '@/lib/courses';
+import { GUIDES } from '@/lib/guides';
 import { PATHS, LOCALES, type PageKey } from '@/lib/i18n';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://verbadium.com';
@@ -54,6 +55,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
       { url: abs(course[l]!), lastModified: now, changeFrequency: 'weekly', priority: 0.9, alternates: { languages: courseL } },
     );
     if (pricing[l]) entries.push({ url: abs(pricing[l]!), changeFrequency: 'monthly', priority: 0.7, alternates: { languages: pricingL } });
+  }
+  // Content hub (/guides) + cornerstone articles.
+  entries.push({ url: `${SITE_URL}/guides`, lastModified: now, changeFrequency: 'monthly', priority: 0.6 });
+  for (const g of GUIDES) {
+    entries.push({ url: `${SITE_URL}/guides/${g.slug}`, lastModified: new Date(g.updated), changeFrequency: 'monthly', priority: 0.7 });
   }
   return entries;
 }

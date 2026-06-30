@@ -556,6 +556,31 @@ body.exam-mode .paper-timer { display: inline-flex; }
 .nav-lang:hover { border-color: var(--vb-grape); color: var(--vb-grape); }
 .nav-lang.current { background: var(--vb-accent-soft); border-color: var(--vb-grape); color: #0c7a69; font-weight: 700; }
 .nav-collapsed .nav-langs { display: none; }
+
+/* Guides / content hub */
+.guide-list { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); margin: 8px 0 24px; }
+.guide-card { display: block; text-decoration: none; color: inherit; }
+.guide-card h2 { margin: 0 0 6px; font-size: 1.15rem; }
+.guide-card p { margin: 0 0 10px; color: var(--vb-ink-soft); font-size: .95rem; }
+.guide-card .guide-meta { font-size: .8rem; font-weight: 700; color: var(--vb-grape); }
+.guide-card:hover { border-color: var(--vb-grape); }
+.guide-article { max-width: 760px; margin: 0 auto; }
+.guide-crumbs { font-size: .85rem; color: var(--vb-ink-soft); margin-bottom: 10px; }
+.guide-crumbs a { color: var(--vb-grape); text-decoration: none; }
+.guide-article h1 { margin: 0 0 8px; }
+.guide-updated { font-size: .85rem; color: var(--vb-ink-soft); margin: 0 0 20px; }
+.guide-lead { font-size: 1.15rem; line-height: 1.6; font-weight: 500; margin: 0 0 24px; }
+.guide-article section { margin: 0 0 22px; }
+.guide-article h2 { font-size: 1.35rem; margin: 28px 0 10px; }
+.guide-article p { line-height: 1.7; margin: 0 0 12px; }
+.guide-article a { color: var(--vb-grape); }
+.guide-faqs { margin-top: 32px; }
+.guide-faq h3 { font-size: 1.05rem; margin: 18px 0 4px; }
+.guide-faq p { color: var(--vb-ink-soft); }
+.guide-cta { margin: 32px 0; }
+.guide-related ul { padding-left: 18px; }
+.guide-related li { margin: 6px 0; }
+.guide-related a { color: var(--vb-grape); }
 .cookie-notice {
   position: fixed; left: 50%; transform: translateX(-50%); bottom: 16px; z-index: 60;
   display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center;

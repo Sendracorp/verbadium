@@ -23,6 +23,7 @@ export default function SiteFooter({ lang = 'en', page = 'home' }: { lang?: Loca
             <h4>{d.footer.learn}</h4>
             <Link href={lang === 'en' ? '/' : (PATHS.course as Record<string, string>)[lang]}>{lang === 'en' ? 'Courses' : d.nav.course}</Link>
             <Link href={(PATHS.pricing as Record<string, string>)[lang]}>{d.nav.pricing}</Link>
+            {lang === 'en' && <Link href="/guides">Guides</Link>}
           </div>
           <div className="footer-col">
             <h4>{d.footer.legal}</h4>
