@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { getDict, t, type Locale } from '@/lib/i18n';
+import { getDict, courseCopy, t, type Locale } from '@/lib/i18n';
 import type { BuyLabels } from '@/lib/ui-runtime';
 import BuyButton from './BuyButton';
 import AvailableLanguages from './AvailableLanguages';
@@ -29,18 +29,19 @@ export interface FamilyCardData {
 export default function CourseFamilyCard({ card, locale = 'en' }: { card: FamilyCardData; locale?: Locale }) {
   const v = card.variants.find(x => x.medium === locale) ?? card.variants[0];
   const d = getDict(locale);
+  const cc = courseCopy(d, card.family);
   const base = `/courses/${v.slug}`;
   const pct = Math.round((v.passed / card.totalExercises) * 100);
 
   return (
     <div className="card course-card" data-test={`course-${card.family}`}>
       <div className="course-card-head">
-        <span className="badge">{d.course.subject} · {card.level}</span>
+        <span className="badge">{cc.subject} · {card.level}</span>
         {v.owns && <span className="owned-tag" data-test="owned-tag">{d.card.purchased}</span>}
       </div>
-      <h2>{d.course.name}</h2>
-      <p>{d.course.tagline}</p>
-      <p className="course-card-meta">{d.course.taughtInEnglish}</p>
+      <h2>{cc.name}</h2>
+      <p>{cc.tagline}</p>
+      <p className="course-card-meta">{cc.taughtInEnglish}</p>
       <AvailableLanguages mediums={card.variants.map(v => v.medium)} label={d.card.availableIn} />
 
       {v.owns ? (

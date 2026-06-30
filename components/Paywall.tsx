@@ -3,7 +3,7 @@ import BuyButton from './BuyButton';
 import type { CourseMeta } from '@/lib/courses';
 import { resolveCoursePrice } from '@/lib/pricing';
 import { tUI, buyLabels } from '@/lib/ui';
-import { getDict, type Locale } from '@/lib/i18n';
+import { getDict, courseCopy, type Locale } from '@/lib/i18n';
 
 /* Server lock screen shown in place of gated content. Resolves the live
    Paddle price itself, so every paywall shows the real, current amount. */
@@ -21,7 +21,7 @@ export default async function Paywall({ meta, what, loggedIn, returnTo, locale =
       <div className="badge">{tUI(locale, 'pw.locked')}</div>
       <h2>{tUI(locale, 'pw.partOfFull', { what })}</h2>
       <p>
-        <b>{getDict(locale).course.name}</b> — {getDict(locale).course.tagline}
+        <b>{courseCopy(getDict(locale), meta.family).name}</b> — {courseCopy(getDict(locale), meta.family).tagline}
       </p>
       <p dangerouslySetInnerHTML={{ __html: tUI(locale, 'pw.oneTime', { price: `<b>${price}</b>`, units: meta.stats.units }) }} />
       <div className="paywall-actions">

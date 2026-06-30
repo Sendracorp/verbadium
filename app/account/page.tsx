@@ -5,7 +5,7 @@ import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
 import { getCourseMeta, mediumForSlug, familyOf, courseFamilies } from '@/lib/courses';
-import { getDict, LOCALE_LABEL, PATHS, type Locale } from '@/lib/i18n';
+import { getDict, courseCopy, LOCALE_LABEL, PATHS, type Locale } from '@/lib/i18n';
 import { preferredMedium } from '@/lib/medium';
 
 export const metadata: Metadata = { title: 'Your account' };
@@ -96,7 +96,7 @@ export default async function AccountPage() {
                   const meta = getCourseMeta(r.slug);
                   return (
                     <tr key={r.slug}>
-                      <td>{meta ? `${dict.course.name} — ${LOCALE_LABEL[mediumForSlug(r.slug)]}` : r.slug}</td>
+                      <td>{meta ? `${courseCopy(dict, familyOf(r.slug)).name} — ${LOCALE_LABEL[mediumForSlug(r.slug)]}` : r.slug}</td>
                       <td>{fmtDate(r.date)}</td>
                       <td>{statusLabel(r.status)}</td>
                       <td>{r.open && meta && <Link href={`/courses/${meta.slug}`}>{d.open} →</Link>}</td>

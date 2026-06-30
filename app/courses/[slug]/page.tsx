@@ -13,7 +13,7 @@ import JsonLd from '@/components/JsonLd';
 import { buyLabels } from '@/lib/ui';
 import { resolveCoursePrice } from '@/lib/pricing';
 import { SITE } from '@/lib/site';
-import { hreflang, getDict, t, PATHS } from '@/lib/i18n';
+import { hreflang, getDict, courseCopy, t, PATHS } from '@/lib/i18n';
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://verbadium.com';
 
@@ -22,8 +22,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const meta = getCourseMeta(slug);
   if (!meta) return {};
   const d = getDict(mediumForSlug(slug));        // localized SEO copy for the variant
-  const title = d.course.metaTitle;
-  const description = d.course.metaDesc;
+  const cc = courseCopy(d, meta.family);
+  const title = cc.metaTitle;
+  const description = cc.metaDesc;
   const url = `/courses/${slug}`;
   return {
     title, description,
@@ -51,13 +52,14 @@ export default async function CourseHomePage({ params, searchParams }: {
   const units = course.units.map(u => ({ num: u.num, title: u.title, exerciseIds: u.exerciseIds }));
   const base = `/courses/${slug}`;
   const d = getDict(medium);            // localized copy for this variant's language
+  const cc = courseCopy(d, meta.family);
   const vars = { units: meta.stats.units, exercises: meta.stats.exercises, glossary: meta.stats.glossary, price };
 
   const courseLd = {
     '@context': 'https://schema.org',
     '@type': 'Course',
-    name: d.course.name,
-    description: d.course.tagline,
+    name: cc.name,
+    description: cc.tagline,
     url: `${SITE_URL}${base}`,
     inLanguage: 'ca',
     educationalLevel: `${meta.level} (CEFR)`,
@@ -81,9 +83,9 @@ export default async function CourseHomePage({ params, searchParams }: {
   const hero = (
     <div className="hero">
       <div className="badge">CEFR · {meta.level} · {d.nav.course}</div>
-      <h1>{d.course.name.replace(` (${meta.level})`, '')}</h1>
-      <p className="hero-sub">{d.course.tagline}</p>
-      <p className="hero-meta">{d.course.taughtInEnglish}</p>
+      <h1>{cc.name.replace(` (${meta.level})`, '')}</h1>
+      <p className="hero-sub">{cc.tagline}</p>
+      <p className="hero-meta">{cc.taughtInEnglish}</p>
     </div>
   );
 
@@ -108,17 +110,17 @@ export default async function CourseHomePage({ params, searchParams }: {
         {hero}
         {/* Concise paywall — the full pitch + FAQ live on the pricing page. */}
         <div className="card paywall" data-test="sales-page">
-          <h2>{t(d.course.salesHeading, vars)}</h2>
+          <h2>{t(cc.salesHeading, vars)}</h2>
           <p className="paywall-preview">
-            {d.course.previewLead}{' '}
-            <Link href={`${base}/unit/${previewUnit}`} data-test="preview-link">{t(d.course.previewLink, { n: previewUnit })}</Link>
+            {cc.previewLead}{' '}
+            <Link href={`${base}/unit/${previewUnit}`} data-test="preview-link">{t(cc.previewLink, { n: previewUnit })}</Link>
           </p>
           <div className="paywall-actions">
             <BuyButton courseSlug={slug} priceLabel={price} returnTo={base} labels={buyLabels(medium)} />
             <Link className="btn" href={(PATHS.pricing as Record<string, string>)[medium]}>{d.nav.pricing}</Link>
             {!access.user && (
               <Link className="btn" href={`/login?next=${encodeURIComponent(base)}`}>
-                {d.course.alreadyBought}
+                {cc.alreadyBought}
               </Link>
             )}
           </div>
