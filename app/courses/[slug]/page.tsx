@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getCourseContent } from '@/lib/content';
 import { getCourseMeta, mediumForSlug, nextCourse, variantForMedium } from '@/lib/courses';
-import { getCourseAccess } from '@/lib/access';
+import { getCourseAccess, getViewableCourse } from '@/lib/access';
 import Dashboard from '@/components/Dashboard';
 import Checklist from '@/components/Checklist';
 import SpeechScope from '@/components/SpeechScope';
@@ -45,7 +45,7 @@ export default async function CourseHomePage({ params, searchParams }: {
 }) {
   const { slug } = await params;
   const { purchased } = await searchParams;
-  const meta = getCourseMeta(slug);
+  const meta = await getViewableCourse(slug);    // pre-launch courses: owners/admins only
   const medium = mediumForSlug(slug);            // the variant's teaching language
   // access and price are independent — resolve in parallel.
   const [access, { label: price }] = await Promise.all([

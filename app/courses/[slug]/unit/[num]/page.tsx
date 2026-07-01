@@ -3,8 +3,8 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getCourseContent } from '@/lib/content';
 import { tUI } from '@/lib/ui';
-import { getCourseMeta, mediumForSlug } from '@/lib/courses';
-import { canAccessUnit, getCourseAccess } from '@/lib/access';
+import { mediumForSlug } from '@/lib/courses';
+import { canAccessUnit, getCourseAccess, getViewableCourse } from '@/lib/access';
 import SpeechScope from '@/components/SpeechScope';
 import ExerciseCard from '@/components/exercises';
 import Paywall from '@/components/Paywall';
@@ -19,7 +19,7 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
 
 export default async function UnitPage({ params }: { params: Params }) {
   const { slug, num } = await params;
-  const meta = getCourseMeta(slug);
+  const meta = await getViewableCourse(slug);    // pre-launch courses: owners/admins only
   const medium = mediumForSlug(slug);            // the variant's teaching language
   const access = await getCourseAccess(slug);
   const course = getCourseContent(slug);

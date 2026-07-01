@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
-import { getCourseMeta, mediumForSlug, familyOf, courseFamilies } from '@/lib/courses';
+import { courseVariant, mediumForSlug, familyOf, courseFamilies } from '@/lib/courses';
 import { getDict, courseCopy, LOCALE_LABEL, PATHS, type Locale } from '@/lib/i18n';
 import { preferredMedium } from '@/lib/medium';
 
@@ -93,7 +93,8 @@ export default async function AccountPage() {
               <thead><tr><th>{d.colCourse}</th><th>{d.colSince}</th><th>{d.colAccess}</th><th></th></tr></thead>
               <tbody>
                 {rows.map(r => {
-                  const meta = getCourseMeta(r.slug);
+                  // courses the user owns are openable even if not yet public
+                  const meta = courseVariant(r.slug);
                   return (
                     <tr key={r.slug}>
                       <td>{meta ? `${courseCopy(dict, familyOf(r.slug)).name} — ${LOCALE_LABEL[mediumForSlug(r.slug)]}` : r.slug}</td>

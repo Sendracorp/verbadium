@@ -5,7 +5,7 @@ import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
 import ConfirmSubmit from '@/components/admin/ConfirmSubmit';
 import { getServerSupabase, getSessionUser } from '@/lib/supabase/server';
-import { getCourseMeta, COURSES } from '@/lib/courses';
+import { courseVariant, COURSES } from '@/lib/courses';
 import { LOCALE_LABEL } from '@/lib/i18n';
 import { getUserDetail } from '@/lib/admin';
 import { grantAccess, revokeGrant, setPurchaseStatus, toggleAdmin, resetUserProgress } from '@/app/admin/actions';
@@ -13,7 +13,7 @@ import { grantAccess, revokeGrant, setPurchaseStatus, toggleAdmin, resetUserProg
 export const metadata: Metadata = { title: 'User · Admin' };
 export const dynamic = 'force-dynamic';
 
-const courseName = (slug: string) => getCourseMeta(slug)?.title ?? slug;
+const courseName = (slug: string) => courseVariant(slug)?.title ?? slug;
 const date = (s: string) => new Date(s).toLocaleString('en-GB');
 
 export default async function AdminUserPage({ params }: { params: Promise<{ id: string }> }) {
@@ -67,7 +67,7 @@ export default async function AdminUserPage({ params }: { params: Promise<{ id: 
                 <input type="hidden" name="userId" value={p.id} />
                 <select name="courseSlug" required defaultValue="">
                   <option value="" disabled>Choose a course…</option>
-                  {grantable.map(c => <option key={c.slug} value={c.slug}>{c.title} — {LOCALE_LABEL[c.medium]}</option>)}
+                  {grantable.map(c => <option key={c.slug} value={c.slug}>{c.title} — {LOCALE_LABEL[c.medium]}{c.available ? '' : ' · coming soon'}</option>)}
                 </select>
                 <input type="text" name="note" placeholder="note (optional)" />
                 <button type="submit" className="btn btn-primary">Grant access</button>

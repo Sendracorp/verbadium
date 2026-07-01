@@ -1,7 +1,7 @@
 import 'server-only';
 import { cache } from 'react';
 import { getServerSupabase, getSessionUser, type SessionUser } from './supabase/server';
-import { getCourseMeta } from './courses';
+import { courseVariant, type CourseMeta } from './courses';
 
 export { getSessionUser };
 
@@ -61,9 +61,27 @@ export const isUserAdmin = cache(async (userId: string): Promise<boolean> => {
   return !!data?.is_admin;
 });
 
+/** Course meta for a viewer, gating pre-launch courses. An `available` course
+    is public. An unavailable (not-yet-launched) course is viewable only by
+    someone who already has access to it (comp grant or purchase) or an admin —
+    so an admin can grant themselves a course and preview it before launch;
+    everyone else gets undefined (→ 404). Returns the same meta as
+    getCourseMeta, just without the availability filter for eligible viewers. */
+export const getViewableCourse = cache(async (slug: string): Promise<CourseMeta | undefined> => {
+  const meta = courseVariant(slug);
+  if (!meta) return undefined;
+  if (meta.available) return meta;
+  const access = await getCourseAccess(slug);          // cached per request
+  if (access.owns) return meta;
+  if (access.user && await isUserAdmin(access.user.id)) return meta;
+  return undefined;
+});
+
 /** Units in freeUnits are the free preview; everything else needs ownership. */
 export function canAccessUnit(courseSlug: string, unitNum: number, access: CourseAccess): boolean {
   if (access.owns) return true;
-  const meta = getCourseMeta(courseSlug);
+  // courseVariant (not getCourseMeta) so a pre-launch course's free preview
+  // still works for admins/previewers; the page itself is gated upstream.
+  const meta = courseVariant(courseSlug);
   return !!meta?.freeUnits.includes(unitNum);
 }

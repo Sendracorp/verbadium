@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { getCourseContent } from '@/lib/content';
 import { tUI } from '@/lib/ui';
-import { getCourseMeta, mediumForSlug } from '@/lib/courses';
-import { getCourseAccess } from '@/lib/access';
+import { mediumForSlug } from '@/lib/courses';
+import { getCourseAccess, getViewableCourse } from '@/lib/access';
 import Glossary from '@/components/Glossary';
 import Paywall from '@/components/Paywall';
 import nativeAudio from '@/lib/native-audio.json';
@@ -13,7 +13,7 @@ const CREDIT_NAMES = Object.keys(nativeAudio.credits);   // server-side; not shi
 
 export default async function GlossaryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const meta = getCourseMeta(slug);
+  const meta = await getViewableCourse(slug);    // pre-launch courses: owners/admins only
   const medium = mediumForSlug(slug);
   const course = getCourseContent(slug);
   if (!meta || !course) notFound();

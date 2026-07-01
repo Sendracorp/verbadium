@@ -13,8 +13,8 @@ import { getAudioOverrides } from '@/lib/audio-overrides';
 import { getCourseContent } from '@/lib/content';
 import { uiDict } from '@/lib/ui';
 import { getDict } from '@/lib/i18n';
-import { getCourseMeta, mediumForSlug, courseFamilies } from '@/lib/courses';
-import { getCourseAccess, isUserAdmin, ownedCourseSlugs, paywallBypassed } from '@/lib/access';
+import { mediumForSlug, courseFamilies } from '@/lib/courses';
+import { getCourseAccess, getViewableCourse, isUserAdmin, ownedCourseSlugs, paywallBypassed } from '@/lib/access';
 import { loadInitialProgress } from '@/lib/progress-server';
 
 /* Non-English course variants (catalan-a1-es/-fr/-ru/-de) duplicate the
@@ -32,7 +32,7 @@ export default async function CourseLayout({ children, params }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const meta = getCourseMeta(slug);
+  const meta = await getViewableCourse(slug);    // pre-launch courses: owners/admins only
   const medium = mediumForSlug(slug);            // the variant's teaching language
   const access = await getCourseAccess(slug);
   const course = getCourseContent(slug);
