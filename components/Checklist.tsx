@@ -3,8 +3,16 @@ import { useEffect, useState } from 'react';
 import { sget, sset, subscribe } from '@/lib/progress';
 import { useUI } from './CourseLocale';
 
-export default function Checklist({ items, footHtml, citeHtml }:
-  { items: string[]; footHtml: string; citeHtml: string }) {
+export interface NextCourseCta {
+  label: string;        // localized "Next step:"
+  courseName: string;   // localized short name, e.g. "Catalan A2"
+  href?: string;        // link to the next course (its language variant) — absent until it's available
+  cta: string;          // localized "See the course"
+  soon: string;         // localized "coming soon"
+}
+
+export default function Checklist({ items, footHtml, citeHtml, next }:
+  { items: string[]; footHtml: string; citeHtml: string; next?: NextCourseCta }) {
   const t = useUI();
   const [checked, setChecked] = useState<boolean[]>(() => items.map(() => false));
   useEffect(() => {
@@ -38,6 +46,15 @@ export default function Checklist({ items, footHtml, citeHtml }:
         ))}
       </ul>
       {footHtml && <div dangerouslySetInnerHTML={{ __html: footHtml }} />}
+      {next && (
+        <p className="note" style={{ marginTop: '6mm' }}>
+          {next.label} <b>{next.courseName}</b>
+          {' — '}
+          {next.href
+            ? <a href={next.href}>{next.cta} →</a>
+            : <>({next.soon})</>}
+        </p>
+      )}
       {citeHtml && <div dangerouslySetInnerHTML={{ __html: citeHtml }} />}
     </div>
   );

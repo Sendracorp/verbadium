@@ -74,7 +74,8 @@ export interface Dict {
   home: { badge: string; h1: string; sub: string; seeCourse: string };
   card: { level: string; buy: string; preview: string; lifetime: string;
     purchased: string; cont: string; start: string; progress: string;  // progress uses {passed} {total}
-    availableIn: string };   // "Available in" — precedes the list of teaching languages
+    availableIn: string;     // "Available in" — precedes the list of teaching languages
+    nextStep: string; comingSoon: string };   // A1→A2 "next step" CTA under the checklist
   course: {
     subject: string;                 // the subject language's name, in this locale (badge)
     name: string; tagline: string; metaTitle: string; metaDesc: string;
@@ -120,7 +121,8 @@ const en: Dict = {
     seeCourse: 'See the course' },
   card: { level: 'Beginner · A1', buy: 'Get the course', preview: 'Free preview', lifetime: 'One payment · lifetime access',
     purchased: 'Purchased ✓', cont: 'Continue learning', start: 'Start the course', progress: '{passed} of {total} exercises passed',
-    availableIn: 'Available in' },
+    availableIn: 'Available in',
+    nextStep: 'Next step:', comingSoon: 'coming soon' },
   course: {
     subject: 'Catalan',
     name: 'Catalan from Scratch (A1)',
@@ -210,7 +212,8 @@ const ca: Dict = {
     seeCourse: 'Veure el curs' },
   card: { level: 'Principiant · A1', buy: 'Aconsegueix el curs', preview: 'Prova gratuïta', lifetime: 'Un sol pagament · accés de per vida',
     purchased: 'Comprat ✓', cont: 'Continua aprenent', start: 'Comença el curs', progress: '{passed} de {total} exercicis superats',
-    availableIn: 'Disponible en' },
+    availableIn: 'Disponible en',
+    nextStep: 'Següent pas:', comingSoon: 'properament' },
   course: {
     subject: 'Català',
     name: 'Català des de zero (A1)',
@@ -300,7 +303,8 @@ const es: Dict = {
     seeCourse: 'Ver el curso' },
   card: { level: 'Principiante · A1', buy: 'Consigue el curso', preview: 'Prueba gratis', lifetime: 'Un solo pago · acceso de por vida',
     purchased: 'Comprado ✓', cont: 'Continuar aprendiendo', start: 'Empezar el curso', progress: '{passed} de {total} ejercicios superados',
-    availableIn: 'Disponible en' },
+    availableIn: 'Disponible en',
+    nextStep: 'Siguiente paso:', comingSoon: 'próximamente' },
   course: {
     subject: 'Catalán',
     name: 'Catalán desde cero (A1)',
@@ -390,7 +394,8 @@ const fr: Dict = {
     seeCourse: 'Voir le cours' },
   card: { level: 'Débutant · A1', buy: 'Obtenir le cours', preview: 'Aperçu gratuit', lifetime: 'Un seul paiement · accès à vie',
     purchased: 'Acheté ✓', cont: 'Continuer l’apprentissage', start: 'Commencer le cours', progress: '{passed} sur {total} exercices réussis',
-    availableIn: 'Disponible en' },
+    availableIn: 'Disponible en',
+    nextStep: 'Prochaine étape :', comingSoon: 'bientôt disponible' },
   course: {
     subject: 'Catalan',
     name: 'Le catalan à partir de zéro (A1)',
@@ -480,7 +485,8 @@ const ru: Dict = {
     seeCourse: 'Посмотреть курс' },
   card: { level: 'Начальный · A1', buy: 'Получить курс', preview: 'Бесплатный доступ', lifetime: 'Разовая оплата · доступ навсегда',
     purchased: 'Куплено ✓', cont: 'Продолжить обучение', start: 'Начать курс', progress: '{passed} из {total} упражнений пройдено',
-    availableIn: 'Доступно на языках' },
+    availableIn: 'Доступно на языках',
+    nextStep: 'Следующий шаг:', comingSoon: 'скоро' },
   course: {
     subject: 'Каталанский',
     name: 'Каталанский с нуля (A1)',
@@ -571,7 +577,8 @@ const de: Dict = {
     seeCourse: 'Zum Kurs' },
   card: { level: 'Anfänger · A1', buy: 'Kurs holen', preview: 'Kostenlose Vorschau', lifetime: 'Einmalige Zahlung · lebenslanger Zugang',
     purchased: 'Gekauft ✓', cont: 'Weiterlernen', start: 'Kurs starten', progress: '{passed} von {total} Übungen bestanden',
-    availableIn: 'Verfügbar auf' },
+    availableIn: 'Verfügbar auf',
+    nextStep: 'Nächster Schritt:', comingSoon: 'in Kürze' },
   course: {
     subject: 'Katalanisch',
     name: 'Katalanisch von Grund auf (A1)',

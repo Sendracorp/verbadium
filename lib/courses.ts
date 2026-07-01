@@ -100,6 +100,17 @@ export function variantForMedium(family: string, medium: Locale): CourseMeta | u
   return COURSES.find(c => c.family === family && c.medium === medium && c.available);
 }
 
+// Course progression: which family follows which (for the "next step" CTA).
+const NEXT_FAMILY: Record<string, string> = { 'catalan-a1': 'catalan-a2' };
+
+/** The English meta of the course that follows `family`, if defined. Ignores
+    `available` (returns the "coming soon" course too) so callers can decide
+    whether to link or show a coming-soon label. */
+export function nextCourse(family: string): CourseMeta | undefined {
+  const next = NEXT_FAMILY[family];
+  return next ? COURSES.find(c => c.family === next && c.medium === 'en') : undefined;
+}
+
 export interface CourseFamily { family: string; variants: CourseMeta[] }
 
 /** Sellable variants grouped by family, in catalog order (English first). */

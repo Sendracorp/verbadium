@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { getCourseContent } from '@/lib/content';
-import { getCourseMeta, mediumForSlug } from '@/lib/courses';
+import { getCourseMeta, mediumForSlug, nextCourse, variantForMedium } from '@/lib/courses';
 import { getCourseAccess } from '@/lib/access';
 import Dashboard from '@/components/Dashboard';
 import Checklist from '@/components/Checklist';
@@ -57,6 +57,19 @@ export default async function CourseHomePage({ params, searchParams }: {
   const base = `/courses/${slug}`;
   const d = getDict(medium);            // localized copy for this variant's language
   const cc = courseCopy(d, meta.family);
+
+  // "Next step" CTA under the checklist — links to the follow-up course in this
+  // learner's language when it's available, else shows a coming-soon label. The
+  // linked course page shows its free unit + buy button to non-owners.
+  const nextMeta = nextCourse(meta.family);
+  const nextVariant = nextMeta ? variantForMedium(nextMeta.family, medium) : undefined;
+  const next = nextMeta ? {
+    label: d.card.nextStep,
+    courseName: `${courseCopy(d, nextMeta.family).subject} ${nextMeta.level}`,
+    href: nextVariant ? `/courses/${nextVariant.slug}` : undefined,
+    cta: d.home.seeCourse,
+    soon: d.card.comingSoon,
+  } : undefined;
   const vars = { units: meta.stats.units, exercises: meta.stats.exercises, glossary: meta.stats.glossary, price };
 
   const courseLd = {
@@ -144,7 +157,7 @@ export default async function CourseHomePage({ params, searchParams }: {
       <div className="card">
         <SpeechScope html={course.introHtml} />
       </div>
-      <Checklist items={course.checklist} footHtml={course.checklistFootHtml} citeHtml={course.citeHtml} />
+      <Checklist items={course.checklist} footHtml={course.checklistFootHtml} citeHtml={course.citeHtml} next={next} />
     </>
   );
 }
