@@ -1,23 +1,25 @@
 # Verbadium
 
-> Verbadium offers interactive, exam-focused online language courses. The first course teaches Catalan from scratch to the official A1 (CEFR) level, with full IPA pronunciation, native-speaker audio, auto-marked exercises and a timed mock exam. One-time price, lifetime access, no subscription.
+> Verbadium offers interactive, exam-focused online language courses for Catalan. Courses take you from scratch to the official A1 and A2 (CEFR) levels, with full IPA pronunciation, native-speaker audio, auto-marked exercises and timed mock exams. One-time price per course, lifetime access, no subscription.
 
-## Course
-- [Catalan A1 — taught in English](https://verbadium.com/courses/catalan-a1): 12 progressive units, 108 interactive exercises, a full timed mock A1 exam, and a 275-entry glossary with native-speaker audio. Unit 1 is a free preview, no account required.
-- [Pricing](https://verbadium.com/pricing): €25 one-time, lifetime access including updates. No subscription.
+## Courses
+- [Catalan A1 — taught in English](https://verbadium.com/courses/catalan-a1): 12 progressive units, 108 interactive exercises, a full timed mock A1 exam, and a 275-entry glossary with native-speaker audio. €25 one-time. Unit 1 is a free preview, no account required.
+- [Catalan A2 — taught in English](https://verbadium.com/courses/catalan-a2): the next level (nivell bàsic) — past tenses, weak & combined pronouns, future and conditional. 15 units, 142 interactive exercises, a full timed mock A2 exam, and a glossary with native-speaker audio. €50 one-time. Unit 1 is a free preview, no account required.
+- [Pricing](https://verbadium.com/pricing): A1 €25, A2 €50, one-time each, lifetime access including updates. No subscription.
 
-## Same course, other teaching languages (each sold separately)
-- [Curso de catalán (explicado en español)](https://verbadium.com/es/curso-de-catalan)
-- [Cours de catalan (expliqué en français)](https://verbadium.com/fr/cours-de-catalan)
-- [Курс каталанского (на русском)](https://verbadium.com/ru/kurs-katalanskogo)
-- [Katalanisch-Kurs (auf Deutsch erklärt)](https://verbadium.com/de/katalanisch-kurs)
-- [Curs de català (en català)](https://verbadium.com/ca/curs-de-catala)
+## Same courses, other teaching languages (each sold separately)
+- Spanish: [A1](https://verbadium.com/es/curso-de-catalan) · [A2](https://verbadium.com/es/curso-de-catalan-a2)
+- French: [A1](https://verbadium.com/fr/cours-de-catalan) · [A2](https://verbadium.com/fr/cours-de-catalan-a2)
+- Russian: [A1](https://verbadium.com/ru/kurs-katalanskogo) · [A2](https://verbadium.com/ru/kurs-katalanskogo-a2)
+- German: [A1](https://verbadium.com/de/katalanisch-kurs) · [A2](https://verbadium.com/de/katalanisch-kurs-a2)
+- Catalan: [A1](https://verbadium.com/ca/curs-de-catala) · [A2](https://verbadium.com/ca/curs-de-catala-a2)
 
 ## Key facts
-- Price: €25 one-time per teaching language, lifetime access, no subscription.
-- Content: 12 progressive units, 300+ words with IPA, 108 auto-marked exercises, a full timed mock A1 exam, and a 275-entry glossary with native-speaker audio.
-- Free preview: Unit 1, no account required.
-- Levels: Catalan A1 available now; A2 in development.
+- Price: Catalan A1 €25, Catalan A2 €50 — one-time per teaching language, lifetime access, no subscription.
+- Levels: Catalan A1 and A2 both available now.
+- A1 content: 12 units, 300+ words with IPA, 108 auto-marked exercises, a full timed mock A1 exam, a 275-entry glossary with native audio.
+- A2 content: 15 units covering past tenses, pronouns, future/conditional and everyday functions, 142 auto-marked exercises, a full timed mock A2 exam, and a glossary with native audio.
+- Free preview: Unit 1 of each course, no account required.
 - Checkout: card payment via Paddle (merchant of record; tax handled at checkout).
 - Provider: Verbadium, based in Andorra.
 

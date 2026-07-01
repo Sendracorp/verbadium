@@ -43,7 +43,7 @@ const A2 = {
   title: 'Catalan: Next Steps (A2)',
   tagline: 'The A2 (bàsic) course — past tenses, pronouns and everyday functions, built to pass the official A2 exam.',
   description: '15 units · past tenses, weak & combined pronouns, future/conditional · 142 interactive exercises · full mock A2 exam · glossary with IPA.',
-  priceLabel: '€25',
+  priceLabel: '€50',
   freeUnits: [1],
   stats: { units: 15, exercises: 142, glossary: 140 },
 };
@@ -68,11 +68,9 @@ function expand(base: typeof A1 | typeof A2, available: boolean): CourseMeta[] {
   }));
 }
 
-// A2 is content-complete + engine-wired, but kept unavailable until its
-// marketing copy is localized (dict.course.* is A1-specific), the content is
-// translated to es/fr/ru/de, audio is generated, the Paddle price exists, and
-// the Catalan spine passes native review. Flip to `true` to launch.
-export const COURSES: CourseMeta[] = [...expand(A1, true), ...expand(A2, false)];
+// Both courses are live. A2 (€50) launched with localized copy + content,
+// native audio, and its live Paddle price (PADDLE_PRICE_CATALAN_A2).
+export const COURSES: CourseMeta[] = [...expand(A1, true), ...expand(A2, true)];
 
 /** A sellable course variant by slug (only `available` ones). */
 export function getCourseMeta(slug: string): CourseMeta | undefined {
