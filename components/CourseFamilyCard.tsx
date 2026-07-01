@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import { getDict, courseCopy, t, type Locale } from '@/lib/i18n';
 import type { BuyLabels } from '@/lib/ui-runtime';

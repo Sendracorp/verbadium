@@ -2,10 +2,8 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import SiteHeader from '@/components/SiteHeader';
 import SiteFooter from '@/components/SiteFooter';
-import BuyButton from '@/components/BuyButton';
-import AvailableLanguages from '@/components/AvailableLanguages';
 import JsonLd from '@/components/JsonLd';
-import { buyLabels } from '@/lib/ui';
+import PricingCards, { type PricingCardData } from '@/components/PricingCards';
 import { hreflang } from '@/lib/i18n';
 import { courseFamilies } from '@/lib/courses';
 import { resolveAllPrices } from '@/lib/pricing';
@@ -62,6 +60,13 @@ export default async function PricingPage() {
   // languages the course can be bought in (AvailableLanguages).
   const families = courseFamilies();
   const priced = await resolveAllPrices(families.map(f => f.variants[0]));
+  const cards: PricingCardData[] = priced.map(({ meta, price }) => ({
+    slug: meta.slug, family: meta.family, title: meta.title,
+    language: meta.language, level: meta.level, priceLabel: price.label,
+    freeUnit: meta.freeUnits[0], units: meta.stats.units,
+    exercises: meta.stats.exercises, glossary: meta.stats.glossary,
+    mediums: families.find(f => f.family === meta.family)?.variants.map(v => v.medium) ?? [],
+  }));
 
   return (
     <>
@@ -75,45 +80,7 @@ export default async function PricingPage() {
         </div>
 
         <div className="pricing-grid" data-test="pricing">
-          {priced.map(({ meta, price }) => {
-            const base = `/courses/${meta.slug}`;
-            const isOwned = false;   // impersonal marketing page — always show the buy CTA
-            const mediums = families.find(f => f.family === meta.family)?.variants.map(v => v.medium) ?? [];
-            return (
-              <div className="card pricing-card" key={meta.slug} data-test={`pricing-${meta.slug}`} data-owned={isOwned || undefined}>
-                <div className="badge">{meta.language} · {meta.level}</div>
-                <h2>{meta.title}</h2>
-                {isOwned ? (
-                  <p className="pricing-amount pricing-owned" data-test="pricing-owned">✓ You own this course</p>
-                ) : (
-                  <>
-                    <p className="pricing-amount" data-test="pricing-amount">{price.label}</p>
-                    <p className="pricing-amount-note">one-time · tax added at checkout</p>
-                  </>
-                )}
-                <ul className="sales-list">
-                  <li>{meta.stats.units} units · {meta.stats.exercises} interactive exercises</li>
-                  <li>Full mock {meta.level} exam with timers and attempt history</li>
-                  <li>Glossary ({meta.stats.glossary} entries) with native-speaker audio</li>
-                  <li>Progress synced across your devices</li>
-                  <li>Lifetime access, including updates</li>
-                </ul>
-                <div className="paywall-actions">
-                  {isOwned ? (
-                    <Link className="btn btn-primary" href={base} data-test="pricing-go">Go to your course →</Link>
-                  ) : (
-                    <>
-                      <BuyButton courseSlug={meta.slug} priceLabel={price.label} returnTo={base} labels={buyLabels('en')} />
-                      <Link className="btn" href={`${base}/unit/${meta.freeUnits[0]}`}>
-                        Free preview · Unit {meta.freeUnits[0]}
-                      </Link>
-                    </>
-                  )}
-                </div>
-                <AvailableLanguages mediums={mediums} label="Available in" />
-              </div>
-            );
-          })}
+          <PricingCards cards={cards} />
         </div>
 
         <div className="card">

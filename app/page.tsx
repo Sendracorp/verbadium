@@ -13,7 +13,8 @@ export const metadata: Metadata = {
   alternates: { canonical: '/', languages: hreflang('home') },
 };
 
-import CourseFamilyCard, { type FamilyCardData } from '@/components/CourseFamilyCard';
+import Catalog from '@/components/Catalog';
+import { type FamilyCardData } from '@/components/CourseFamilyCard';
 import JsonLd from '@/components/JsonLd';
 import { buyLabels } from '@/lib/ui';
 import { courseFamilies } from '@/lib/courses';
@@ -74,7 +75,7 @@ export default async function CatalogPage() {
           </p>
         </div>
         <div className="catalog-grid" data-test="catalog">
-          {cards.map(card => <CourseFamilyCard key={card.family} card={card} />)}
+          <Catalog cards={cards} />
           {/* Placeholder until A2 is live; once it's a real card, drop this. */}
           {!cards.some(c => c.family === 'catalan-a2') && (
             <div className="card course-card coming-soon">
