@@ -23,16 +23,15 @@ export default function Glossary({ rows, compact = false, creditNames = [] }: { 
     if (!sort) return rows;
     const val = (r: GlossaryRow, col: SortCol) =>
       col === 0 ? deaccent(r.ca).replace(ARTICLES, '') :
-      col === 1 ? r.ipa : col === 2 ? r.en.toLowerCase() : r.unit;
-    return [...rows].sort((a, b) => {
-      const av = val(a, sort.col), bv = val(b, sort.col);
-      if (sort.col === 3) return ((av as number) - (bv as number)) * sort.dir;
-      return String(av).localeCompare(String(bv), 'ca') * sort.dir;
-    });
+      col === 1 ? r.ipa : col === 2 ? r.en.toLowerCase() :
+      // col 3 = level + unit, so a cumulative glossary groups by course (A1 then A2)
+      `${r.level ?? ''}${String(r.unit).padStart(2, '0')}`;
+    return [...rows].sort((a, b) =>
+      String(val(a, sort.col)).localeCompare(String(val(b, sort.col)), 'ca') * sort.dir);
   }, [rows, sort]);
 
   const q = deaccent(query);
-  const visible = sorted.filter(r => !q || deaccent(`${r.ca} ${r.ipa} ${r.en} ${r.unit}`).includes(q));
+  const visible = sorted.filter(r => !q || deaccent(`${r.ca} ${r.ipa} ${r.en} ${r.level ?? ''} ${r.unit}`).includes(q));
 
   function clickSort(col: SortCol) {
     setSort(s => (s && s.col === col ? { col, dir: s.dir === 1 ? -1 : 1 } : { col, dir: 1 }));
@@ -67,7 +66,7 @@ export default function Glossary({ rows, compact = false, creditNames = [] }: { 
         </thead>
         <tbody>
           {visible.map((r, i) => (
-            <tr key={`${r.ca}-${r.unit}`}>
+            <tr key={`${r.ca}-${r.level ?? ''}-${r.unit}`}>
               <td className="ca">
                 {r.ca}{' '}
                 <button
@@ -78,7 +77,7 @@ export default function Glossary({ rows, compact = false, creditNames = [] }: { 
               </td>
               <td className="pron">{r.ipa}</td>
               <td className="en">{r.en}</td>
-              <td className="g-unit">{r.unit}</td>
+              <td className="g-unit">{r.level ? `${r.level}·${r.unit}` : r.unit}</td>
             </tr>
           ))}
         </tbody>

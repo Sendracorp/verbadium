@@ -10,7 +10,7 @@ import AudioOverridesProvider from '@/components/AudioOverridesProvider';
 import { CourseLocaleProvider } from '@/components/CourseLocale';
 import SiteFooter from '@/components/SiteFooter';
 import { getAudioOverrides } from '@/lib/audio-overrides';
-import { getCourseContent } from '@/lib/content';
+import { getCourseContent, getDisplayGlossary } from '@/lib/content';
 import { uiDict } from '@/lib/ui';
 import { getDict } from '@/lib/i18n';
 import { mediumForSlug, courseFamilies } from '@/lib/courses';
@@ -80,7 +80,7 @@ export default async function CourseLayout({ children, params }: {
       </div>
       <SiteFooter />
       <IpaDrawer html={course.ipaCheatHtml} />
-      {access.owns && <GlossaryDrawer rows={course.glossary} base={`/courses/${slug}`} />}
+      {access.owns && <GlossaryDrawer rows={getDisplayGlossary(slug)} base={`/courses/${slug}`} />}
       <CharStrip />
     </ProgressProvider>
     </CourseLocaleProvider>

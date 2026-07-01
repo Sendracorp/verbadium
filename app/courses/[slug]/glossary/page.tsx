@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { getCourseContent } from '@/lib/content';
+import { getCourseContent, getDisplayGlossary } from '@/lib/content';
 import { tUI } from '@/lib/ui';
 import { mediumForSlug } from '@/lib/courses';
 import { getCourseAccess, getViewableCourse } from '@/lib/access';
@@ -22,5 +22,5 @@ export default async function GlossaryPage({ params }: { params: Promise<{ slug:
   if (!access.owns) {
     return <Paywall meta={meta} what={tUI(medium, 'what.glossary')} locale={medium} loggedIn={!!access.user} returnTo={`/courses/${slug}/glossary`} />;
   }
-  return <Glossary rows={course.glossary} creditNames={CREDIT_NAMES} />;
+  return <Glossary rows={getDisplayGlossary(slug)} creditNames={CREDIT_NAMES} />;
 }

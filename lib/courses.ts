@@ -109,6 +109,11 @@ export function nextCourse(family: string): CourseMeta | undefined {
   return next ? COURSES.find(c => c.family === next && c.medium === 'en') : undefined;
 }
 
+/** The family that comes before `family` in its track (A2 → A1), if any. */
+export function priorFamily(family: string): string | undefined {
+  return Object.keys(NEXT_FAMILY).find(k => NEXT_FAMILY[k] === family);
+}
+
 export interface CourseFamily { family: string; variants: CourseMeta[] }
 
 /** Sellable variants grouped by family, in catalog order (English first). */

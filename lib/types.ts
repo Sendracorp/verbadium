@@ -41,7 +41,7 @@ export interface Unit {
   exerciseIds: string[];
 }
 
-export interface GlossaryRow { ca: string; ipa: string; en: string; unit: number }
+export interface GlossaryRow { ca: string; ipa: string; en: string; unit: number; level?: string }
 
 export interface MockData {
   introNote: string;                 // html
